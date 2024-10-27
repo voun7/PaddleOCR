@@ -6,7 +6,8 @@ comments: true
 
 复杂的模型有利于提高模型的性能，但也导致模型中存在一定冗余，模型裁剪通过移出网络模型中的子模型来减少这种冗余，达到减少模型计算复杂度，提高模型推理性能的目的。
 本教程将介绍如何使用飞桨模型压缩库PaddleSlim做PaddleOCR模型的压缩。
-[PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim)集成了模型剪枝、量化（包括量化训练和离线量化）、蒸馏和神经网络搜索等多种业界常用且领先的模型压缩功能，如果您感兴趣，可以关注并了解。
+[PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim)
+集成了模型剪枝、量化（包括量化训练和离线量化）、蒸馏和神经网络搜索等多种业界常用且领先的模型压缩功能，如果您感兴趣，可以关注并了解。
 
 在开始本教程之前，建议先了解：
 
@@ -30,7 +31,8 @@ python3 setup.py install
 
 ### 3.敏感度分析训练
 
-加载预训练模型后，通过对现有模型的每个网络层进行敏感度分析，得到敏感度文件：sen.pickle，可以通过PaddleSlim提供的[接口](https://github.com/PaddlePaddle/PaddleSlim/blob/9b01b195f0c4bc34a1ab434751cb260e13d64d9e/paddleslim/dygraph/prune/filter_pruner.py#L75)加载文件，获得各网络层在不同裁剪比例下的精度损失。从而了解各网络层冗余度，决定每个网络层的裁剪比例。
+加载预训练模型后，通过对现有模型的每个网络层进行敏感度分析，得到敏感度文件：sen.pickle，可以通过PaddleSlim提供的[接口](https://github.com/PaddlePaddle/PaddleSlim/blob/9b01b195f0c4bc34a1ab434751cb260e13d64d9e/paddleslim/dygraph/prune/filter_pruner.py#L75)
+加载文件，获得各网络层在不同裁剪比例下的精度损失。从而了解各网络层冗余度，决定每个网络层的裁剪比例。
 敏感度文件内容格式：
 
 ```python linenums="1"

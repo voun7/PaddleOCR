@@ -6,7 +6,8 @@ comments: true
 
 ## 1. 算法简介
 
-该算法由来自北京交通大学机器学习与认识计算研究团队的ocr识别队研发，其在PaddleOCR算法模型挑战赛 - 赛题二：通用表格识别任务中排行榜荣获一等奖，排行榜精度相比PP-Structure表格识别模型提升0.8%，推理速度提升3倍。优化思路如下：
+该算法由来自北京交通大学机器学习与认识计算研究团队的ocr识别队研发，其在PaddleOCR算法模型挑战赛 -
+赛题二：通用表格识别任务中排行榜荣获一等奖，排行榜精度相比PP-Structure表格识别模型提升0.8%，推理速度提升3倍。优化思路如下：
 
 1. 改善推理过程，至EOS停止，速度提升3倍；
 2. 升级Backbone为LCNetV2（SSLD版本）；
@@ -16,13 +17,14 @@ comments: true
 
 在PubTabNet表格识别公开数据集上，算法复现效果如下：
 
-|模型|骨干网络|配置文件|acc|下载链接|
-| --- | --- | --- | --- | --- |
-|SLANet|LCNetV2|[configs/table/SLANet_lcnetv2.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/table/SLANet_lcnetv2.yml)|76.67%| [训练模型](https://paddleocr.bj.bcebos.com/openatom/ch_ppstructure_openatom_SLANetv2_train.tar) /[推理模型](https://paddleocr.bj.bcebos.com/openatom/ch_ppstructure_openatom_SLANetv2_infer.tar) |
+| 模型     | 骨干网络    | 配置文件                                                                                                                     | acc    | 下载链接                                                                                                                                                                                     |
+|--------|---------|--------------------------------------------------------------------------------------------------------------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SLANet | LCNetV2 | [configs/table/SLANet_lcnetv2.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/table/SLANet_lcnetv2.yml) | 76.67% | [训练模型](https://paddleocr.bj.bcebos.com/openatom/ch_ppstructure_openatom_SLANetv2_train.tar) /[推理模型](https://paddleocr.bj.bcebos.com/openatom/ch_ppstructure_openatom_SLANetv2_infer.tar) |
 
 ## 2. 环境配置
 
-请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)克隆项目代码。
+请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)
+克隆项目代码。
 
 ## 3. 模型训练、评估、预测
 
@@ -30,7 +32,8 @@ comments: true
 
 ### 启动训练
 
-数据下载完成后，请参考[文本识别教程](../../ppocr/model_train/recognition.md)进行训练。PaddleOCR对代码进行了模块化，训练不同的模型只需要**更换配置文件**即可。
+数据下载完成后，请参考[文本识别教程](../../ppocr/model_train/recognition.md)进行训练。PaddleOCR对代码进行了模块化，训练不同的模型只需要
+**更换配置文件**即可。
 
 训练命令如下：
 

@@ -11,20 +11,23 @@ comments: true
 > Chengwei Zhang, Yunlu Xu, Zhanzhan Cheng, Shiliang Pu, Yi Niu, Fei Wu, Futai Zou
 > AAAI, 2020
 
-SPIN收录于AAAI2020。主要用于OCR识别任务。在任意形状文本识别中，矫正网络是一种较为常见的前置处理模块，但诸如RARE\ASTER\ESIR等只考虑了空间变换，并没有考虑色度变换。本文提出了一种结构Structure-Preserving Inner Offset Network (SPIN)，可以在色彩空间上进行变换。该模块是可微分的，可以加入到任意识别器中。
+SPIN收录于AAAI2020。主要用于OCR识别任务。在任意形状文本识别中，矫正网络是一种较为常见的前置处理模块，但诸如RARE\ASTER\ESIR等只考虑了空间变换，并没有考虑色度变换。本文提出了一种结构Structure-Preserving
+Inner Offset Network (SPIN)，可以在色彩空间上进行变换。该模块是可微分的，可以加入到任意识别器中。
 使用MJSynth和SynthText两个合成文字识别数据集训练，在IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE数据集上进行评估，算法复现效果如下：
 
-|模型|骨干网络|配置文件|Acc|下载链接|
-| --- | --- | --- | --- | --- |
-|SPIN|ResNet32|[rec_r32_gaspin_bilstm_att.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r32_gaspin_bilstm_att.yml)|90.00%|[训练模型](https://paddleocr.bj.bcebos.com/contribution/rec_r32_gaspin_bilstm_att.tar)|
+| 模型   | 骨干网络     | 配置文件                                                                                                                           | Acc    | 下载链接                                                                               |
+|------|----------|--------------------------------------------------------------------------------------------------------------------------------|--------|------------------------------------------------------------------------------------|
+| SPIN | ResNet32 | [rec_r32_gaspin_bilstm_att.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r32_gaspin_bilstm_att.yml) | 90.00% | [训练模型](https://paddleocr.bj.bcebos.com/contribution/rec_r32_gaspin_bilstm_att.tar) |
 
 ## 2. 环境配置
 
-请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)克隆项目代码。
+请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)
+克隆项目代码。
 
 ## 3. 模型训练、评估、预测
 
-请参考[文本识别教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练不同的识别模型只需要**更换配置文件**即可。
+请参考[文本识别教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练不同的识别模型只需要*
+*更换配置文件**即可。
 
 ### 训练
 

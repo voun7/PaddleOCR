@@ -12,18 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import importlib
 import os
 import sys
-import importlib
 
 __dir__ = os.path.dirname(__file__)
-
-from paddle.utils import try_import
 
 sys.path.append(os.path.join(__dir__, ""))
 
 import cv2
-from copy import deepcopy
 import logging
 import numpy as np
 from pathlib import Path
@@ -46,7 +43,6 @@ tools = _import_file(
     "tools", os.path.join(__dir__, "tools/__init__.py"), make_importable=True
 )
 ppocr = importlib.import_module("ppocr", "paddleocr")
-ppstructure = importlib.import_module("ppstructure", "paddleocr")
 from ppocr.utils.logging import get_logger
 
 from ppocr.utils.utility import (
@@ -62,25 +58,13 @@ from ppocr.utils.network import (
     confirm_model_dir_url,
 )
 from tools.infer import predict_system
-from tools.infer.utility import draw_ocr, str2bool, check_gpu
-from ppstructure.utility import init_args, draw_structure_result
-from ppstructure.predict_system import StructureSystem, save_structure_res, to_excel
-from ppstructure.recovery.recovery_to_doc import sorted_layout_boxes, convert_info_docx
-from ppstructure.recovery.recovery_to_markdown import convert_info_markdown
+from tools.infer.utility import str2bool, check_gpu, init_args
 
 logger = get_logger()
 
 __all__ = [
     "PaddleOCR",
-    "PPStructure",
-    "draw_ocr",
-    "draw_structure_result",
-    "save_structure_res",
     "download_with_progressbar",
-    "to_excel",
-    "sorted_layout_boxes",
-    "convert_info_docx",
-    "convert_info_markdown",
 ]
 
 SUPPORT_DET_MODEL = ["DB"]
@@ -89,8 +73,6 @@ BASE_DIR = os.path.expanduser("~/.paddleocr/")
 
 DEFAULT_OCR_MODEL_VERSION = "PP-OCRv4"
 SUPPORT_OCR_MODEL_VERSION = ["PP-OCR", "PP-OCRv2", "PP-OCRv3", "PP-OCRv4"]
-DEFAULT_STRUCTURE_MODEL_VERSION = "PP-StructureV2"
-SUPPORT_STRUCTURE_MODEL_VERSION = ["PP-Structure", "PP-StructureV2"]
 MODEL_URLS = {
     "OCR": {
         "PP-OCRv4": {
@@ -327,49 +309,7 @@ MODEL_URLS = {
                 }
             },
         },
-    },
-    "STRUCTURE": {
-        "PP-Structure": {
-            "table": {
-                "en": {
-                    "url": "https://paddleocr.bj.bcebos.com/dygraph_v2.0/table/en_ppocr_mobile_v2.0_table_structure_infer.tar",
-                    "dict_path": "ppocr/utils/dict/table_structure_dict.txt",
-                }
-            }
-        },
-        "PP-StructureV2": {
-            "table": {
-                "en": {
-                    "url": "https://paddleocr.bj.bcebos.com/ppstructure/models/slanet/en_ppstructure_mobile_v2.0_SLANet_infer.tar",
-                    "dict_path": "ppocr/utils/dict/table_structure_dict.txt",
-                },
-                "ch": {
-                    "url": "https://paddleocr.bj.bcebos.com/ppstructure/models/slanet/ch_ppstructure_mobile_v2.0_SLANet_infer.tar",
-                    "dict_path": "ppocr/utils/dict/table_structure_dict_ch.txt",
-                },
-            },
-            "layout": {
-                "en": {
-                    "url": "https://paddleocr.bj.bcebos.com/ppstructure/models/layout/picodet_lcnet_x1_0_fgd_layout_infer.tar",
-                    "dict_path": "ppocr/utils/dict/layout_dict/layout_publaynet_dict.txt",
-                },
-                "ch": {
-                    "url": "https://paddleocr.bj.bcebos.com/ppstructure/models/layout/picodet_lcnet_x1_0_fgd_layout_cdla_infer.tar",
-                    "dict_path": "ppocr/utils/dict/layout_dict/layout_cdla_dict.txt",
-                },
-            },
-            "formula": {
-                "en": {
-                    "url": "https://paddleocr.bj.bcebos.com/contribution/rec_latex_ocr_infer.tar",
-                    "dict_path": "ppocr/utils/dict/latex_ocr_tokenizer.json",
-                },
-                "ch": {
-                    "url": "https://paddleocr.bj.bcebos.com/contribution/rec_latex_ocr_infer.tar",
-                    "dict_path": "ppocr/utils/dict/latex_ocr_tokenizer.json",
-                },
-            },
-        },
-    },
+    }
 }
 
 
@@ -389,18 +329,9 @@ def parse_args(mMain=True):
         choices=SUPPORT_OCR_MODEL_VERSION,
         default="PP-OCRv4",
         help="OCR Model version, the current model support list is as follows: "
-        "1. PP-OCRv4/v3 Support Chinese and English detection and recognition model, and direction classifier model"
-        "2. PP-OCRv2 Support Chinese detection and recognition model. "
-        "3. PP-OCR support Chinese detection, recognition and direction classifier and multilingual recognition model.",
-    )
-    parser.add_argument(
-        "--structure_version",
-        type=str,
-        choices=SUPPORT_STRUCTURE_MODEL_VERSION,
-        default="PP-StructureV2",
-        help="Model version, the current model support list is as follows:"
-        " 1. PP-Structure Support en table structure model."
-        " 2. PP-StructureV2 Support ch and en table structure model.",
+             "1. PP-OCRv4/v3 Support Chinese and English detection and recognition model, and direction classifier model"
+             "2. PP-OCRv2 Support Chinese detection and recognition model. "
+             "3. PP-OCR support Chinese detection, recognition and direction classifier and multilingual recognition model.",
     )
 
     for action in parser._actions:
@@ -508,7 +439,7 @@ def parse_lang(lang):
     elif lang in devanagari_lang:
         lang = "devanagari"
     assert (
-        lang in MODEL_URLS["OCR"][DEFAULT_OCR_MODEL_VERSION]["rec"]
+            lang in MODEL_URLS["OCR"][DEFAULT_OCR_MODEL_VERSION]["rec"]
     ), "param lang must in {}, but got {}".format(
         MODEL_URLS["OCR"][DEFAULT_OCR_MODEL_VERSION]["rec"].keys(), lang
     )
@@ -526,8 +457,6 @@ def parse_lang(lang):
 def get_model_config(type, version, model_type, lang):
     if type == "OCR":
         DEFAULT_MODEL_VERSION = DEFAULT_OCR_MODEL_VERSION
-    elif type == "STRUCTURE":
-        DEFAULT_MODEL_VERSION = DEFAULT_STRUCTURE_MODEL_VERSION
     else:
         raise NotImplementedError
 
@@ -630,7 +559,7 @@ class PaddleOCR(predict_system.TextSystem):
         params = parse_args(mMain=False)
         params.__dict__.update(**kwargs)
         assert (
-            params.ocr_version in SUPPORT_OCR_MODEL_VERSION
+                params.ocr_version in SUPPORT_OCR_MODEL_VERSION
         ), "ocr_version must in {}, but get {}".format(
             SUPPORT_OCR_MODEL_VERSION, params.ocr_version
         )
@@ -688,15 +617,15 @@ class PaddleOCR(predict_system.TextSystem):
         self.page_num = params.page_num
 
     def ocr(
-        self,
-        img,
-        det=True,
-        rec=True,
-        cls=True,
-        bin=False,
-        inv=False,
-        alpha_color=(255, 255, 255),
-        slice={},
+            self,
+            img,
+            det=True,
+            rec=True,
+            cls=True,
+            bin=False,
+            inv=False,
+            alpha_color=(255, 255, 255),
+            slice={},
     ):
         """
         OCR with PaddleOCR
@@ -793,156 +722,16 @@ class PaddleOCR(predict_system.TextSystem):
             return ocr_res
 
 
-class PPStructure(StructureSystem):
-    """
-    PPStructure class represents the structure analysis system for PaddleOCR.
-    """
-
-    def __init__(self, **kwargs):
-        """
-        Initializes the PPStructure object with the given parameters.
-
-        Args:
-            **kwargs: Additional keyword arguments to customize the behavior of the structure analysis system.
-
-        Raises:
-            AssertionError: If the structure version is not supported.
-
-        """
-        params = parse_args(mMain=False)
-        params.__dict__.update(**kwargs)
-        assert (
-            params.structure_version in SUPPORT_STRUCTURE_MODEL_VERSION
-        ), "structure_version must in {}, but get {}".format(
-            SUPPORT_STRUCTURE_MODEL_VERSION, params.structure_version
-        )
-        params.use_gpu = check_gpu(params.use_gpu)
-        params.mode = "structure"
-
-        if not params.show_log:
-            logger.setLevel(logging.INFO)
-        lang, det_lang = parse_lang(params.lang)
-        if lang == "ch":
-            table_lang = "ch"
-        else:
-            table_lang = "en"
-        if params.structure_version == "PP-Structure":
-            params.merge_no_span_structure = False
-
-        # init model dir
-        det_model_config = get_model_config("OCR", params.ocr_version, "det", det_lang)
-        params.det_model_dir, det_url = confirm_model_dir_url(
-            params.det_model_dir,
-            os.path.join(BASE_DIR, "whl", "det", det_lang),
-            det_model_config["url"],
-        )
-        rec_model_config = get_model_config("OCR", params.ocr_version, "rec", lang)
-        params.rec_model_dir, rec_url = confirm_model_dir_url(
-            params.rec_model_dir,
-            os.path.join(BASE_DIR, "whl", "rec", lang),
-            rec_model_config["url"],
-        )
-        table_model_config = get_model_config(
-            "STRUCTURE", params.structure_version, "table", table_lang
-        )
-        params.table_model_dir, table_url = confirm_model_dir_url(
-            params.table_model_dir,
-            os.path.join(BASE_DIR, "whl", "table"),
-            table_model_config["url"],
-        )
-        layout_model_config = get_model_config(
-            "STRUCTURE", params.structure_version, "layout", lang
-        )
-        params.layout_model_dir, layout_url = confirm_model_dir_url(
-            params.layout_model_dir,
-            os.path.join(BASE_DIR, "whl", "layout"),
-            layout_model_config["url"],
-        )
-        formula_model_config = get_model_config(
-            "STRUCTURE", params.structure_version, "formula", lang
-        )
-        params.formula_model_dir, formula_url = confirm_model_dir_url(
-            params.formula_model_dir,
-            os.path.join(BASE_DIR, "whl", "formula"),
-            formula_model_config["url"],
-        )
-        # download model
-        if not params.use_onnx:
-            maybe_download(params.det_model_dir, det_url)
-            maybe_download(params.rec_model_dir, rec_url)
-            maybe_download(params.table_model_dir, table_url)
-            maybe_download(params.layout_model_dir, layout_url)
-            maybe_download(params.formula_model_dir, formula_url)
-
-        if params.rec_char_dict_path is None:
-            params.rec_char_dict_path = str(
-                Path(__file__).parent / rec_model_config["dict_path"]
-            )
-        if params.table_char_dict_path is None:
-            params.table_char_dict_path = str(
-                Path(__file__).parent / table_model_config["dict_path"]
-            )
-        if params.layout_dict_path is None:
-            params.layout_dict_path = str(
-                Path(__file__).parent / layout_model_config["dict_path"]
-            )
-        if params.formula_char_dict_path is None:
-            params.formula_char_dict_path = str(
-                Path(__file__).parent / formula_model_config["dict_path"]
-            )
-        logger.debug(params)
-        super().__init__(params)
-
-    def __call__(
-        self,
-        img,
-        return_ocr_result_in_table=False,
-        img_idx=0,
-        alpha_color=(255, 255, 255),
-    ):
-        """
-        Performs structure analysis on the input image.
-
-        Args:
-            img (str or numpy.ndarray): The input image to perform structure analysis on.
-            return_ocr_result_in_table (bool, optional): Whether to return OCR results in table format. Defaults to False.
-            img_idx (int, optional): The index of the image. Defaults to 0.
-            alpha_color (tuple, optional): The alpha color for transparent images. Defaults to (255, 255, 255).
-
-        Returns:
-            list or dict: The structure analysis results.
-
-        """
-        img, flag_gif, flag_pdf = check_img(img, alpha_color)
-        if isinstance(img, list) and flag_pdf:
-            res_list = []
-            for index, pdf_img in enumerate(img):
-                logger.info("processing {}/{} page:".format(index + 1, len(img)))
-                res, _ = super().__call__(
-                    pdf_img, return_ocr_result_in_table, img_idx=index
-                )
-                res_list.append(res)
-            return res_list
-        res, _ = super().__call__(img, return_ocr_result_in_table, img_idx=img_idx)
-        return res
-
-
-def main():
+def main(image_dir):
     """
     Main function for running PaddleOCR or PPStructure.
 
     This function takes command line arguments, processes the images, and performs OCR or structure analysis based on the specified type.
-
-    Args:
-        None
-
-    Returns:
-        None
     """
     # for cmd
     args = parse_args(mMain=True)
     logger.info("for usage help, please use `paddleocr --help`")
-    image_dir = args.image_dir
+    args.image_dir = image_dir
     if is_link(image_dir):
         os.remove("tmp.jpg") if os.path.exists("tmp.jpg") else None
         download_with_progressbar(image_dir, "tmp.jpg")
@@ -953,9 +742,7 @@ def main():
         logger.error("no images find in {}".format(args.image_dir))
         return
     if args.type == "ocr":
-        engine = PaddleOCR(**(args.__dict__))
-    elif args.type == "structure":
-        engine = PPStructure(**(args.__dict__))
+        engine = PaddleOCR(**args.__dict__)
     else:
         raise NotImplementedError
 
@@ -975,9 +762,12 @@ def main():
             if result is not None:
                 lines = []
                 for res in result:
-                    for line in res:
-                        logger.info(line)
-                        lines.append(pprint.pformat(line) + "\n")
+                    if res:
+                        for line in res:
+                            logger.info(line)
+                            lines.append(pprint.pformat(line) + "\n")
+                    else:
+                        logger.info(result)
                 if args.savefile:
                     if os.path.exists(args.output) is False:
                         os.mkdir(args.output)
@@ -985,64 +775,6 @@ def main():
                     with open(outfile, "w", encoding="utf-8") as f:
                         f.writelines(lines)
 
-        elif args.type == "structure":
-            img, flag_gif, flag_pdf = check_and_read(img_path)
-            if not flag_gif and not flag_pdf:
-                img = cv2.imread(img_path)
 
-            if args.recovery and args.use_pdf2docx_api and flag_pdf:
-                try_import("pdf2docx")
-                from pdf2docx.converter import Converter
-
-                docx_file = os.path.join(args.output, "{}.docx".format(img_name))
-                cv = Converter(img_path)
-                cv.convert(docx_file)
-                cv.close()
-                logger.info("docx save to {}".format(docx_file))
-                continue
-
-            if not flag_pdf:
-                if img is None:
-                    logger.error("error in loading image:{}".format(img_path))
-                    continue
-                img_paths = [[img_path, img]]
-            else:
-                img_paths = []
-                for index, pdf_img in enumerate(img):
-                    os.makedirs(os.path.join(args.output, img_name), exist_ok=True)
-                    pdf_img_path = os.path.join(
-                        args.output, img_name, img_name + "_" + str(index) + ".jpg"
-                    )
-                    cv2.imwrite(pdf_img_path, pdf_img)
-                    img_paths.append([pdf_img_path, pdf_img])
-
-            all_res = []
-            for index, (new_img_path, img) in enumerate(img_paths):
-                logger.info("processing {}/{} page:".format(index + 1, len(img_paths)))
-                result = engine(img, img_idx=index)
-                save_structure_res(result, args.output, img_name, index)
-
-                if args.recovery and result != []:
-                    h, w, _ = img.shape
-                    result_cp = deepcopy(result)
-                    result_sorted = sorted_layout_boxes(result_cp, w)
-                    all_res += result_sorted
-
-            if args.recovery and all_res != []:
-                try:
-                    convert_info_docx(img, all_res, args.output, img_name)
-                    if args.recovery_to_markdown:
-                        convert_info_markdown(all_res, args.output, img_name)
-                except Exception as ex:
-                    logger.error(
-                        "error in layout recovery image:{}, err msg: {}".format(
-                            img_name, ex
-                        )
-                    )
-                    continue
-
-            for item in all_res:
-                item.pop("img")
-                item.pop("res")
-                logger.info(item)
-            logger.info("result save to {}".format(args.output))
+if __name__ == '__main__':
+    main("doc/imgs")

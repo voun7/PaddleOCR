@@ -4,7 +4,8 @@ comments: true
 
 # PaddleOCR Quick Start
 
-**Note:** This tutorial mainly introduces the usage of PP-OCR series models, please refer to [PP-Structure Quick Start](../ppstructure/overview.en.md) for the quick use of document analysis related functions.
+**Note:** This tutorial mainly introduces the usage of PP-OCR series models, please refer
+to [PP-Structure Quick Start](../ppstructure/overview.en.md) for the quick use of document analysis related functions.
 
 ## 1. Installation
 
@@ -24,7 +25,8 @@ comments: true
   python -m pip install paddlepaddle
   ```
 
-For more software version requirements, please refer to the instructions in [Installation Document](https://www.paddlepaddle.org.cn/en/install/quick) for operation.
+For more software version requirements, please refer to the instructions
+in [Installation Document](https://www.paddlepaddle.org.cn/en/install/quick) for operation.
 
 ### 1.2 Install PaddleOCR Whl Package
 
@@ -32,7 +34,9 @@ For more software version requirements, please refer to the instructions in [Ins
 pip install "paddleocr>=2.0.1" # Recommend to use version 2.0.1+
 ```
 
-- **For windows users:** If you getting this error `OSError: [WinError 126] The specified module could not be found` when you install shapely on windows. Please try to download Shapely whl file [here](http://www.lfd.uci.edu/~gohlke/pythonlibs/#shapely).
+- **For windows users:** If you getting this error `OSError: [WinError 126] The specified module could not be found`
+  when you install shapely on windows. Please try to download Shapely whl
+  file [here](http://www.lfd.uci.edu/~gohlke/pythonlibs/#shapely).
 
   Reference: [Solve shapely installation on windows](https://stackoverflow.com/questions/44398265/install-shapely-oserror-winerror-126-the-specified-module-could-not-be-found)
 
@@ -40,13 +44,15 @@ pip install "paddleocr>=2.0.1" # Recommend to use version 2.0.1+
 
 ### 2.1 Use by Command Line
 
-PaddleOCR provides a series of test images, click [here](https://paddleocr.bj.bcebos.com/dygraph_v2.1/ppocr_img.zip) to download, and then switch to the corresponding directory in the terminal
+PaddleOCR provides a series of test images, click [here](https://paddleocr.bj.bcebos.com/dygraph_v2.1/ppocr_img.zip) to
+download, and then switch to the corresponding directory in the terminal
 
 ```bash linenums="1"
 cd /path/to/ppocr_img
 ```
 
-If you do not use the provided test image, you can replace the following `--image_dir` parameter with the corresponding test image path
+If you do not use the provided test image, you can replace the following `--image_dir` parameter with the corresponding
+test image path
 
 #### 2.1.1 Chinese and English Model
 
@@ -65,7 +71,8 @@ If you do not use the provided test image, you can replace the following `--imag
   ......
   ```
 
-  pdf file is also supported, you can infer the first few pages by using the `page_num` parameter, the default is 0, which means infer all pages
+  pdf file is also supported, you can infer the first few pages by using the `page_num` parameter, the default is 0,
+  which means infer all pages
 
   ```bash linenums="1"
   paddleocr --image_dir ./xxx.pdf --use_angle_cls true --use_gpu false --page_num 2
@@ -99,16 +106,19 @@ If you do not use the provided test image, you can replace the following `--imag
   ```
 
 **Version**
-paddleocr uses the PP-OCRv4 model by default(`--ocr_version PP-OCRv4`). If you want to use other versions, you can set the parameter `--ocr_version`, the specific version description is as follows:
+paddleocr uses the PP-OCRv4 model by default(`--ocr_version PP-OCRv4`). If you want to use other versions, you can set
+the parameter `--ocr_version`, the specific version description is as follows:
 
-|  version name |  description |
-|    ---    |   ---   |
-| PP-OCRv4 | support Chinese and English detection and recognition, direction classifier, support multilingual recognition |
-| PP-OCRv3 | support Chinese and English detection and recognition, direction classifier, support multilingual recognition |
-| PP-OCRv2 | only supports Chinese and English detection and recognition, direction classifier, multilingual model is not updated |
-| PP-OCR   | support Chinese and English detection and recognition, direction classifier, support multilingual recognition |
+| version name | description                                                                                                          |
+|--------------|----------------------------------------------------------------------------------------------------------------------|
+| PP-OCRv4     | support Chinese and English detection and recognition, direction classifier, support multilingual recognition        |
+| PP-OCRv3     | support Chinese and English detection and recognition, direction classifier, support multilingual recognition        |
+| PP-OCRv2     | only supports Chinese and English detection and recognition, direction classifier, multilingual model is not updated |
+| PP-OCR       | support Chinese and English detection and recognition, direction classifier, support multilingual recognition        |
 
-If you want to add your own trained model, you can add model links and keys in [paddleocr](https://github.com/PaddlePaddle/PaddleOCR/blob/c65a66c5fd37dee64916a8b2a2c84ea273d98cac/paddleocr.py) and recompile.
+If you want to add your own trained model, you can add model links and keys
+in [paddleocr](https://github.com/PaddlePaddle/PaddleOCR/blob/c65a66c5fd37dee64916a8b2a2c84ea273d98cac/paddleocr.py) and
+recompile.
 
 More whl package usage can be found in [whl package](./blog/whl.en.md)
 
@@ -136,12 +146,13 @@ The result is a list, each item contains a text box, text and recognition confid
 Commonly used multilingual abbreviations include
 
 | Language            | Abbreviation |      | Language | Abbreviation |      | Language | Abbreviation |
-| ------------------- | ------------ | ---- | -------- | ------------ | ---- | -------- | ------------ |
+|---------------------|--------------|------|----------|--------------|------|----------|--------------|
 | Chinese & English   | ch           |      | French   | fr           |      | Japanese | japan        |
 | English             | en           |      | German   | german       |      | Korean   | korean       |
 | Chinese Traditional | chinese_cht  |      | Italian  | it           |      | Russian  | ru           |
 
-A list of all languages and their corresponding abbreviations can be found in [Multi-Language Model Tutorial](./blog/multi_languages.en.md)
+A list of all languages and their corresponding abbreviations can be found
+in [Multi-Language Model Tutorial](./blog/multi_languages.en.md)
 
 ### 2.2 Use by Code
 
@@ -275,12 +286,19 @@ image.save("result.jpg")
 
 ```
 
-This example initializes the PaddleOCR instance with angle classification enabled and sets the language to English. The `ocr` method is then called with several parameters to customize the detection and recognition process, including the `slice` parameter for handling image slices.
+This example initializes the PaddleOCR instance with angle classification enabled and sets the language to English. The
+`ocr` method is then called with several parameters to customize the detection and recognition process, including the
+`slice` parameter for handling image slices.
 
-For a more comprehensive understanding of the slicing operation, please refer to the [slice operation documentation](./blog/slice.en.md).
+For a more comprehensive understanding of the slicing operation, please refer to
+the [slice operation documentation](./blog/slice.en.md).
 
 ## 3. Summary
 
 In this section, you have mastered the use of PaddleOCR whl package.
 
-PaddleX provides a high-quality ecological model of the paddle. It is a one-stop full-process high-efficiency development platform for training, pressing and pushing. Its mission is to help AI technology to be implemented quickly. The vision is to make everyone an AI Developer! Currently PP-OCRv4 has been launched on PaddleX, you can enter [General OCR](https://aistudio.baidu.com/aistudio/modelsdetail?modelId=286) to experience the whole process of model training, compression and inference deployment.
+PaddleX provides a high-quality ecological model of the paddle. It is a one-stop full-process high-efficiency
+development platform for training, pressing and pushing. Its mission is to help AI technology to be implemented quickly.
+The vision is to make everyone an AI Developer! Currently PP-OCRv4 has been launched on PaddleX, you can
+enter [General OCR](https://aistudio.baidu.com/aistudio/modelsdetail?modelId=286) to experience the whole process of
+model training, compression and inference deployment.

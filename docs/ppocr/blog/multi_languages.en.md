@@ -7,7 +7,8 @@ typora-copy-images-to: images
 
 **Recent Update**
 
-- 2022.5.8 update the `PP-OCRv3` version of the multi-language detection and recognition model, and the average recognition accuracy has increased by more than 5%.
+- 2022.5.8 update the `PP-OCRv3` version of the multi-language detection and recognition model, and the average
+  recognition accuracy has increased by more than 5%.
 - 2021.4.9 supports the detection and recognition of 80 languages
 - 2021.4.9 supports **lightweight high-precision** English model detection and recognition
 
@@ -157,14 +158,18 @@ Visualization of results:
 
 ![img](./images/korean.jpg)
 
-PPOCR also supports direction classification. For more detailed usage, please refer to: [whl package instructions](whl_en.md).
+PPOCR also supports direction classification. For more detailed usage, please refer
+to: [whl package instructions](whl_en.md).
 
 ## 3 Custom training
 
-PPOCR supports using your own data for custom training or fine-tune, where the recognition model can refer to [French configuration file](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/multi_language/rec_french_lite_train.yml)
+PPOCR supports using your own data for custom training or fine-tune, where the recognition model can refer
+to [French configuration file](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/multi_language/rec_french_lite_train.yml)
 Modify the training data path, dictionary and other parameters.
 
-For specific data preparation and training process, please refer to: [Text Detection](../doc_en/detection_en.md), [Text Recognition](../doc_en/recognition_en.md), more functions such as predictive deployment,
+For specific data preparation and training process, please refer
+to: [Text Detection](../doc_en/detection_en.md), [Text Recognition](../doc_en/recognition_en.md), more functions such as
+predictive deployment,
 For functions such as data annotation, you can read the complete [Document Tutorial](../../README.md).
 
 ## 4 Inference and Deployment
@@ -181,43 +186,43 @@ If necessary, you can read related documents:
 
 ## 5 Support languages and abbreviations
 
-| Language  | Abbreviation | | Language  | Abbreviation |
-| ---  | --- | --- | ---  | --- |
-|Chinese & English|ch| |Arabic|ar|
-|English|en| |Hindi|hi|
-|French|fr| |Uyghur|ug|
-|German|german| |Persian|fa|
-|Japan|japan| |Urdu|ur|
-|Korean|korean| | Serbian(latin) |rs_latin|
-|Chinese Traditional |chinese_cht| |Occitan |oc|
-| Italian |it| |Marathi|mr|
-|Spanish |es| |Nepali|ne|
-| Portuguese|pt| |Serbian(cyrillic)|rs_cyrillic|
-|Russia|ru||Bulgarian |bg|
-|Ukranian|uk| |Estonian |et|
-|Belarusian|be| |Irish |ga|
-|Telugu |te| |Croatian |hr|
-|Saudi Arabia|sa| |Hungarian |hu|
-|Tamil |ta| |Indonesian|id|
-|Afrikaans |af| |Icelandic|is|
-|Azerbaijani  |az||Kurdish|ku|
-|Bosnian|bs| |Lithuanian |lt|
-|Czech|cs| |Latvian |lv|
-|Welsh |cy| |Maori|mi|
-|Danish|da| |Malay|ms|
-|Maltese |mt| |Adyghe |ady|
-|Dutch |nl| |Kabardian |kbd|
-|Norwegian |no| |Avar |ava|
-|Polish |pl| |Dargwa |dar|
-|Romanian |ro| |Ingush |inh|
-|Slovak |sk| |Lak |lbe|
-|Slovenian |sl| |Lezghian |lez|
-|Albanian |sq| |Tabassaran |tab|
-|Swedish |sv| |Bihari |bh|
-|Swahili |sw| |Maithili |mai|
-|Tagalog |tl| |Angika |ang|
-|Turkish |tr| |Bhojpuri |bho|
-|Uzbek |uz| |Magahi |mah|
-|Vietnamese |vi| |Nagpur |sck|
-|Mongolian |mn| |Newari |new|
-|Abaza |abq| |Goan Konkani|gom|
+| Language            | Abbreviation | | Language          | Abbreviation |
+|---------------------|--------------|-|-------------------|--------------|
+| Chinese & English   | ch           | | Arabic            | ar           |
+| English             | en           | | Hindi             | hi           |
+| French              | fr           | | Uyghur            | ug           |
+| German              | german       | | Persian           | fa           |
+| Japan               | japan        | | Urdu              | ur           |
+| Korean              | korean       | | Serbian(latin)    | rs_latin     |
+| Chinese Traditional | chinese_cht  | | Occitan           | oc           |
+| Italian             | it           | | Marathi           | mr           |
+| Spanish             | es           | | Nepali            | ne           |
+| Portuguese          | pt           | | Serbian(cyrillic) | rs_cyrillic  |
+| Russia              | ru           | | Bulgarian         | bg           |
+| Ukranian            | uk           | | Estonian          | et           |
+| Belarusian          | be           | | Irish             | ga           |
+| Telugu              | te           | | Croatian          | hr           |
+| Saudi Arabia        | sa           | | Hungarian         | hu           |
+| Tamil               | ta           | | Indonesian        | id           |
+| Afrikaans           | af           | | Icelandic         | is           |
+| Azerbaijani         | az           | | Kurdish           | ku           |
+| Bosnian             | bs           | | Lithuanian        | lt           |
+| Czech               | cs           | | Latvian           | lv           |
+| Welsh               | cy           | | Maori             | mi           |
+| Danish              | da           | | Malay             | ms           |
+| Maltese             | mt           | | Adyghe            | ady          |
+| Dutch               | nl           | | Kabardian         | kbd          |
+| Norwegian           | no           | | Avar              | ava          |
+| Polish              | pl           | | Dargwa            | dar          |
+| Romanian            | ro           | | Ingush            | inh          |
+| Slovak              | sk           | | Lak               | lbe          |
+| Slovenian           | sl           | | Lezghian          | lez          |
+| Albanian            | sq           | | Tabassaran        | tab          |
+| Swedish             | sv           | | Bihari            | bh           |
+| Swahili             | sw           | | Maithili          | mai          |
+| Tagalog             | tl           | | Angika            | ang          |
+| Turkish             | tr           | | Bhojpuri          | bho          |
+| Uzbek               | uz           | | Magahi            | mah          |
+| Vietnamese          | vi           | | Nagpur            | sck          |
+| Mongolian           | mn           | | Newari            | new          |
+| Abaza               | abq          | | Goan Konkani      | gom          |

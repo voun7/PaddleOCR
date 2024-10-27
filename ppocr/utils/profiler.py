@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import sys
+
 import paddle.profiler as profiler
 
 # A global variable to record the number of calling times for profiler
@@ -66,9 +67,9 @@ class ProfilerOptions(object):
                 value_list = value.replace("[", "").replace("]", "").split(",")
                 value_list = list(map(int, value_list))
                 if (
-                    len(value_list) >= 2
-                    and value_list[0] >= 0
-                    and value_list[1] > value_list[0]
+                        len(value_list) >= 2
+                        and value_list[0] >= 0
+                        and value_list[1] > value_list[0]
                 ):
                     self._options[key] = value_list
             elif key == "exit_on_finished":

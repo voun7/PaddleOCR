@@ -17,12 +17,12 @@ from __future__ import division
 from __future__ import print_function
 
 import errno
+import json
 import os
 import pickle
-import six
-import json
 
 import paddle
+import six
 
 from ppocr.utils.logging import get_logger
 from ppocr.utils.network import maybe_download_params
@@ -199,14 +199,14 @@ def load_pretrained_params(model, path):
 
 
 def save_model(
-    model,
-    optimizer,
-    model_path,
-    logger,
-    config,
-    is_best=False,
-    prefix="ppocr",
-    **kwargs,
+        model,
+        optimizer,
+        model_path,
+        logger,
+        config,
+        is_best=False,
+        prefix="ppocr",
+        **kwargs,
 ):
     """
     save model to the target path

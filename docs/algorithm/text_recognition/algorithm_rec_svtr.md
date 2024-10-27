@@ -8,14 +8,16 @@ comments: true
 
 论文信息：
 > [SVTR: Scene Text Recognition with a Single Visual Model](https://arxiv.org/abs/2205.00159)
-> Yongkun Du and Zhineng Chen and Caiyan Jia and Xiaoting Yin and Tianlun Zheng and Chenxia Li and Yuning Du and Yu-Gang Jiang
+> Yongkun Du and Zhineng Chen and Caiyan Jia and Xiaoting Yin and Tianlun Zheng and Chenxia Li and Yuning Du and Yu-Gang
+> Jiang
 > IJCAI, 2022
 
 场景文本识别旨在将自然图像中的文本转录为数字字符序列，从而传达对场景理解至关重要的高级语义。这项任务由于文本变形、字体、遮挡、杂乱背景等方面的变化具有一定的挑战性。先前的方法为提高识别精度做出了许多工作。然而文本识别器除了准确度外，还因为实际需求需要考虑推理速度等因素。
 
 ### SVTR算法简介
 
-主流的场景文本识别模型通常包含两个模块：用于特征提取的视觉模型和用于文本转录的序列模型。这种架构虽然准确，但复杂且效率较低，限制了在实际场景中的应用。SVTR提出了一种用于场景文本识别的单视觉模型，该模型在patch-wise image tokenization框架内，完全摒弃了序列建模，在精度具有竞争力的前提下，模型参数量更少，速度更快，主要有以下几点贡献：
+主流的场景文本识别模型通常包含两个模块：用于特征提取的视觉模型和用于文本转录的序列模型。这种架构虽然准确，但复杂且效率较低，限制了在实际场景中的应用。SVTR提出了一种用于场景文本识别的单视觉模型，该模型在patch-wise
+image tokenization框架内，完全摒弃了序列建模，在精度具有竞争力的前提下，模型参数量更少，速度更快，主要有以下几点贡献：
 
 1. 首次发现单视觉模型可以达到与视觉语言模型相媲美甚至更高的准确率，并且其具有效率高和适应多语言的优点，在实际应用中很有前景。
 2. SVTR从字符组件的角度出发，逐渐的合并字符组件，自下而上地完成字符的识别。
@@ -25,16 +27,17 @@ SVTR在场景文本识别公开数据集上的精度(%)和模型文件如下：
 
 * 中文数据集来自于[Chinese Benckmark](https://arxiv.org/abs/2112.15093) ，SVTR的中文训练评估策略遵循该论文。
 
-|    模型      |IC13<br/>857 |  SVT  |IIIT5k<br/>3000 |IC15<br/>1811| SVTP  |CUTE80 | Avg_6 |IC15<br/>2077 |IC13<br/>1015 |IC03<br/>867|IC03<br/>860|Avg_10 | Chinese<br/>scene_test|      下载链接       |
-|:----------:|:------:|:-----:|:---------:|:------:|:-----:|:-----:|:-----:|:-------:|:-------:|:-----:|:-----:|:------:|:-----:|:-----:|
-| SVTR Tiny  | 96.85  | 91.34 |   94.53   | 83.99  | 85.43 | 89.24 | 90.87 |  80.55  |  95.37  | 95.27 | 95.70 | 90.13 | 67.90 | [英文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_tiny_none_ctc_en_train.tar)  / [中文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_tiny_none_ctc_ch_train.tar)  |
-| SVTR Small | 95.92  | 93.04 |   95.03   | 84.70  | 87.91 | 92.01 | 91.63 |  82.72  |  94.88  | 96.08 | 96.28 | 91.02 | 69.00 | [英文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_small_none_ctc_en_train.tar) / [中文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_small_none_ctc_ch_train.tar) |
-| SVTR Base  | 97.08  | 91.50 |   96.03   | 85.20  | 89.92 | 91.67 | 92.33 |  83.73  |  95.66  | 95.62 | 95.81 | 91.61 | 71.40 | [英文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_base_none_ctc_en_train.tar)  /                                              -                                             |
-| SVTR Large | 97.20  | 91.65 |   96.30   | 86.58  | 88.37 | 95.14 | 92.82 |  84.54  |  96.35  | 96.54 | 96.74 | 92.24 | 72.10 | [英文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_large_none_ctc_en_train.tar) / [中文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_large_none_ctc_ch_train.tar) |
+|     模型     | IC13<br/>857 |  SVT  | IIIT5k<br/>3000 | IC15<br/>1811 | SVTP  | CUTE80 | Avg_6 | IC15<br/>2077 | IC13<br/>1015 | IC03<br/>867 | IC03<br/>860 | Avg_10 | Chinese<br/>scene_test |                                                                                           下载链接                                                                                            |
+|:----------:|:------------:|:-----:|:---------------:|:-------------:|:-----:|:------:|:-----:|:-------------:|:-------------:|:------------:|:------------:|:------:|:----------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| SVTR Tiny  |    96.85     | 91.34 |      94.53      |     83.99     | 85.43 | 89.24  | 90.87 |     80.55     |     95.37     |    95.27     |    95.70     | 90.13  |         67.90          | [英文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_tiny_none_ctc_en_train.tar)  / [中文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_tiny_none_ctc_ch_train.tar)  |
+| SVTR Small |    95.92     | 93.04 |      95.03      |     84.70     | 87.91 | 92.01  | 91.63 |     82.72     |     94.88     |    96.08     |    96.28     | 91.02  |         69.00          | [英文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_small_none_ctc_en_train.tar) / [中文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_small_none_ctc_ch_train.tar) |
+| SVTR Base  |    97.08     | 91.50 |      96.03      |     85.20     | 89.92 | 91.67  | 92.33 |     83.73     |     95.66     |    95.62     |    95.81     | 91.61  |         71.40          |                       [英文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_base_none_ctc_en_train.tar)  /                                              -                        |
+| SVTR Large |    97.20     | 91.65 |      96.30      |     86.58     | 88.37 | 95.14  | 92.82 |     84.54     |     96.35     |    96.54     |    96.74     | 92.24  |         72.10          | [英文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_large_none_ctc_en_train.tar) / [中文](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_large_none_ctc_ch_train.tar) |
 
 ## 2. 环境配置
 
-请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)克隆项目代码。
+请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)
+克隆项目代码。
 
 ## 3. 模型训练、评估、预测
 
@@ -47,7 +50,8 @@ SVTR在场景文本识别公开数据集上的精度(%)和模型文件如下：
 
 #### 启动训练
 
-请参考[文本识别训练教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练`SVTR`识别模型时需要**更换配置文件**为`SVTR`的[配置文件](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_svtrnet.yml)。
+请参考[文本识别训练教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练`SVTR`识别模型时需要*
+*更换配置文件**为`SVTR`的[配置文件](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_svtrnet.yml)。
 
 具体地，在完成数据准备后，便可以启动训练，训练命令如下：
 
@@ -61,7 +65,9 @@ python3 -m paddle.distributed.launch --gpus '0,1,2,3'  tools/train.py -c configs
 
 ### 3.2 评估
 
-可下载`SVTR`提供的模型文件和配置文件：[下载地址](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_tiny_none_ctc_en_train.tar) ，以`SVTR-T`为例，使用如下命令进行评估：
+可下载`SVTR`
+提供的模型文件和配置文件：[下载地址](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_tiny_none_ctc_en_train.tar)
+，以`SVTR-T`为例，使用如下命令进行评估：
 
 ```bash linenums="1"
 # 下载包含SVTR-T的模型文件和配置文件的tar压缩包并解压
@@ -84,7 +90,9 @@ python3 tools/infer_rec.py -c ./rec_svtr_tiny_none_ctc_en_train/rec_svtr_tiny_6l
 
 ### 4.1 Python推理
 
-首先将训练得到best模型，转换成inference model。下面以`SVTR-T`在英文数据集训练的模型为例（[模型和配置文件下载地址](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_tiny_none_ctc_en_train.tar) )，可以使用如下命令进行转换：
+首先将训练得到best模型，转换成inference model。下面以`SVTR-T`
+在英文数据集训练的模型为例（[模型和配置文件下载地址](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/rec_svtr_tiny_none_ctc_en_train.tar) )
+，可以使用如下命令进行转换：
 
 ```bash linenums="1"
 # 注意将pretrained_model的路径设置为本地路径。
@@ -138,24 +146,41 @@ Predicts of ./doc/imgs_words_en/word_10.png:('pain', 0.9999998807907104)
 
 ## 5. FAQ
 
-* 1. GPU和CPU速度对比
-  * 由于`SVTR`使用的算子大多为矩阵相乘，在GPU环境下，速度具有优势，但在CPU开启mkldnn加速环境下，`SVTR`相比于被优化的卷积网络没有优势。
+*
+    1. GPU和CPU速度对比
 
-* 2. SVTR模型转ONNX失败
-  * 保证`paddle2onnx`和`onnxruntime`版本最新，转onnx命令参考[SVTR模型转onnx步骤实例](https://github.com/PaddlePaddle/PaddleOCR/issues/7821#issuecomment-1271214273)。
-* 3. SVTR转ONNX成功但是推理结果不正确
-  * 可能的原因模型参数`out_char_num`设置不正确，应设置为W//4、W//8或者W//12，可以参考[高精度中文场景文本识别模型SVTR的3.3.3章节](https://aistudio.baidu.com/aistudio/projectdetail/5073182?contributionType=1)。
-* 4. 长文本识别优化
-  * 参考[高精度中文场景文本识别模型SVTR的3.3章节](https://aistudio.baidu.com/aistudio/projectdetail/5073182?contributionType=1)。
-* 5. 论文结果复现注意事项
-  * 数据集使用[ABINet](https://github.com/FangShancheng/ABINet)提供的数据集；
-  * 默认使用4卡GPU训练，单卡Batchsize默认为512，总Batchsize为2048，对应的学习率为0.0005，当修改Batchsize或者改变GPU卡数，学习率应等比例修改。
-* 6. 进一步优化的探索点
-  * 学习率调整：可以调整为默认的两倍保持Batchsize不变；或者将Batchsize减小为默认的1/2，保持学习率不变；
-  * 数据增强策略：可选`RecConAug`和`RecAug`；
-  * 如果不使用STN时，可以将`mixer`的`Local`替换为`Conv`、`local_mixer`全部修改为`[5, 5]`；
-  * 网格搜索最优的`embed_dim`、`depth`、`num_heads`配置；
-  * 使用`后Normalization策略`，即是将模型配置`prenorm`修改为`True`。
+    * 由于`SVTR`使用的算子大多为矩阵相乘，在GPU环境下，速度具有优势，但在CPU开启mkldnn加速环境下，`SVTR`相比于被优化的卷积网络没有优势。
+
+*
+    2. SVTR模型转ONNX失败
+
+    * 保证`paddle2onnx`和`onnxruntime`
+      版本最新，转onnx命令参考[SVTR模型转onnx步骤实例](https://github.com/PaddlePaddle/PaddleOCR/issues/7821#issuecomment-1271214273)。
+*
+    3. SVTR转ONNX成功但是推理结果不正确
+
+    * 可能的原因模型参数`out_char_num`
+      设置不正确，应设置为W//4、W//8或者W//12，可以参考[高精度中文场景文本识别模型SVTR的3.3.3章节](https://aistudio.baidu.com/aistudio/projectdetail/5073182?contributionType=1)。
+*
+    4. 长文本识别优化
+
+    *
+
+参考[高精度中文场景文本识别模型SVTR的3.3章节](https://aistudio.baidu.com/aistudio/projectdetail/5073182?contributionType=1)。
+
+*
+    5. 论文结果复现注意事项
+
+    * 数据集使用[ABINet](https://github.com/FangShancheng/ABINet)提供的数据集；
+    * 默认使用4卡GPU训练，单卡Batchsize默认为512，总Batchsize为2048，对应的学习率为0.0005，当修改Batchsize或者改变GPU卡数，学习率应等比例修改。
+*
+    6. 进一步优化的探索点
+
+    * 学习率调整：可以调整为默认的两倍保持Batchsize不变；或者将Batchsize减小为默认的1/2，保持学习率不变；
+    * 数据增强策略：可选`RecConAug`和`RecAug`；
+    * 如果不使用STN时，可以将`mixer`的`Local`替换为`Conv`、`local_mixer`全部修改为`[5, 5]`；
+    * 网格搜索最优的`embed_dim`、`depth`、`num_heads`配置；
+    * 使用`后Normalization策略`，即是将模型配置`prenorm`修改为`True`。
 
 ## 引用
 

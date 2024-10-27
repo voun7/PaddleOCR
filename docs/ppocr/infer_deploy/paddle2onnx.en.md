@@ -4,7 +4,8 @@ comments: true
 
 # Paddle2ONNX model transformation and prediction
 
-This chapter describes how the PaddleOCR model is converted into an ONNX model and predicted based on the ONNXRuntime engine.
+This chapter describes how the PaddleOCR model is converted into an ONNX model and predicted based on the ONNXRuntime
+engine.
 
 ## 1. Environment preparation
 
@@ -21,7 +22,8 @@ cd PaddleOCR && python3.7 setup.py install
 
 ### Paddle2ONNX
 
-Paddle2ONNX supports converting the PaddlePaddle model format to the ONNX model format. The operator currently supports exporting ONNX Opset 9~11 stably, and some Paddle operators support lower ONNX Opset conversion.
+Paddle2ONNX supports converting the PaddlePaddle model format to the ONNX model format. The operator currently supports
+exporting ONNX Opset 9~11 stably, and some Paddle operators support lower ONNX Opset conversion.
 For more details, please refer to [Paddle2ONNX](https://github.com/PaddlePaddle/Paddle2ONNX/blob/develop/README_en.md)
 
 - install Paddle2ONNX
@@ -41,7 +43,8 @@ For more details, please refer to [Paddle2ONNX](https://github.com/PaddlePaddle/
 
 ### Paddle model download
 
-There are two ways to obtain the Paddle model: Download the prediction model provided by PaddleOCR in [model_list](../model_list.en.md);
+There are two ways to obtain the Paddle model: Download the prediction model provided by PaddleOCR
+in [model_list](../model_list.en.md);
 
 Take the PP-OCRv3 detection, recognition, and classification model as an example:
 
@@ -86,9 +89,12 @@ paddle2onnx --model_dir ./inference/ch_ppocr_mobile_v2.0_cls_infer \
 --enable_onnx_checker True
 ```
 
-After execution, the ONNX model will be saved in `./inference/det_onnx/`, `./inference/rec_onnx/`, `./inference/cls_onnx/` paths respectively
+After execution, the ONNX model will be saved in `./inference/det_onnx/`, `./inference/rec_onnx/`,
+`./inference/cls_onnx/` paths respectively
 
-- Note: For the OCR model, the conversion process must be in the form of dynamic shape, that is, add the option --input_shape_dict="{'x': [-1, 3, -1, -1]}", otherwise the prediction result may be the same as Predicting directly with Paddle is slightly different.
+- Note: For the OCR model, the conversion process must be in the form of dynamic shape, that is, add the option
+  --input_shape_dict="{'x': [-1, 3, -1, -1]}", otherwise the prediction result may be the same as Predicting directly
+  with Paddle is slightly different.
 
 In addition, the following models do not currently support conversion to ONNX models: NRTR, SAR, RARE, SRN.
 
@@ -123,7 +129,8 @@ python3.7 tools/infer/predict_system.py --use_gpu=False \
 --rec_char_dict_path=ppocr/utils/en_dict.txt
 ```
 
-After executing the command, the predicted identification information will be printed out in the terminal, and the visualization results will be saved under `./inference_results/`.
+After executing the command, the predicted identification information will be printed out in the terminal, and the
+visualization results will be saved under `./inference_results/`.
 
 ONNXRuntime result：
 

@@ -11,19 +11,22 @@ Paper:
 > Deli Yu, Xuan Li, Chengquan Zhang, Junyu Han, Jingtuo Liu, Errui Ding
 > CVPR,2020
 
-Using MJSynth and SynthText two text recognition datasets for training, and evaluating on IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE datasets, the algorithm reproduction effect is as follows:
+Using MJSynth and SynthText two text recognition datasets for training, and evaluating on IIIT, SVT, IC03, IC13, IC15,
+SVTP, CUTE datasets, the algorithm reproduction effect is as follows:
 
-|Model|Backbone|config|Acc|Download link|
-| --- | --- | --- | --- | --- |
-|SRN|Resnet50_vd_fpn|[rec_r50_fpn_srn.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r50_fpn_srn.yml)|86.31%|[train model](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_r50_vd_srn_train.tar)|
+| Model | Backbone        | config                                                                                                     | Acc    | Download link                                                                           |
+|-------|-----------------|------------------------------------------------------------------------------------------------------------|--------|-----------------------------------------------------------------------------------------|
+| SRN   | Resnet50_vd_fpn | [rec_r50_fpn_srn.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r50_fpn_srn.yml) | 86.31% | [train model](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_r50_vd_srn_train.tar) |
 
 ## 2. Environment
 
-Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
+Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and
+refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
 
 ## 3. Model Training / Evaluation / Prediction
 
-Please refer to [Text Recognition Tutorial](../../ppocr/model_train/recognition.en.md). PaddleOCR modularizes the code, and training different recognition models only requires **changing the configuration file**.
+Please refer to [Text Recognition Tutorial](../../ppocr/model_train/recognition.en.md). PaddleOCR modularizes the code,
+and training different recognition models only requires **changing the configuration file**.
 
 ### Training
 
@@ -55,7 +58,9 @@ python3 tools/infer_rec.py -c configs/rec/rec_r50_fpn_srn.yml -o Global.pretrain
 
 ### 4.1 Python Inference
 
-First, the model saved during the SRN text recognition training process is converted into an inference model. ( [Model download link](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_r50_vd_srn_train.tar) ), you can use the following command to convert:
+First, the model saved during the SRN text recognition training process is converted into an inference
+model. ( [Model download link](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_r50_vd_srn_train.tar) ), you can use
+the following command to convert:
 
 ```bash linenums="1"
 python3 tools/export_model.py -c configs/rec/rec_r50_fpn_srn.yml -o Global.pretrained_model=./rec_r50_vd_srn_train/best_accuracy  Global.save_inference_dir=./inference/rec_srn

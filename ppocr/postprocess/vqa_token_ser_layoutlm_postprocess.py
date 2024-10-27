@@ -13,6 +13,7 @@
 # limitations under the License.
 import numpy as np
 import paddle
+
 from ppocr.utils.utility import load_vqa_bio_label_maps
 
 
@@ -67,7 +68,7 @@ class VQASerTokenLayoutLMPostProcess(object):
         results = []
 
         for pred, segment_offset_id, ocr_info in zip(
-            preds, segment_offset_ids, ocr_infos
+                preds, segment_offset_ids, ocr_infos
         ):
             pred = np.argmax(pred, axis=1)
             pred = [self.id2label_map[idx] for idx in pred]

@@ -30,7 +30,7 @@ def label_list():
     ],
 )
 def test_cls_post_process_with_and_without_label_list(
-    preds_tensor, label_list, expected
+        preds_tensor, label_list, expected
 ):
     post_process = ClsPostProcess(label_list=label_list)
     result = post_process(preds_tensor)
@@ -59,5 +59,5 @@ def test_cls_post_process_with_label(preds_tensor, label_list):
     assert result == expected_result, f"Expected {expected_result}, got {result}"
     assert isinstance(label_result, list), "Label result should be a list"
     assert (
-        label_result == expected_label_result
+            label_result == expected_label_result
     ), f"Expected {expected_label_result}, got {label_result}"

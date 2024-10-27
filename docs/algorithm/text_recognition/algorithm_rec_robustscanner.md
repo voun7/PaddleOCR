@@ -10,24 +10,27 @@ comments: true
 论文信息：
 > [RobustScanner: Dynamically Enhancing Positional Clues for Robust Text Recognition](https://arxiv.org/pdf/2007.07542.pdf)
 > Xiaoyu Yue, Zhanghui Kuang, Chenhao Lin, Hongbin Sun, Wayne
-Zhang
+> Zhang
 > ECCV, 2020
 
 使用MJSynth和SynthText两个合成文字识别数据集训练，在IIIT, SVT, IC13, IC15, SVTP, CUTE数据集上进行评估，算法复现效果如下：
 
-|模型|骨干网络|配置文件|Acc|下载链接|
-| --- | --- | --- | --- | --- |
-|RobustScanner|ResNet31|[rec_r31_robustscanner.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r31_robustscanner.yml)|87.77%|[训练模型](https://paddleocr.bj.bcebos.com/contribution/rec_r31_robustscanner.tar)|
+| 模型            | 骨干网络     | 配置文件                                                                                                                   | Acc    | 下载链接                                                                           |
+|---------------|----------|------------------------------------------------------------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
+| RobustScanner | ResNet31 | [rec_r31_robustscanner.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r31_robustscanner.yml) | 87.77% | [训练模型](https://paddleocr.bj.bcebos.com/contribution/rec_r31_robustscanner.tar) |
 
-注：除了使用MJSynth和SynthText两个文字识别数据集外，还加入了[SynthAdd](https://pan.baidu.com/share/init?surl=uV0LtoNmcxbO-0YA7Ch4dg)数据（提取码：627x），和部分真实数据，具体数据细节可以参考论文。
+注：除了使用MJSynth和SynthText两个文字识别数据集外，还加入了[SynthAdd](https://pan.baidu.com/share/init?surl=uV0LtoNmcxbO-0YA7Ch4dg)
+数据（提取码：627x），和部分真实数据，具体数据细节可以参考论文。
 
 ## 2. 环境配置
 
-请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)克隆项目代码。
+请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)
+克隆项目代码。
 
 ## 3. 模型训练、评估、预测
 
-请参考[文本识别教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练不同的识别模型只需要**更换配置文件**即可。
+请参考[文本识别教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练不同的识别模型只需要*
+*更换配置文件**即可。
 
 ### 训练
 

@@ -8,9 +8,11 @@ comments: true
 模型量化可以在基本不损失模型的精度的情况下，将FP32精度的模型参数转换为Int8精度，减小模型参数大小并加速计算，使用量化后的模型在移动端等部署时更具备速度优势。
 
 本教程将介绍如何使用飞桨模型压缩库PaddleSlim做PaddleOCR模型的压缩。
-[PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim) 集成了模型剪枝、量化（包括量化训练和离线量化）、蒸馏和神经网络搜索等多种业界常用且领先的模型压缩功能，如果您感兴趣，可以关注并了解。
+[PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim)
+集成了模型剪枝、量化（包括量化训练和离线量化）、蒸馏和神经网络搜索等多种业界常用且领先的模型压缩功能，如果您感兴趣，可以关注并了解。
 
-在开始本教程之前，建议先了解[PaddleOCR模型的训练方法](../model_train/training.md)以及[PaddleSlim](https://paddleslim.readthedocs.io/zh_CN/latest/index.html)
+在开始本教程之前，建议先了解[PaddleOCR模型的训练方法](../model_train/training.md)
+以及[PaddleSlim](https://paddleslim.readthedocs.io/zh_CN/latest/index.html)
 
 ## 快速开始
 
@@ -32,7 +34,8 @@ pip3 install paddleslim==2.3.2
 
 ### 2. 准备训练好的模型
 
-PaddleOCR提供了一系列训练好的[模型](../model_list.md)，如果待量化的模型不在列表中，需要按照[常规训练](../quick_start.md)方法得到训练好的模型。
+PaddleOCR提供了一系列训练好的[模型](../model_list.md)，如果待量化的模型不在列表中，需要按照[常规训练](../quick_start.md)
+方法得到训练好的模型。
 
 ### 3. 量化训练
 
@@ -64,4 +67,5 @@ python deploy/slim/quantization/export_model.py -c configs/det/ch_PP-OCRv3/ch_PP
 
 量化模型移动端部署的可参考 [移动端模型部署](../infer_deploy/lite.md)
 
-备注：量化训练后的模型参数是float32类型，转inference model预测时相对不量化无加速效果，原因是量化后模型结构之间存在量化和反量化算子，如果要使用量化模型部署，建议使用TensorRT并设置precision为INT8加速量化模型的预测时间。
+备注：量化训练后的模型参数是float32类型，转inference
+model预测时相对不量化无加速效果，原因是量化后模型结构之间存在量化和反量化算子，如果要使用量化模型部署，建议使用TensorRT并设置precision为INT8加速量化模型的预测时间。

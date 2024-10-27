@@ -13,19 +13,22 @@ comments: true
 
 `ABINet`使用MJSynth和SynthText两个文字识别数据集训练，在IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE数据集上进行评估，算法复现效果如下：
 
-|模型|骨干网络|配置文件|Acc|下载链接|
-| --- | --- | --- | --- | --- |
-|ABINet|ResNet45|[rec_r45_abinet.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r45_abinet.yml)|90.75%|[预训练、训练模型](https://paddleocr.bj.bcebos.com/rec_r45_abinet_train.tar)|
+| 模型     | 骨干网络     | 配置文件                                                                                                     | Acc    | 下载链接                                                                 |
+|--------|----------|----------------------------------------------------------------------------------------------------------|--------|----------------------------------------------------------------------|
+| ABINet | ResNet45 | [rec_r45_abinet.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r45_abinet.yml) | 90.75% | [预训练、训练模型](https://paddleocr.bj.bcebos.com/rec_r45_abinet_train.tar) |
 
 ## 2. 环境配置
 
-请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)克隆项目代码。
+请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)
+克隆项目代码。
 
 ## 3. 模型训练、评估、预测
 
 ### 3.1 模型训练
 
-请参考[文本识别训练教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练`ABINet`识别模型时需要**更换配置文件**为`ABINet`的[配置文件](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r45_abinet.yml)。
+请参考[文本识别训练教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练`ABINet`识别模型时需要*
+*更换配置文件**为`ABINet`
+的[配置文件](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r45_abinet.yml)。
 
 #### 启动训练
 
@@ -62,7 +65,8 @@ python3 tools/infer_rec.py -c configs/rec/rec_r45_abinet.yml -o Global.infer_img
 
 ### 4.1 Python推理
 
-首先将训练得到best模型，转换成inference model。这里以训练完成的模型为例（[模型下载地址](https://paddleocr.bj.bcebos.com/rec_r45_abinet_train.tar) )，可以使用如下命令进行转换：
+首先将训练得到best模型，转换成inference
+model。这里以训练完成的模型为例（[模型下载地址](https://paddleocr.bj.bcebos.com/rec_r45_abinet_train.tar) )，可以使用如下命令进行转换：
 
 ```bash linenums="1"
 # 注意将pretrained_model的路径设置为本地路径。

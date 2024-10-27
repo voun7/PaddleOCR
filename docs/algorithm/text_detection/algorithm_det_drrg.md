@@ -14,19 +14,21 @@ comments: true
 
 在CTW1500文本检测公开数据集上，算法复现效果如下：
 
-| 模型  |骨干网络|配置文件|precision|recall|Hmean|下载链接|
-|-----| --- | --- | --- | --- | --- | --- |
-| DRRG | ResNet50_vd | [configs/det/det_r50_drrg_ctw.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/det/det_r50_drrg_ctw.yml)| 89.92%|80.91%|85.18%|[训练模型](https://paddleocr.bj.bcebos.com/contribution/det_r50_drrg_ctw_train.tar)|
+| 模型   | 骨干网络        | 配置文件                                                                                                                     | precision | recall | Hmean  | 下载链接                                                                            |
+|------|-------------|--------------------------------------------------------------------------------------------------------------------------|-----------|--------|--------|---------------------------------------------------------------------------------|
+| DRRG | ResNet50_vd | [configs/det/det_r50_drrg_ctw.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/det/det_r50_drrg_ctw.yml) | 89.92%    | 80.91% | 85.18% | [训练模型](https://paddleocr.bj.bcebos.com/contribution/det_r50_drrg_ctw_train.tar) |
 
 ## 2. 环境配置
 
-请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)克隆项目代码。
+请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)
+克隆项目代码。
 
 ## 3. 模型训练、评估、预测
 
 上述DRRG模型使用CTW1500文本检测公开数据集训练得到，数据集下载可参考 [ocr_datasets](../../datasets/ocr_datasets.md)。
 
-数据下载完成后，请参考[文本检测训练教程](../../ppocr/model_train/detection.md)进行训练。PaddleOCR对代码进行了模块化，训练不同的检测模型只需要**更换配置文件**即可。
+数据下载完成后，请参考[文本检测训练教程](../../ppocr/model_train/detection.md)进行训练。PaddleOCR对代码进行了模块化，训练不同的检测模型只需要
+**更换配置文件**即可。
 
 ## 4. 推理部署
 

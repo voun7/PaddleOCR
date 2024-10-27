@@ -11,19 +11,22 @@ Paper:
 > Chengwei Zhang, Yunlu Xu, Zhanzhan Cheng, Shiliang Pu, Yi Niu, Fei Wu, Futai Zou
 > AAAI, 2020
 
-Using MJSynth and SynthText two text recognition datasets for training, and evaluating on IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE datasets. The algorithm reproduction effect is as follows:
+Using MJSynth and SynthText two text recognition datasets for training, and evaluating on IIIT, SVT, IC03, IC13, IC15,
+SVTP, CUTE datasets. The algorithm reproduction effect is as follows:
 
-|Model|Backbone|config|Acc|Download link|
-| --- | --- | --- | --- | --- |
-|SPIN|ResNet32|[rec_r32_gaspin_bilstm_att.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r32_gaspin_bilstm_att.yml)|90.00%|[trained model](https://paddleocr.bj.bcebos.com/contribution/rec_r32_gaspin_bilstm_att.tar) |
+| Model | Backbone | config                                                                                                                         | Acc    | Download link                                                                               |
+|-------|----------|--------------------------------------------------------------------------------------------------------------------------------|--------|---------------------------------------------------------------------------------------------|
+| SPIN  | ResNet32 | [rec_r32_gaspin_bilstm_att.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r32_gaspin_bilstm_att.yml) | 90.00% | [trained model](https://paddleocr.bj.bcebos.com/contribution/rec_r32_gaspin_bilstm_att.tar) |
 
 ## 2. Environment
 
-Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
+Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and
+refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
 
 ## 3. Model Training / Evaluation / Prediction
 
-Please refer to [Text Recognition Tutorial](../../ppocr/model_train/recognition.en.md). PaddleOCR modularizes the code, and training different recognition models only requires **changing the configuration file**.
+Please refer to [Text Recognition Tutorial](../../ppocr/model_train/recognition.en.md). PaddleOCR modularizes the code,
+and training different recognition models only requires **changing the configuration file**.
 
 ### Training
 
@@ -55,7 +58,8 @@ python3 tools/infer_rec.py -c configs/rec/rec_r32_gaspin_bilstm_att.yml -o Globa
 
 ### 4.1 Python Inference
 
-First, the model saved during the SPIN text recognition training process is converted into an inference model. you can use the following command to convert:
+First, the model saved during the SPIN text recognition training process is converted into an inference model. you can
+use the following command to convert:
 
 ```bash linenums="1"
 python3 tools/export_model.py -c configs/rec/rec_r32_gaspin_bilstm_att.yml -o Global.pretrained_model={path/to/weights}/best_accuracy  Global.save_inference_dir=./inference/rec_r32_gaspin_bilstm_att

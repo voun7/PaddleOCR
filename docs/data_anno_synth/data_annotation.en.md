@@ -12,7 +12,7 @@ There are the commonly used data annotation tools, which will be continuously up
 - Tool address:  <https://github.com/tzutalin/labelImg>
 - Sketch diagram:
 
-    ![labelimg](./images/labelimg.jpg)
+  ![labelimg](./images/labelimg.jpg)
 
 ## 2. roLabelImg
 
@@ -20,7 +20,7 @@ There are the commonly used data annotation tools, which will be continuously up
 - Tool address:   <https://github.com/cgvict/roLabelImg>
 - Sketch diagram:
 
-    ![roLabelImg](./images/roLabelImg.png)
+  ![roLabelImg](./images/roLabelImg.png)
 
 ## 3. labelme
 
@@ -28,4 +28,4 @@ There are the commonly used data annotation tools, which will be continuously up
 - Tool address:   <https://github.com/wkentaro/labelme>
 - Sketch diagram:
 
-    ![labelme](./images/labelme.jpg)
+  ![labelme](./images/labelme.jpg)

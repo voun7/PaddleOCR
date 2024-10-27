@@ -1,5 +1,3 @@
-[English](README_en.md) | 简体中文
-
 <p align="center">
  <img src="https://github.com/PaddlePaddle/PaddleOCR/releases/download/v2.8.0/PaddleOCR_logo.png" align="middle" width = "600"/>
 <p align="center">
@@ -13,66 +11,92 @@
     <a href="https://github.com/PaddlePaddle/PaddleOCR/stargazers"><img src="https://img.shields.io/github/stars/PaddlePaddle/PaddleOCR?color=ccf"></a>
 </p>
 
-## 简介
+## Introduction
 
-PaddleOCR 旨在打造一套丰富、领先、且实用的 OCR 工具库，助力开发者训练出更好的模型，并应用落地。
+PaddleOCR aims to create multilingual, awesome, leading, and practical OCR tools that help users train better models and
+apply them into practice.
 
 <div align="center">
     <img src="https://github.com/PaddlePaddle/PaddleOCR/releases/download/v2.8.0/demo.gif" width="800">
 </div>
 
-## 🚀 社区
+## 📣 Recent updates ([more](https://paddlepaddle.github.io/PaddleOCR/latest/en/update.html))
 
-PaddleOCR 由 [PMC](https://github.com/PaddlePaddle/PaddleOCR/issues/12122) 监督。Issues 和 PRs 将在尽力的基础上进行审查。欲了解 PaddlePaddle 社区的完整概况，请访问 [community](https://github.com/PaddlePaddle/community)。
+- **🔥 2024.10.18 release PaddleOCR v2.9, including**:
+    * PaddleX, an All-in-One development tool based on PaddleOCR's advanced technology, supports low-code full-process
+      development capabilities in the OCR field:
+        * 🎨 [**Rich Model One-Click Call
+          **](https://paddlepaddle.github.io/PaddleOCR/latest/en/paddlex/quick_start.html): Integrates **17 models**
+          related to text image intelligent analysis, general OCR, general layout parsing, table recognition, formula
+          recognition, and seal recognition into 6 pipelines, which can be quickly experienced through a simple **Python
+          API one-click call**. In addition, the same set of APIs also supports a total of **200+ models** in image
+          classification, object detection, image segmentation, and time series forcasting, forming 20+ single-function
+          modules, making it convenient for developers to use **model combinations**.
 
-⚠️注意：[Issues](https://github.com/PaddlePaddle/PaddleOCR/issues)模块仅用来报告程序🐞Bug，其余提问请移步[Discussions](https://github.com/PaddlePaddle/PaddleOCR/discussions)模块提问。如所提Issue不是Bug，会被移到Discussions模块，敬请谅解。
+        * 🚀 [**High Efficiency and Low barrier of entry
+          **](https://paddlepaddle.github.io/PaddleOCR/latest/en/paddlex/overview.html): Provides two methods based on *
+          *unified commands** and **GUI** to achieve simple and efficient use, combination, and customization of models.
+          Supports multiple deployment methods such as **high-performance inference, service-oriented deployment, and
+          edge deployment**. Additionally, for various mainstream hardware such as **NVIDIA GPU, Kunlunxin XPU, Ascend
+          NPU, Cambricon MLU, and Haiguang DCU**, models can be developed with **seamless switching**.
 
-## 📣 近期更新([more](https://paddlepaddle.github.io/PaddleOCR/latest/update.html))
+    *
+  Supports [PP-ChatOCRv3-doc](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_en.md), [high-precision layout detection model based on RT-DETR](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/module_usage/tutorials/ocr_modules/layout_detection_en.md)
+  and [high-efficiency layout area detection model based on PicoDet](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/module_usage/tutorials/ocr_modules/layout_detection_en.md), [high-precision table structure recognition model](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/module_usage/tutorials/ocr_modules/table_structure_recognition_en.md),
+  text image unwarping
+  model [UVDoc](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/module_usage/tutorials/ocr_modules/text_image_unwarping_en.md),
+  formula recognition
+  model [LatexOCR](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/module_usage/tutorials/ocr_modules/formula_recognition_en.md),
+  and [document image orientation classification model based on PP-LCNet](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/module_usage/tutorials/ocr_modules/doc_img_orientation_classification_en.md).
 
-- 🔥🔥《PaddleOCR 2.9 发布，正式开源文本图像智能分析利器》，文本图像版面解析实现高精度实时预测，低代码全流程开发加速产业应用。集成文本图像矫正、版面区域检测、常规文本检测、印章文本检测、文本识别、表格识别等多功能。6条模型产线一键调用，显著降低开发成本。支持高性能推理、服务化部署和端侧部署等多种部署方式。**10月24日（周四）19：00**直播为您深度解析最新升级亮点。 [报名链接](https://www.wjx.top/vm/PExy7cM.aspx?udsid=896077)
+- **🔥2024.7 Added PaddleOCR Algorithm Model Challenge Champion Solutions**:
+    - Challenge One, OCR End-to-End Recognition Task Champion
+      Solution: [Scene Text Recognition Algorithm-SVTRv2](https://paddlepaddle.github.io/PaddleOCR/algorithm/text_recognition/algorithm_rec_svtrv2.html);
+    - Challenge Two, General Table Recognition Task Champion
+      Solution: [Table Recognition Algorithm-SLANet-LCNetV2](https://paddlepaddle.github.io/PaddleOCR/algorithm/table_recognition/algorithm_table_slanet.html).
 
-- **🔥2024.10.1 添加OCR领域低代码全流程开发能力**:
-  * 飞桨低代码开发工具PaddleX，依托于PaddleOCR的先进技术，支持了OCR领域的低代码全流程开发能力：
-     * 🎨 [**模型丰富一键调用**](https://paddlepaddle.github.io/PaddleOCR/latest/paddlex/quick_start.html)：将文本图像智能分析、通用OCR、通用版面解析、通用表格识别、公式识别、印章文本识别涉及的**17个模型**整合为6条模型产线，通过极简的**Python API一键调用**，快速体验模型效果。此外，同一套API，也支持图像分类、目标检测、图像分割、时序预测等共计**200+模型**，形成20+单功能模块，方便开发者进行**模型组合**使用。
-     * 🚀[**提高效率降低门槛**](https://paddlepaddle.github.io/PaddleOCR/latest/paddlex/overview.html)：提供基于**统一命令**和**图形界面**两种方式，实现模型简洁高效的使用、组合与定制。支持**高性能推理、服务化部署和端侧部署**等多种部署方式。此外，对于各种主流硬件如**英伟达GPU、昆仑芯、昇腾、寒武纪和海光**等，进行模型开发时，都可以**无缝切换**。
+## 📚 Documentation
 
-  * 支持文档场景信息抽取v3[PP-ChatOCRv3-doc](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction.md)、基于RT-DETR的[高精度版面区域检测模型](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/module_usage/tutorials/ocr_modules/layout_detection.md)和PicoDet的[高效率版面区域检测模型](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/module_usage/tutorials/ocr_modules/layout_detection.md)、高精度表格结构识别模型[SLANet_Plus](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/module_usage/tutorials/ocr_modules/table_structure_recognition.md)、文本图像矫正模型[UVDoc](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/module_usage/tutorials/ocr_modules/text_image_unwarping.md)、公式识别模型[LatexOCR](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/module_usage/tutorials/ocr_modules/formula_recognition.md)、基于PP-LCNet的[文档图像方向分类模型](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta1/docs/module_usage/tutorials/ocr_modules/doc_img_orientation_classification.md)
-  
-- **🔥2024.7 添加 PaddleOCR 算法模型挑战赛冠军方案**：
-    - 赛题一：OCR 端到端识别任务冠军方案——[场景文本识别算法-SVTRv2](https://paddlepaddle.github.io/PaddleOCR/latest/algorithm/text_recognition/algorithm_rec_svtrv2.html)；
-    - 赛题二：通用表格识别任务冠军方案——[表格识别算法-SLANet-LCNetV2](https://paddlepaddle.github.io/PaddleOCR/latest/algorithm/table_recognition/algorithm_table_slanet.html)。
+Full documentation can be found on [docs](https://paddlepaddle.github.io/PaddleOCR/latest/en/index.html).
+
+## 🌟 Features
+
+PaddleOCR support a variety of cutting-edge algorithms related to OCR, and developed industrial featured
+models/solution [PP-OCR](https://paddlepaddle.github.io/PaddleOCR/latest/en/ppocr/overview.html)、 [PP-Structure](https://paddlepaddle.github.io/PaddleOCR/latest/en/ppstructure/overview.html)
+and [PP-ChatOCR](https://aistudio.baidu.com/aistudio/projectdetail/6488689) on this basis, and get through the whole
+process of data production, model training, compression, inference and deployment.
 
 
-## 🌟 特性
 
-支持多种 OCR 相关前沿算法，在此基础上打造产业级特色模型PP-OCR、PP-Structure和PP-ChatOCR，并打通数据生产、模型训练、压缩、预测部署全流程。
+> It is recommended to start with the “quick experience” in the document tutorial
 
-<div align="center">
-    <img src="./docs/images/ppocrv4.png">
-</div>
+## ⚡ [Quick Start](https://paddlepaddle.github.io/PaddleOCR/latest/en/quick_start.html)
 
-## ⚡ [快速开始](https://paddlepaddle.github.io/PaddleOCR/latest/quick_start.html)
+## 📖 Technical exchange and cooperation
 
-## 🔥 [低代码全流程开发](https://paddlepaddle.github.io/PaddleOCR/latest/paddlex/overview.html)
+PaddleX provides a one-stop full-process high-efficiency development platform for flying paddle ecological model
+training, pressure, and push. Its mission is to help AI technology quickly land, and its vision is to make everyone an
+AI Developer!
 
-## 📝 文档
+- PaddleX currently covers areas such as image classification, object detection, image segmentation, 3D, OCR, and time
+  series prediction, and has built-in 36 basic single models, such as RP-DETR, PP-YOLOE, PP-HGNet, PP-LCNet, PP-
+  LiteSeg, etc.; integrated 12 practical industrial solutions, such as PP-OCRv4, PP-ChatOCR, PP-ShiTu, PP-TS,
+  vehicle-mounted road waste detection, identification of prohibited wildlife products, etc.
+- PaddleX provides two AI development modes: "Toolbox" and "Developer". The toolbox mode can tune key hyperparameters
+  without code, and the developer mode can perform single-model training, push and multi-model serial inference with low
+  code, and supports both cloud and local terminals.
+- PaddleX also supports joint innovation and development, profit sharing! At present, PaddleX is rapidly iterating, and
+  welcomes the participation of individual developers and enterprise developers to create a prosperous AI technology
+  ecosystem!
 
-完整文档请移步：[docs](https://paddlepaddle.github.io/PaddleOCR/latest/)
+## 📚 E-book: *Dive Into OCR*
 
-## 📚《动手学 OCR》电子书
-
-- [《动手学 OCR》电子书](https://paddlepaddle.github.io/PaddleOCR/latest/ppocr/blog/ocr_book.html)
-
-## 🎖 贡献者
-
-<a href="https://github.com/PaddlePaddle/PaddleOCR/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=PaddlePaddle/PaddleOCR&max=400&columns=20"  width="800"/>
-</a>
+- [Dive Into OCR](./doc/doc_en/ocr_book_en.md)
 
 ## ⭐️ Star
 
 [![Star History Chart](https://api.star-history.com/svg?repos=PaddlePaddle/PaddleOCR&type=Date)](https://star-history.com/#PaddlePaddle/PaddleOCR&Date)
 
-## 许可证书
+## 📄 License
 
-本项目的发布受 [Apache License Version 2.0](./LICENSE) 许可认证。
+This project is released under [Apache License Version 2.0](./LICENSE).

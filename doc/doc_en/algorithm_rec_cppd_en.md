@@ -13,6 +13,7 @@
     - [4.4 More](#4-4)
 
 <a name="1"></a>
+
 ## 1. Introduction
 
 Paper:
@@ -21,50 +22,54 @@ Paper:
 
 
 <a name="model"></a>
-Scene text recognition models based on deep learning typically follow an Encoder-Decoder structure, where the decoder can be categorized into two types: (1) CTC and (2) Attention-based. Currently, most state-of-the-art (SOTA) models use an Attention-based decoder, which can be further divided into AR and PD types. In general, AR decoders achieve higher recognition accuracy than PD, while PD decoders are faster than AR. CPPD, with carefully designed CO and CC modules, achieves a balance between the accuracy of AR and the speed of PD.
-
+Scene text recognition models based on deep learning typically follow an Encoder-Decoder structure, where the decoder
+can be categorized into two types: (1) CTC and (2) Attention-based. Currently, most state-of-the-art (SOTA) models use
+an Attention-based decoder, which can be further divided into AR and PD types. In general, AR decoders achieve higher
+recognition accuracy than PD, while PD decoders are faster than AR. CPPD, with carefully designed CO and CC modules,
+achieves a balance between the accuracy of AR and the speed of PD.
 
 <a name="model"></a>
 The accuracy (%) and model files of CPPD on the public dataset of scene text recognition are as follows:：
 
 * English dataset from [PARSeq](https://github.com/baudm/parseq).
 
-
-|    Model      |IC13<br/>857 |  SVT  |IIIT5k<br/>3000 |IC15<br/>1811| SVTP  |CUTE80 | Avg |      Download       |
-|:----------:|:------:|:-----:|:---------:|:------:|:-----:|:-----:|:-----:|:-------:|
-| CPPD Tiny  | 97.1  | 94.4 |   96.6   | 86.6  | 88.5 | 90.3 | 92.25 | [en](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_tiny_en_train.tar) |
-| CPPD Base | 98.2  | 95.5 |   97.6   | 87.9  | 90.0 | 92.7 | 93.80 | [en](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_en_train.tar)|
-| CPPD Base 48*160  | 97.5  | 95.5 |   97.7   | 87.7  | 92.4 | 93.7 | 94.10 | [en](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_48_160_en_train.tar) |
+|      Model       | IC13<br/>857 | SVT  | IIIT5k<br/>3000 | IC15<br/>1811 | SVTP | CUTE80 |  Avg  |                                     Download                                      |
+|:----------------:|:------------:|:----:|:---------------:|:-------------:|:----:|:------:|:-----:|:---------------------------------------------------------------------------------:|
+|    CPPD Tiny     |     97.1     | 94.4 |      96.6       |     86.6      | 88.5 |  90.3  | 92.25 |    [en](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_tiny_en_train.tar)     |
+|    CPPD Base     |     98.2     | 95.5 |      97.6       |     87.9      | 90.0 |  92.7  | 93.80 |    [en](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_en_train.tar)     |
+| CPPD Base 48*160 |     97.5     | 95.5 |      97.7       |     87.7      | 92.4 |  93.7  | 94.10 | [en](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_48_160_en_train.tar) |
 
 * Trained on Synth dataset(MJ+ST), Test on Union14M-L benchmark from [U14m](https://github.com/Mountchicken/Union14M/).
 
-|    Model      |Curve |  Multi-<br/>Oriented  |Artistic |Contextless| Salient  | Multi-<br/>word | General | Avg |     Download       |
-|:----------:|:------:|:-----:|:---------:|:------:|:-----:|:-----:|:-----:|:-------:|:-------:|
-| CPPD Tiny  | 52.4  | 12.3 |   48.2   | 54.4  | 61.5 | 53.4 | 61.4 | 49.10 | Same as the table above. |
-| CPPD Base | 65.5  | 18.6 |   56.0   | 61.9  | 71.0 | 57.5 | 65.8 | 56.63 | Same as the table above. |
-| CPPD Base 48*160  | 71.9  | 22.1 |   60.5   | 67.9  | 78.3 | 63.9 | 67.1 | 61.69 | Same as the table above. |
+|      Model       | Curve | Multi-<br/>Oriented | Artistic | Contextless | Salient | Multi-<br/>word | General |  Avg  |         Download         |
+|:----------------:|:-----:|:-------------------:|:--------:|:-----------:|:-------:|:---------------:|:-------:|:-----:|:------------------------:|
+|    CPPD Tiny     | 52.4  |        12.3         |   48.2   |    54.4     |  61.5   |      53.4       |  61.4   | 49.10 | Same as the table above. |
+|    CPPD Base     | 65.5  |        18.6         |   56.0   |    61.9     |  71.0   |      57.5       |  65.8   | 56.63 | Same as the table above. |
+| CPPD Base 48*160 | 71.9  |        22.1         |   60.5   |    67.9     |  78.3   |      63.9       |  67.1   | 61.69 | Same as the table above. |
 
 * Trained on Union14M-L training dataset.
 
-|    Model      |IC13<br/>857 |  SVT  |IIIT5k<br/>3000 |IC15<br/>1811| SVTP  |CUTE80 | Avg |      Download       |
-|:----------:|:------:|:-----:|:---------:|:------:|:-----:|:-----:|:-----:|:-------:|
-| CPPD Base 32*128  | 98.7  | 98.5 |   99.4   | 91.7  | 96.7 | 99.7 | 97.44 | [en](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_u14m_train.tar) |
+|      Model       | IC13<br/>857 | SVT  | IIIT5k<br/>3000 | IC15<br/>1811 | SVTP | CUTE80 |  Avg  |                                   Download                                   |
+|:----------------:|:------------:|:----:|:---------------:|:-------------:|:----:|:------:|:-----:|:----------------------------------------------------------------------------:|
+| CPPD Base 32*128 |     98.7     | 98.5 |      99.4       |     91.7      | 96.7 |  99.7  | 97.44 | [en](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_u14m_train.tar) |
 
-|    Model      |Curve |  Multi-<br/>Oriented  |Artistic |Contextless| Salient  | Multi-<br/>word | General | Avg |     Download       |
-|:----------:|:------:|:-----:|:---------:|:------:|:-----:|:-----:|:-----:|:-------:|:-------:|
-| CPPD Base 32*128  | 87.5  | 70.7 |   78.2   | 82.9  | 85.5 | 85.4 | 84.3 | 82.08 | Same as the table above. |
+|      Model       | Curve | Multi-<br/>Oriented | Artistic | Contextless | Salient | Multi-<br/>word | General |  Avg  |         Download         |
+|:----------------:|:-----:|:-------------------:|:--------:|:-----------:|:-------:|:---------------:|:-------:|:-----:|:------------------------:|
+| CPPD Base 32*128 | 87.5  |        70.7         |   78.2   |    82.9     |  85.5   |      85.4       |  84.3   | 82.08 | Same as the table above. |
 
 * Chinese dataset from [Chinese Benckmark](https://github.com/FudanVI/benchmarking-chinese-text-recognition).
 
-|    Model      | Scene | Web | Document | Handwriting | Avg |      Download       |
-|:----------:|:------:|:-----:|:---------:|:------:|:-----:|:-----:|
-| CPPD Base  | 74.4  | 76.1 |   98.6   | 55.3  | 76.10 | [ch](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_ch_train.tar)  |
-| CPPD Base + STN | 78.4  | 79.3 |   98.9   | 57.6  | 78.55 | [ch](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_stn_ch_train.tar) |
-
+|      Model      | Scene | Web  | Document | Handwriting |  Avg  |                                    Download                                    |
+|:---------------:|:-----:|:----:|:--------:|:-----------:|:-----:|:------------------------------------------------------------------------------:|
+|    CPPD Base    | 74.4  | 76.1 |   98.6   |    55.3     | 76.10 |   [ch](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_ch_train.tar)   |
+| CPPD Base + STN | 78.4  | 79.3 |   98.9   |    57.6     | 78.55 | [ch](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_stn_ch_train.tar) |
 
 <a name="2"></a>
+
 ## 2. Environment
-Please refer to ["Environment Preparation"](./environment_en.md) to configure the PaddleOCR environment, and refer to ["Project Clone"](./clone_en.md) to clone the project code.
+
+Please refer to ["Environment Preparation"](./environment_en.md) to configure the PaddleOCR environment, and refer
+to ["Project Clone"](./clone_en.md) to clone the project code.
 
 #### Dataset Preparation
 
@@ -73,9 +78,11 @@ Please refer to ["Environment Preparation"](./environment_en.md) to configure th
 [Chinese dataset download](https://github.com/fudanvi/benchmarking-chinese-text-recognition#download)
 
 <a name="3"></a>
+
 ## 3. Model Training / Evaluation / Prediction
 
-Please refer to [Text Recognition Tutorial](./recognition_en.md). PaddleOCR modularizes the code, and training different recognition models only requires **changing the configuration file**.
+Please refer to [Text Recognition Tutorial](./recognition_en.md). PaddleOCR modularizes the code, and training different
+recognition models only requires **changing the configuration file**.
 
 Training:
 
@@ -91,7 +98,9 @@ python3 -m paddle.distributed.launch --gpus '0,1,2,3'  tools/train.py -c configs
 
 Evaluation:
 
-You can download the model files and configuration files provided by `CPPD`: [download link](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_en_train.tar), take `CPPD-B` as an example, using the following command to evaluate:
+You can download the model files and configuration files provided by
+`CPPD`: [download link](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_en_train.tar), take `CPPD-B` as an
+example, using the following command to evaluate:
 
 ```
 # Download the tar archive containing the model files and configuration files of CPPD-B and extract it
@@ -107,11 +116,16 @@ python3 tools/infer_rec.py -c ./rec_svtr_cppd_base_en_train/rec_svtrnet_cppd_bas
 ```
 
 <a name="4"></a>
+
 ## 4. Inference and Deployment
 
 <a name="4-1"></a>
+
 ### 4.1 Python Inference
-First, the model saved during the CPPD text recognition training process is converted into an inference model. ( [Model download link](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_en_train.tar) ), you can use the following command to convert:
+
+First, the model saved during the CPPD text recognition training process is converted into an inference
+model. ( [Model download link](https://paddleocr.bj.bcebos.com/CCPD/rec_svtr_cppd_base_en_train.tar) ), you can use the
+following command to convert:
 
 ```
 # export model
@@ -132,9 +146,12 @@ python3 tools/infer/predict_rec.py --image_dir='../iiik' --rec_model_dir='./rec_
 ```
 
 **Note:**
-- If you are training the model on your own dataset and have modified the dictionary file, please pay attention to modify the `character_dict_path` in the configuration file to the modified dictionary file.
+
+- If you are training the model on your own dataset and have modified the dictionary file, please pay attention to
+  modify the `character_dict_path` in the configuration file to the modified dictionary file.
 
 After the conversion is successful, there are three files in the directory:
+
 ```
 /inference/rec_svtr_cppd_base_en_infer/
     ├── inference.pdiparams
@@ -143,20 +160,22 @@ After the conversion is successful, there are three files in the directory:
 ```
 
 <a name="4-2"></a>
+
 ### 4.2 C++ Inference
 
 Not supported
 
 <a name="4-3"></a>
+
 ### 4.3 Serving
 
 Not supported
 
 <a name="4-4"></a>
+
 ### 4.4 More
 
 Not supported
-
 
 ## Citation
 

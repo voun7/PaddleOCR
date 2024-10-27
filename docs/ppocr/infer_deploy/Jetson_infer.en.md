@@ -9,12 +9,14 @@ This section introduces the deployment of PaddleOCR on Jetson NX, TX2, nano, AGX
 
 ## 1. Prepare Environment
 
-You need to prepare a Jetson development hardware. If you need TensorRT, you need to prepare the TensorRT environment. It is recommended to use TensorRT version 7.1.3;
+You need to prepare a Jetson development hardware. If you need TensorRT, you need to prepare the TensorRT environment.
+It is recommended to use TensorRT version 7.1.3;
 
 ### 1. Install PaddlePaddle in Jetson
 
 The PaddlePaddle download [link](https://www.paddlepaddle.org.cn/inference/user_guides/download_lib.html#python)
-Please select the appropriate installation package for your Jetpack version, cuda version, and trt version. Here, we download paddlepaddle_gpu-2.3.0rc0-cp36-cp36m-linux_aarch64.whl.
+Please select the appropriate installation package for your Jetpack version, cuda version, and trt version. Here, we
+download paddlepaddle_gpu-2.3.0rc0-cp36-cp36m-linux_aarch64.whl.
 
 Install PaddlePaddle：
 
@@ -41,7 +43,8 @@ pip3 install -r requirements.txt
 
 ## 2. Perform prediction
 
-Obtain the PPOCR model from the [document](../model_list.en.md) model library. The following takes the PP-OCRv3 model as an example to introduce the use of the PPOCR model on Jetson:
+Obtain the PPOCR model from the [document](../model_list.en.md) model library. The following takes the PP-OCRv3 model as
+an example to introduce the use of the PPOCR model on Jetson:
 
 Download and unzip the PP-OCRv3 models.
 
@@ -59,7 +62,8 @@ cd PaddleOCR
 python3 tools/infer/predict_det.py --det_model_dir=./inference/ch_PP-OCRv2_det_infer/  --image_dir=./doc/imgs/french_0.jpg  --use_gpu=True
 ```
 
-After executing the command, the predicted information will be printed out in the terminal, and the visualization results will be saved in the `./inference_results/` directory.
+After executing the command, the predicted information will be printed out in the terminal, and the visualization
+results will be saved in the `./inference_results/` directory.
 
 ![](./images/det_res_french_0.jpg)
 
@@ -75,13 +79,14 @@ After executing the command, the predicted information will be printed on the te
 [2022/04/28 15:41:45] root INFO: Predicts of ./doc/imgs_words/en/word_2.png:('yourself', 0.98084533)
 ```
 
-The text  detection and text recognition inference:
+The text detection and text recognition inference:
 
 ```bash linenums="1"
 python3 tools/infer/predict_system.py --det_model_dir=./inference/ch_PP-OCRv2_det_infer/ --rec_model_dir=./inference/ch_PP-OCRv2_rec_infer/ --image_dir=./doc/imgs/00057937.jpg --use_gpu=True --rec_image_shape="3,48,320"
 ```
 
-After executing the command, the predicted information will be printed out in the terminal, and the visualization results will be saved in the `./inference_results/` directory.
+After executing the command, the predicted information will be printed out in the terminal, and the visualization
+results will be saved in the `./inference_results/` directory.
 
 ![](./images/00057937.jpg)
 

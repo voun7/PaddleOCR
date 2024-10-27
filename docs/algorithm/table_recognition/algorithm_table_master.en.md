@@ -3,7 +3,6 @@ typora-copy-images-to: images
 comments: true
 ---
 
-
 # Table Recognition Algorithm-TableMASTER
 
 ## 1. Introduction
@@ -15,25 +14,32 @@ Paper:
 
 On the PubTabNet table recognition public data set, the algorithm reproduction acc is as follows:
 
-|Model|Backbone|Cnnfig|Acc|Download link|
-| --- | --- | --- | --- | --- |
-|TableMaster|TableResNetExtra|[configs/table/table_master.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/table/table_master.yml)|77.47%|[trained model](https://paddleocr.bj.bcebos.com/ppstructure/models/tablemaster/table_structure_tablemaster_train.tar)/[inference model](https://paddleocr.bj.bcebos.com/ppstructure/models/tablemaster/table_structure_tablemaster_infer.tar)|
+| Model       | Backbone         | Cnnfig                                                                                                               | Acc    | Download link                                                                                                                                                                                                                                 |
+|-------------|------------------|----------------------------------------------------------------------------------------------------------------------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| TableMaster | TableResNetExtra | [configs/table/table_master.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/table/table_master.yml) | 77.47% | [trained model](https://paddleocr.bj.bcebos.com/ppstructure/models/tablemaster/table_structure_tablemaster_train.tar)/[inference model](https://paddleocr.bj.bcebos.com/ppstructure/models/tablemaster/table_structure_tablemaster_infer.tar) |
 
 ## 2. Environment
 
-Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
+Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and
+refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
 
 ## 3. Model Training / Evaluation / Prediction
 
-The above TableMaster model is trained using the PubTabNet table recognition public dataset. For the download of the dataset, please refer to [table_datasets](../../datasets/table_datasets.en.md).
+The above TableMaster model is trained using the PubTabNet table recognition public dataset. For the download of the
+dataset, please refer to [table_datasets](../../datasets/table_datasets.en.md).
 
-After the data download is complete, please refer to [Text Recognition Training Tutorial](../../ppocr/model_train/recognition.en.md) for training. PaddleOCR has modularized the code structure, so that you only need to **replace the configuration file** to train different models.
+After the data download is complete, please refer
+to [Text Recognition Training Tutorial](../../ppocr/model_train/recognition.en.md) for training. PaddleOCR has
+modularized the code structure, so that you only need to **replace the configuration file** to train different models.
 
 ## 4. Inference and Deployment
 
 ### 4.1 Python Inference
 
-First, convert the model saved in the TableMaster table recognition training process into an inference model. Taking the model based on the TableResNetExtra backbone network and trained on the PubTabNet dataset as example ([model download link](https://paddleocr.bj.bcebos.com/contribution/table_master.tar)), you can use the following command to convert:
+First, convert the model saved in the TableMaster table recognition training process into an inference model. Taking the
+model based on the TableResNetExtra backbone network and trained on the PubTabNet dataset as
+example ([model download link](https://paddleocr.bj.bcebos.com/contribution/table_master.tar)), you can use the
+following command to convert:
 
 ```bash linenums="1"
 python3 tools/export_model.py -c configs/table/table_master.yml -o Global.pretrained_model=output/table_master/best_accuracy Global.save_inference_dir=./inference/table_master
@@ -41,7 +47,8 @@ python3 tools/export_model.py -c configs/table/table_master.yml -o Global.pretra
 
 **Note:**
 
-- If you trained the model on your own dataset and adjusted the dictionary file, please pay attention to whether the `character_dict_path` in the modified configuration file is the correct dictionary file
+- If you trained the model on your own dataset and adjusted the dictionary file, please pay attention to whether the
+  `character_dict_path` in the modified configuration file is the correct dictionary file
 
 Execute the following command for model inference:
 
@@ -51,7 +58,9 @@ cd ppstructure/
 python3.7 table/predict_structure.py --table_model_dir=../output/table_master/table_structure_tablemaster_infer/ --table_algorithm=TableMaster --table_char_dict_path=../ppocr/utils/dict/table_master_structure_dict.txt --table_max_len=480 --image_dir=docs/table/table.jpg
 ```
 
-After executing the command, the prediction results of the above image (structural information and the coordinates of each cell in the table) are printed to the screen, and the visualization of the cell coordinates is also saved. An example is as follows:
+After executing the command, the prediction results of the above image (structural information and the coordinates of
+each cell in the table) are printed to the screen, and the visualization of the cell coordinates is also saved. An
+example is as follows:
 
 result：
 

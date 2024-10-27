@@ -13,19 +13,22 @@ comments: true
 
 使用MJSynth和SynthText两个文字识别数据集训练，在IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE数据集上进行评估，算法复现效果如下：
 
-|模型|骨干网络|配置文件|Acc|下载链接|
-| --- | --- | --- | --- | --- |
-|SAR|ResNet31|[rec_r31_sar.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r31_sar.yml)|87.20%|[训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/rec/rec_r31_sar_train.tar)|
+| 模型  | 骨干网络     | 配置文件                                                                                               | Acc    | 下载链接                                                                           |
+|-----|----------|----------------------------------------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
+| SAR | ResNet31 | [rec_r31_sar.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r31_sar.yml) | 87.20% | [训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/rec/rec_r31_sar_train.tar) |
 
-注：除了使用MJSynth和SynthText两个文字识别数据集外，还加入了[SynthAdd](https://pan.baidu.com/share/init?surl=uV0LtoNmcxbO-0YA7Ch4dg)数据（提取码：627x），和部分真实数据，具体数据细节可以参考论文。
+注：除了使用MJSynth和SynthText两个文字识别数据集外，还加入了[SynthAdd](https://pan.baidu.com/share/init?surl=uV0LtoNmcxbO-0YA7Ch4dg)
+数据（提取码：627x），和部分真实数据，具体数据细节可以参考论文。
 
 ## 2. 环境配置
 
-请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)克隆项目代码。
+请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)
+克隆项目代码。
 
 ## 3. 模型训练、评估、预测
 
-请参考[文本识别教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练不同的识别模型只需要**更换配置文件**即可。
+请参考[文本识别教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练不同的识别模型只需要*
+*更换配置文件**即可。
 
 ### 训练
 
@@ -57,7 +60,8 @@ python3 tools/infer_rec.py -c configs/rec/rec_r31_sar.yml -o Global.pretrained_m
 
 ### 4.1 Python推理
 
-首先将SAR文本识别训练过程中保存的模型，转换成inference model。（ [模型下载地址](https://paddleocr.bj.bcebos.com/dygraph_v2.1/rec/rec_r31_sar_train.tar) )，可以使用如下命令进行转换：
+首先将SAR文本识别训练过程中保存的模型，转换成inference
+model。（ [模型下载地址](https://paddleocr.bj.bcebos.com/dygraph_v2.1/rec/rec_r31_sar_train.tar) )，可以使用如下命令进行转换：
 
 ```bash linenums="1"
 python3 tools/export_model.py -c configs/rec/rec_r31_sar.yml -o Global.pretrained_model=./rec_r31_sar_train/best_accuracy  Global.save_inference_dir=./inference/rec_sar

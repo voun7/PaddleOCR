@@ -11,20 +11,25 @@ Paper information:
 > Wei Liu, Chaofeng Chen, Kwan-Yee K. Wong, Zhizhong Su and Junyu Han.
 > BMVC, pages 43.1-43.13, 2016
 
-Refer to [DTRB](https://arxiv.org/abs/1904.01906) text Recognition Training and Evaluation Process . Using MJSynth and SynthText two text recognition datasets for training, and evaluating on IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE datasets, the algorithm reproduction effect is as follows:
+Refer to [DTRB](https://arxiv.org/abs/1904.01906) text Recognition Training and Evaluation Process . Using MJSynth and
+SynthText two text recognition datasets for training, and evaluating on IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE
+datasets, the algorithm reproduction effect is as follows:
 
-|Models|Backbone Networks|Avg Accuracy|Configuration Files|Download Links|
-| --- | --- | --- | --- | --- |
-|StarNet|Resnet34_vd|84.44%|[configs/rec/rec_r34_vd_tps_bilstm_ctc.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r34_vd_tps_bilstm_ctc.yml)|[trained model](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_r34_vd_tps_bilstm_ctc_v2.0_train.tar)|
-|StarNet|MobileNetV3|81.42%|[configs/rec/rec_mv3_tps_bilstm_ctc.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_mv3_tps_bilstm_ctc.yml)|[trained model](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_mv3_tps_bilstm_ctc_v2.0_train.tar)|
+| Models  | Backbone Networks | Avg Accuracy | Configuration Files                                                                                                                        | Download Links                                                                                            |
+|---------|-------------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| StarNet | Resnet34_vd       | 84.44%       | [configs/rec/rec_r34_vd_tps_bilstm_ctc.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r34_vd_tps_bilstm_ctc.yml) | [trained model](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_r34_vd_tps_bilstm_ctc_v2.0_train.tar) |
+| StarNet | MobileNetV3       | 81.42%       | [configs/rec/rec_mv3_tps_bilstm_ctc.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_mv3_tps_bilstm_ctc.yml)       | [trained model](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_mv3_tps_bilstm_ctc_v2.0_train.tar)    |
 
 ## 2. Environment
 
-Please refer to [Operating Environment Preparation](../../ppocr/environment.en.md) to configure the PaddleOCR operating environment, and refer to [Project Clone](../../ppocr/blog/clone.en.md)to clone the project code.
+Please refer to [Operating Environment Preparation](../../ppocr/environment.en.md) to configure the PaddleOCR operating
+environment, and refer to [Project Clone](../../ppocr/blog/clone.en.md)to clone the project code.
 
 ## 3. Model Training / Evaluation / Prediction
 
-Please refer to [Text Recognition Training Tutorial](../../ppocr/model_train/recognition.en.md). PaddleOCR modularizes the code, and training different recognition models only requires **changing the configuration file**. Take the backbone network based on Resnet34_vd as an example:
+Please refer to [Text Recognition Training Tutorial](../../ppocr/model_train/recognition.en.md). PaddleOCR modularizes
+the code, and training different recognition models only requires **changing the configuration file**. Take the backbone
+network based on Resnet34_vd as an example:
 
 ### 3.1 Training
 
@@ -54,7 +59,10 @@ python3 tools/infer_rec.py -c configs/rec/rec_r34_vd_tps_bilstm_ctc.yml -o Globa
 
 ### 4.1 Python Inference
 
-First, convert the model saved during the STAR-Net text recognition training process into an inference model. Take the model trained on the MJSynth and SynthText text recognition datasets based on the Resnet34_vd backbone network as an example [Model download address]( https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_r34_vd_none_bilstm_ctc_v2.0_train.tar) , which can be converted using the following command:
+First, convert the model saved during the STAR-Net text recognition training process into an inference model. Take the
+model trained on the MJSynth and SynthText text recognition datasets based on the Resnet34_vd backbone network as an
+example [Model download address]( https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_r34_vd_none_bilstm_ctc_v2.0_train.tar) ,
+which can be converted using the following command:
 
 ```bash linenums="1"
 python3 tools/export_model.py -c configs/rec/rec_r34_vd_tps_bilstm_ctc.yml -o Global.pretrained_model=./rec_r34_vd_tps_bilstm_ctc_v2.0_train/best_accuracy  Global.save_inference_dir=./inference/rec_starnet
@@ -74,11 +82,20 @@ The inference results are as follows:
 Predicts of ./doc/imgs_words_en/word_336.png:('super', 0.9999073)
 ```
 
-**Attention** Since the above model refers to the [DTRB](https://arxiv.org/abs/1904.01906) text recognition training and evaluation process, it is different from the ultra-lightweight Chinese recognition model training in two aspects:
+**Attention** Since the above model refers to the [DTRB](https://arxiv.org/abs/1904.01906) text recognition training and
+evaluation process, it is different from the ultra-lightweight Chinese recognition model training in two aspects:
 
-- The image resolutions used during training are different. The image resolutions used for training the above models are [3, 32, 100], while for Chinese model training, in order to ensure the recognition effect of long texts, the image resolutions used during training are [ 3, 32, 320]. The default shape parameter of the predictive inference program is the image resolution used for training Chinese, i.e. [3, 32, 320]. Therefore, when inferring the above English model here, it is necessary to set the shape of the recognized image through the parameter rec_image_shape.
+- The image resolutions used during training are different. The image resolutions used for training the above models
+  are [3, 32, 100], while for Chinese model training, in order to ensure the recognition effect of long texts, the image
+  resolutions used during training are [ 3, 32, 320]. The default shape parameter of the predictive inference program is
+  the image resolution used for training Chinese, i.e. [3, 32, 320]. Therefore, when inferring the above English model
+  here, it is necessary to set the shape of the recognized image through the parameter rec_image_shape.
 
-- Character list, the experiment in the DTRB paper is only for 26 lowercase English letters and 10 numbers, a total of 36 characters. All uppercase and lowercase characters are converted to lowercase characters, and characters not listed above are ignored and considered spaces. Therefore, there is no input character dictionary here, but a dictionary is generated by the following command. Therefore, the parameter rec_char_dict_path needs to be set during inference, which is specified as an English dictionary "./ppocr/utils/ic15_dict.txt".
+- Character list, the experiment in the DTRB paper is only for 26 lowercase English letters and 10 numbers, a total of
+  36 characters. All uppercase and lowercase characters are converted to lowercase characters, and characters not listed
+  above are ignored and considered spaces. Therefore, there is no input character dictionary here, but a dictionary is
+  generated by the following command. Therefore, the parameter rec_char_dict_path needs to be set during inference,
+  which is specified as an English dictionary "./ppocr/utils/ic15_dict.txt".
 
 ```python linenums="1"
 self.character_str = "0123456789abcdefghijklmnopqrstuvwxyz"
@@ -87,17 +104,20 @@ dict_character = list(self.character_str)
 
 ### 4.2 C++ Inference
 
-After preparing the inference model, refer to the [cpp infer](../../ppocr/infer_deploy/cpp_infer.en.md) tutorial to operate.
+After preparing the inference model, refer to the [cpp infer](../../ppocr/infer_deploy/cpp_infer.en.md) tutorial to
+operate.
 
 ### 4.3 Serving
 
-After preparing the inference model, refer to the [pdserving](../../ppocr/infer_deploy/paddle_server.en.md) tutorial for Serving deployment, including two modes: Python Serving and C++ Serving.
+After preparing the inference model, refer to the [pdserving](../../ppocr/infer_deploy/paddle_server.en.md) tutorial for
+Serving deployment, including two modes: Python Serving and C++ Serving.
 
 ### 4.4 More
 
 The STAR-Net model also supports the following inference deployment methods:
 
-- Paddle2ONNX Inference: After preparing the inference model, refer to the [paddle2onnx](../../ppocr/infer_deploy/paddle2onnx.en.md) tutorial.
+- Paddle2ONNX Inference: After preparing the inference model, refer to
+  the [paddle2onnx](../../ppocr/infer_deploy/paddle2onnx.en.md) tutorial.
 
 ## 5. FAQ
 

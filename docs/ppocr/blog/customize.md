@@ -30,7 +30,8 @@ python3 tools/train.py -c configs/rec/rec_chinese_lite_train.yml 2>&1 | tee rec_
 
 PaddleOCR提供了检测和识别模型的串联工具，可以将训练好的任一检测模型和任一识别模型串联成两阶段的文本识别系统。输入图像经过文本检测、检测框矫正、文本识别、得分过滤四个主要阶段输出文本位置和识别结果，同时可选择对结果进行可视化。
 
-在执行预测时，需要通过参数image_dir指定单张图像或者图像集合的路径、参数det_model_dir指定检测inference模型的路径和参数rec_model_dir指定识别inference模型的路径。可视化识别结果默认保存到 ./inference_results 文件夹里面。
+在执行预测时，需要通过参数image_dir指定单张图像或者图像集合的路径、参数det_model_dir指定检测inference模型的路径和参数rec_model_dir指定识别inference模型的路径。可视化识别结果默认保存到
+./inference_results 文件夹里面。
 
 ```bash linenums="1"
 python3 tools/infer/predict_system.py --image_dir="./doc/imgs/11.jpg" --det_model_dir="./inference/det/"  --rec_model_dir="./inference/rec/"

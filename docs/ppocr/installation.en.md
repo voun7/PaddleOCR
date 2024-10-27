@@ -4,7 +4,8 @@ comments: true
 
 ## Quick Installation
 
-After testing, PaddleOCR can run on glibc 2.23. You can also test other glibc versions or install glibc 2.23 for the best compatibility.
+After testing, PaddleOCR can run on glibc 2.23. You can also test other glibc versions or install glibc 2.23 for the
+best compatibility.
 
 PaddleOCR working environment:
 
@@ -12,7 +13,8 @@ PaddleOCR working environment:
 - Python 3.7
 - glibc 2.23
 
-It is recommended to use the docker provided by us to run PaddleOCR. Please refer to the docker tutorial [link](https://www.runoob.com/docker/docker-tutorial.html/).
+It is recommended to use the docker provided by us to run PaddleOCR. Please refer to the docker
+tutorial [link](https://www.runoob.com/docker/docker-tutorial.html/).
 
 *If you want to directly run the prediction code on Mac or Windows, you can start from step 2.*
 
@@ -37,7 +39,8 @@ It is recommended to set a shared memory greater than or equal to 32G through th
 sudo nvidia-docker run --name ppocr -v $PWD:/paddle --shm-size=64G --network=host -it paddlepaddle/paddle:latest-dev-cuda10.1-cudnn7-gcc82 /bin/bash
 ```
 
-You can also visit [DockerHub](https://hub.docker.com/r/paddlepaddle/paddle/tags/) to get the image that fits your machine.
+You can also visit [DockerHub](https://hub.docker.com/r/paddlepaddle/paddle/tags/) to get the image that fits your
+machine.
 
 ```bash linenums="1"
 # ctrl+P+Q to exit docker, to re-enter docker using the following command:
@@ -56,7 +59,8 @@ python3 -m pip install paddlepaddle-gpu==2.0.0 -i https://mirror.baidu.com/pypi/
 python3 -m pip install paddlepaddle==2.0.0 -i https://mirror.baidu.com/pypi/simple
 ```
 
-For more software version requirements, please refer to the instructions in [Installation Document](https://www.paddlepaddle.org.cn/install/quick) for operation.
+For more software version requirements, please refer to the instructions
+in [Installation Document](https://www.paddlepaddle.org.cn/install/quick) for operation.
 
 ### 3. Clone PaddleOCR repo
 
@@ -78,8 +82,10 @@ cd PaddleOCR
 pip3 install -r requirements.txt
 ```
 
-If you getting this error `OSError: [WinError 126] The specified module could not be found` when you install shapely on windows.
+If you getting this error `OSError: [WinError 126] The specified module could not be found` when you install shapely on
+windows.
 
-Please try to download Shapely whl file from [http://www.lfd.uci.edu/~gohlke/pythonlibs/#shapely](http://www.lfd.uci.edu/~gohlke/pythonlibs/#shapely).
+Please try to download Shapely whl file
+from [http://www.lfd.uci.edu/~gohlke/pythonlibs/#shapely](http://www.lfd.uci.edu/~gohlke/pythonlibs/#shapely).
 
 Reference: [Solve shapely installation on windows](https://stackoverflow.com/questions/44398265/install-shapely-oserror-winerror-126-the-specified-module-could-not-be-found)

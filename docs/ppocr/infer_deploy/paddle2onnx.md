@@ -22,7 +22,8 @@ cd PaddleOCR && python3 -m pip install -e .
 
 ### Paddle2ONNX
 
-Paddle2ONNX 支持将 PaddlePaddle 模型格式转化到 ONNX 模型格式，算子目前稳定支持导出 ONNX Opset 9~18，部分Paddle算子支持更低的ONNX Opset转换。
+Paddle2ONNX 支持将 PaddlePaddle 模型格式转化到 ONNX 模型格式，算子目前稳定支持导出 ONNX Opset 9~18，部分Paddle算子支持更低的ONNX
+Opset转换。
 更多细节可参考 [Paddle2ONNX](https://github.com/PaddlePaddle/Paddle2ONNX/blob/develop/README_zh.md)
 
 - 安装 Paddle2ONNX
@@ -89,7 +90,9 @@ paddle2onnx --model_dir ./inference/ch_ppocr_mobile_v2.0_cls_infer \
   另外，以下几个模型暂不支持转换为 ONNX 模型：
   NRTR、SAR、RARE、SRN
 
-- 注意：[当前Paddle2ONNX版本(v1.2.3)](https://github.com/PaddlePaddle/Paddle2ONNX/releases/tag/v1.2.3)现已默认支持动态shape，即 `float32[p2o.DynamicDimension.0,3,p2o.DynamicDimension.1,p2o.DynamicDimension.2]`，选项 `--input_shape_dict` 已废弃。如果有shape调整需求可使用如下命令进行Paddle模型输入shape调整。
+- 注意：[当前Paddle2ONNX版本(v1.2.3)](https://github.com/PaddlePaddle/Paddle2ONNX/releases/tag/v1.2.3)现已默认支持动态shape，即
+  `float32[p2o.DynamicDimension.0,3,p2o.DynamicDimension.1,p2o.DynamicDimension.2]`，选项 `--input_shape_dict`
+  已废弃。如果有shape调整需求可使用如下命令进行Paddle模型输入shape调整。
 
   ```bash linenums="1"
   python3 -m paddle2onnx.optimize --input_model inference/det_onnx/model.onnx \

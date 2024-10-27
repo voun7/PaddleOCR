@@ -34,11 +34,13 @@ Optimizer:
 ```
 
 Piecewise 代表分段常数衰减，在不同的学习阶段指定不同的学习率，在每段内学习率相同。
-warmup_epoch 代表在前5个epoch中，学习率将逐渐从0增加到base_lr。全部策略可以参考代码[learning_rate.py](../../ppocr/optimizer/learning_rate.py) 。
+warmup_epoch
+代表在前5个epoch中，学习率将逐渐从0增加到base_lr。全部策略可以参考代码[learning_rate.py](../../ppocr/optimizer/learning_rate.py) 。
 
 ### 2.2 正则化
 
-正则化可以有效的避免算法过拟合，PaddleOCR中提供了L1、L2正则方法，L1 和 L2 正则化是最常用的正则化方法。L1 正则化向目标函数添加正则化项，以减少参数的绝对值总和；而 L2 正则化中，添加正则化项的目的在于减少参数平方的总和。配置方法如下：
+正则化可以有效的避免算法过拟合，PaddleOCR中提供了L1、L2正则方法，L1 和 L2 正则化是最常用的正则化方法。L1
+正则化向目标函数添加正则化项，以减少参数的绝对值总和；而 L2 正则化中，添加正则化项的目的在于减少参数平方的总和。配置方法如下：
 
 ```yaml linenums="1"
 Optimizer:
@@ -54,7 +56,8 @@ Optimizer:
 
 （2）识别阶段： 字符识别准确率，即正确识别的文本行占标注的文本行数量的比例，只有整行文本识别对才算正确识别。
 
-（3）端到端统计： 端对端召回率：准确检测并正确识别文本行在全部标注文本行的占比； 端到端准确率：准确检测并正确识别文本行在 检测到的文本行数量 的占比； 准确检测的标准是检测框与标注框的IOU大于某个阈值，正确识别的检测框中的文本与标注的文本相同。
+（3）端到端统计： 端对端召回率：准确检测并正确识别文本行在全部标注文本行的占比； 端到端准确率：准确检测并正确识别文本行在
+检测到的文本行数量 的占比； 准确检测的标准是检测框与标注框的IOU大于某个阈值，正确识别的检测框中的文本与标注的文本相同。
 
 ## 3. 数据与垂类场景
 
@@ -63,15 +66,17 @@ Optimizer:
 目前开源的模型，数据集和量级如下：
 
 - 检测：
-  - 英文数据集，ICDAR2015
-  - 中文数据集，LSVT街景数据集训练数据3w张图片
+    - 英文数据集，ICDAR2015
+    - 中文数据集，LSVT街景数据集训练数据3w张图片
 
 - 识别：
-  - 英文数据集，MJSynth和SynthText合成数据，数据量上千万。
-  - 中文数据集，LSVT街景数据集根据真值将图crop出来，并进行位置校准，总共30w张图像。此外基于LSVT的语料，合成数据500w。
-  - 小语种数据集，使用不同语料和字体，分别生成了100w合成数据集，并使用ICDAR-MLT作为验证集。
+    - 英文数据集，MJSynth和SynthText合成数据，数据量上千万。
+    - 中文数据集，LSVT街景数据集根据真值将图crop出来，并进行位置校准，总共30w张图像。此外基于LSVT的语料，合成数据500w。
+    - 小语种数据集，使用不同语料和字体，分别生成了100w合成数据集，并使用ICDAR-MLT作为验证集。
 
-其中，公开数据集都是开源的，用户可自行搜索下载，也可参考[中文数据集](../../datasets/datasets.md)，合成数据暂不开源，用户可使用开源合成工具自行合成，可参考的合成工具包括[text_renderer](https://github.com/Sanster/text_renderer) 、[SynthText](https://github.com/ankush-me/SynthText) 、[TextRecognitionDataGenerator](https://github.com/Belval/TextRecognitionDataGenerator) 等。
+其中，公开数据集都是开源的，用户可自行搜索下载，也可参考[中文数据集](../../datasets/datasets.md)
+，合成数据暂不开源，用户可使用开源合成工具自行合成，可参考的合成工具包括[text_renderer](https://github.com/Sanster/text_renderer) 、[SynthText](https://github.com/ankush-me/SynthText) 、[TextRecognitionDataGenerator](https://github.com/Belval/TextRecognitionDataGenerator)
+等。
 
 ### 3.2 垂类场景
 

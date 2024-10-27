@@ -13,23 +13,28 @@ Paper:
 
 > CVPR, 2020
 
-Using MJSynth and SynthText two text recognition datasets for training, and evaluating on IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE datasets, the algorithm reproduction effect is as follows:
+Using MJSynth and SynthText two text recognition datasets for training, and evaluating on IIIT, SVT, IC03, IC13, IC15,
+SVTP, CUTE datasets, the algorithm reproduction effect is as follows:
 
-|Model|Backbone|ACC|config|Download link|
-| --- | --- | --- | --- | --- |
-|SEED|Aster_Resnet| 85.20% | [configs/rec/rec_resnet_stn_bilstm_att.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_resnet_stn_bilstm_att.yml) | [训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/rec/rec_resnet_stn_bilstm_att.tar) |
+| Model | Backbone     | ACC    | config                                                                                                                                     | Download link                                                                          |
+|-------|--------------|--------|--------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| SEED  | Aster_Resnet | 85.20% | [configs/rec/rec_resnet_stn_bilstm_att.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_resnet_stn_bilstm_att.yml) | [训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/rec/rec_resnet_stn_bilstm_att.tar) |
 
 ## 2. Environment
 
-Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
+Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and
+refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
 
 ## 3. Model Training / Evaluation / Prediction
 
-Please refer to [Text Recognition Tutorial](../../ppocr/model_train/recognition.en.md). PaddleOCR modularizes the code, and training different recognition models only requires **changing the configuration file**.
+Please refer to [Text Recognition Tutorial](../../ppocr/model_train/recognition.en.md). PaddleOCR modularizes the code,
+and training different recognition models only requires **changing the configuration file**.
 
 ### Training
 
-The SEED model needs to additionally load the [language model](https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.en.300.bin.gz) trained by FastText, and install the fasttext dependencies:
+The SEED model needs to additionally load
+the [language model](https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.en.300.bin.gz) trained by FastText, and
+install the fasttext dependencies:
 
 ```bash linenums="1"
 python3 -m pip install fasttext==0.9.1

@@ -11,15 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import cv2
 import os
-import numpy as np
+
 import PIL
+import cv2
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 
 def draw_ser_results(
-    image, ocr_results, font_path="doc/fonts/simfang.ttf", font_size=14
+        image, ocr_results, font_path="doc/fonts/simfang.ttf", font_size=14
 ):
     np.random.seed(2021)
     color = (

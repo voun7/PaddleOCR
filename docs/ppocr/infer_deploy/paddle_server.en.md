@@ -6,12 +6,15 @@ comments: true
 
 PaddleOCR provides two service deployment methods:
 
-- Based on **PaddleHub Serving**: Code path is "`./deploy/hubserving`". Please refer to the [tutorial](https://github.com/PaddlePaddle/PaddleOCR/blob/db0ad17cf631fafc01650c177e00ce76413af97f/deploy/hubserving/readme_en.md)
+- Based on **PaddleHub Serving**: Code path is "`./deploy/hubserving`". Please refer to
+  the [tutorial](https://github.com/PaddlePaddle/PaddleOCR/blob/db0ad17cf631fafc01650c177e00ce76413af97f/deploy/hubserving/readme_en.md)
 - Based on **PaddleServing**: Code path is "`./deploy/pdserving`". Please follow this tutorial.
 
 ### Service deployment based on PaddleServing
 
-This document will introduce how to use the [PaddleServing](https://github.com/PaddlePaddle/Serving/blob/develop/README.md) to deploy the PPOCR dynamic graph model as a pipeline online service.
+This document will introduce how to use
+the [PaddleServing](https://github.com/PaddlePaddle/Serving/blob/develop/README.md) to deploy the PPOCR dynamic graph
+model as a pipeline online service.
 
 Some Key Features of Paddle Serving:
 
@@ -19,21 +22,24 @@ Some Key Features of Paddle Serving:
 - Industrial serving features supported, such as models management, online loading, online A/B testing etc.
 - Highly concurrent and efficient communication between clients and servers supported.
 
-PaddleServing supports deployment in multiple languages. In this example, two deployment methods, python pipeline and C++, are provided. The comparison between the two is as follows:
+PaddleServing supports deployment in multiple languages. In this example, two deployment methods, python pipeline and
+C++, are provided. The comparison between the two is as follows:
 
-| Language | Speed | Secondary development | Do you need to compile |
-|-----|-----|---------|------------|
-| C++ | fast | Slightly difficult | Single model prediction does not need to be compiled, multi-model concatenation needs to be compiled |
-| python | general | easy | single-model/multi-model no compilation required |
+| Language | Speed   | Secondary development | Do you need to compile                                                                               |
+|----------|---------|-----------------------|------------------------------------------------------------------------------------------------------|
+| C++      | fast    | Slightly difficult    | Single model prediction does not need to be compiled, multi-model concatenation needs to be compiled |
+| python   | general | easy                  | single-model/multi-model no compilation required                                                     |
 
-The introduction and tutorial of Paddle Serving service deployment framework reference [document](https://github.com/PaddlePaddle/Serving/blob/develop/README.md).
+The introduction and tutorial of Paddle Serving service deployment framework
+reference [document](https://github.com/PaddlePaddle/Serving/blob/develop/README.md).
 
 ### Environmental preparation
 
 PaddleOCR operating environment and Paddle Serving operating environment are needed.
 
 1. Please prepare PaddleOCR operating environment reference [link](../environment.en.md).
-   Download the corresponding paddlepaddle whl package according to the environment, it is recommended to install version 2.2.2.
+   Download the corresponding paddlepaddle whl package according to the environment, it is recommended to install
+   version 2.2.2.
 
 2. The steps of PaddleServing operating environment prepare are as follows:
 
@@ -55,11 +61,13 @@ PaddleOCR operating environment and Paddle Serving operating environment are nee
     pip3 install paddle_serving_app-0.8.3-py3-none-any.whl
     ```
 
-   **note:** If you want to install the latest version of PaddleServing, refer to [link](https://github.com/PaddlePaddle/Serving/blob/v0.8.3/doc/Latest_Packages_CN.md).
+   **note:** If you want to install the latest version of PaddleServing, refer
+   to [link](https://github.com/PaddlePaddle/Serving/blob/v0.8.3/doc/Latest_Packages_CN.md).
 
 ### Model conversion
 
-When using PaddleServing for service deployment, you need to convert the saved inference model into a serving model that is easy to deploy.
+When using PaddleServing for service deployment, you need to convert the saved inference model into a serving model that
+is easy to deploy.
 
 Firstly, download the [inference model](../model_list.en.md) of PPOCR
 
@@ -89,7 +97,8 @@ python3 -m paddle_serving_client.convert --dirname ./ch_PP-OCRv3_rec_infer/ \
 
 ```
 
-After the detection model is converted, there will be additional folders of `ppocr_det_v3_serving` and `ppocr_det_v3_client` in the current folder, with the following format:
+After the detection model is converted, there will be additional folders of `ppocr_det_v3_serving` and
+`ppocr_det_v3_client` in the current folder, with the following format:
 
 ```text linenums="1"
 |- ppocr_det_v3_serving/
@@ -117,7 +126,7 @@ The recognition model is the same.
     cd PaddleOCR/deploy/pdserving/
     ```
 
-    The pdserver directory contains the code to start the pipeline service and send prediction requests, including:
+   The pdserver directory contains the code to start the pipeline service and send prediction requests, including:
 
     ```bash linenums="1"
     __init__.py
@@ -134,9 +143,9 @@ The recognition model is the same.
     python3 web_service.py --config=config.yml &>log.txt &
     ```
 
-    After the service is successfully started, a log similar to the following will be printed in log.txt
+   After the service is successfully started, a log similar to the following will be printed in log.txt
 
-    ![](./images/start_server.png)
+   ![](./images/start_server.png)
 
 3. Send service request
 
@@ -144,11 +153,13 @@ The recognition model is the same.
     python3 pipeline_http_client.py
     ```
 
-    After successfully running, the predicted result of the model will be printed in the cmd window. An example of the result is:
+   After successfully running, the predicted result of the model will be printed in the cmd window. An example of the
+   result is:
 
-    ![](./images/results.png)
+   ![](./images/results.png)
 
-    Adjust the number of concurrency in config.yml to get the largest QPS. Generally, the number of concurrent detection and recognition is 2:1
+   Adjust the number of concurrency in config.yml to get the largest QPS. Generally, the number of concurrent detection
+   and recognition is 2:1
 
     ```yaml linenums="1"
     det:
@@ -159,11 +170,12 @@ The recognition model is the same.
         ...
     ```
 
-    Multiple service requests can be sent at the same time if necessary.
+   Multiple service requests can be sent at the same time if necessary.
 
-    The predicted performance data will be automatically written into the `PipelineServingLogs/pipeline.tracer` file.
+   The predicted performance data will be automatically written into the `PipelineServingLogs/pipeline.tracer` file.
 
-    Tested on 200 real pictures, and limited the detection long side to 960. The average QPS on T4 GPU can reach around 23:
+   Tested on 200 real pictures, and limited the detection long side to 960. The average QPS on T4 GPU can reach around
+   23:
 
     ```bash linenums="1"
     2021-05-13 03:42:36,895 ==================== TRACER ======================
@@ -203,13 +215,19 @@ The recognition model is the same.
 
 ### C++ Serving
 
-Service deployment based on python obviously has the advantage of convenient secondary development. However, the real application often needs to pursue better performance. PaddleServing also provides a more performant C++ deployment version.
+Service deployment based on python obviously has the advantage of convenient secondary development. However, the real
+application often needs to pursue better performance. PaddleServing also provides a more performant C++ deployment
+version.
 
-The C++ service deployment is the same as python in the environment setup and data preparation stages, the difference is when the service is started and the client sends requests.
+The C++ service deployment is the same as python in the environment setup and data preparation stages, the difference is
+when the service is started and the client sends requests.
 
 1. Compile Serving
 
-   To improve predictive performance, C++ services also provide multiple model concatenation services. Unlike Python Pipeline services, multiple model concatenation requires the pre - and post-model processing code to be written on the server side, so local recompilation is required to generate serving. Specific may refer to the official document: [how to compile Serving](https://github.com/PaddlePaddle/Serving/blob/v0.8.3/doc/Compile_EN.md)
+   To improve predictive performance, C++ services also provide multiple model concatenation services. Unlike Python
+   Pipeline services, multiple model concatenation requires the pre - and post-model processing code to be written on
+   the server side, so local recompilation is required to generate serving. Specific may refer to the official
+   document: [how to compile Serving](https://github.com/PaddlePaddle/Serving/blob/v0.8.3/doc/Compile_EN.md)
 
 2. Run the following command to start the service.
 
@@ -218,12 +236,13 @@ The C++ service deployment is the same as python in the environment setup and da
     python3 -m paddle_serving_server.serve --model ppocr_det_v3_serving ppocr_rec_v3_serving --op GeneralDetectionOp GeneralInferOp --port 8181 &>log.txt &
     ```
 
-    After the service is successfully started, a log similar to the following will be printed in log.txt
-    ![](./images/start_server.png)
+   After the service is successfully started, a log similar to the following will be printed in log.txt
+   ![](./images/start_server.png)
 
 3. Send service request
 
-   Due to the need for pre and post-processing in the C++Server part, in order to speed up the input to the C++Server is only the base64 encoded string of the picture, it needs to be manually modified
+   Due to the need for pre and post-processing in the C++Server part, in order to speed up the input to the C++Server is
+   only the base64 encoded string of the picture, it needs to be manually modified
    Change the feed_type field and shape field in ppocr_det_v3_client/serving_client_conf.prototxt to the following:
 
    ```bash linenums="1"
@@ -242,13 +261,16 @@ The C++ service deployment is the same as python in the environment setup and da
     python3 ocr_cpp_client.py ppocr_det_v3_client ppocr_rec_v3_client
     ```
 
-    After successfully running, the predicted result of the model will be printed in the cmd window. An example of the result is:
+   After successfully running, the predicted result of the model will be printed in the cmd window. An example of the
+   result is:
 
-    ![](./images/results.png)
+   ![](./images/results.png)
 
 ### WINDOWS Users
 
-Windows does not support Pipeline Serving, if we want to lauch paddle serving on Windows, we should use Web Service, for more infomation please refer to [Paddle Serving for Windows Users](https://github.com/PaddlePaddle/Serving/blob/develop/doc/Windows_Tutorial_EN.md)
+Windows does not support Pipeline Serving, if we want to lauch paddle serving on Windows, we should use Web Service, for
+more infomation please refer
+to [Paddle Serving for Windows Users](https://github.com/PaddlePaddle/Serving/blob/develop/doc/Windows_Tutorial_EN.md)
 
 **WINDOWS user can only use version 0.5.0 CPU Mode**
 
@@ -278,7 +300,8 @@ pip3 install paddle-serving-app==0.3.1
 
 **Q1**: No result return after sending the request.
 
-**A1**: Do not set the proxy when starting the service and sending the request. You can close the proxy before starting the service and before sending the request. The command to close the proxy is:
+**A1**: Do not set the proxy when starting the service and sending the request. You can close the proxy before starting
+the service and before sending the request. The command to close the proxy is:
 
 ```bash linenums="1"
 unset https_proxy

@@ -6,11 +6,16 @@ comments: true
 
 ## 1. Introduction
 
-PP-OCRv3 is a further upgrade of PP-OCRv2. This section introduces the training steps of the PP-OCRv3 detection model. For an introduction to the PP-OCRv3 strategy, refer to [document](../blog/PP-OCRv3_introduction.md).
+PP-OCRv3 is a further upgrade of PP-OCRv2. This section introduces the training steps of the PP-OCRv3 detection model.
+For an introduction to the PP-OCRv3 strategy, refer to [document](../blog/PP-OCRv3_introduction.md).
 
 ## 2. Detection training
 
-The PP-OCRv3 detection model is an upgrade of the [CML](https://arxiv.org/pdf/2109.03144.pdf) (Collaborative Mutual Learning) collaborative mutual learning text detection distillation strategy in PP-OCRv2. PP-OCRv3 further optimizes the detection teacher model and student model. Among them, when optimizing the teacher model, the PAN structure LK-PAN with a large receptive field and the DML (Deep Mutual Learning) distillation strategy are proposed; when optimizing the student model, the FPN structure RSE-FPN with a residual attention mechanism is proposed.
+The PP-OCRv3 detection model is an upgrade of the [CML](https://arxiv.org/pdf/2109.03144.pdf) (Collaborative Mutual
+Learning) collaborative mutual learning text detection distillation strategy in PP-OCRv2. PP-OCRv3 further optimizes the
+detection teacher model and student model. Among them, when optimizing the teacher model, the PAN structure LK-PAN with
+a large receptive field and the DML (Deep Mutual Learning) distillation strategy are proposed; when optimizing the
+student model, the FPN structure RSE-FPN with a residual attention mechanism is proposed.
 
 PP-OCRv3 detection training includes two steps:
 
@@ -20,13 +25,18 @@ PP-OCRv3 detection training includes two steps:
 
 ### 2.1 Prepare data and operating environment
 
-The training data uses icdar2015 data. For the steps of preparing the training set, refer to [ocr_dataset](./dataset/ocr_datasets.md).
+The training data uses icdar2015 data. For the steps of preparing the training set, refer
+to [ocr_dataset](./dataset/ocr_datasets.md).
 
 For the preparation of the operating environment, refer to [document](./installation.md).
 
 ### 2.2 Train the teacher model
 
-The configuration file for teacher model training is [ch_PP-OCRv3_det_dml.yml](https://github.com/PaddlePaddle/PaddleOCR/blob/release%2F2.5/configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_dml.yml). The Backbone, Neck, and Head of the teacher model structure are Resnet50, LKPAN, and DBHead respectively, and are trained using the DML distillation method. For a detailed introduction to the configuration file, refer to [Document](./knowledge_distillation.md).
+The configuration file for teacher model training
+is [ch_PP-OCRv3_det_dml.yml](https://github.com/PaddlePaddle/PaddleOCR/blob/release%2F2.5/configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_dml.yml).
+The Backbone, Neck, and Head of the teacher model structure are Resnet50, LKPAN, and DBHead respectively, and are
+trained using the DML distillation method. For a detailed introduction to the configuration file, refer
+to [Document](./knowledge_distillation.md).
 
 Download ImageNet pre-trained model:
 
@@ -61,7 +71,8 @@ latest.pdparams # The latest model parameters saved by default
 latest.pdopt # The optimizer-related parameters of the latest model saved by default
 ```
 
-Among them, best_accuracy is the model parameter with the highest accuracy saved, and the model can be directly used for evaluation.
+Among them, best_accuracy is the model parameter with the highest accuracy saved, and the model can be directly used for
+evaluation.
 
 The model evaluation command is as follows:
 
@@ -69,10 +80,12 @@ The model evaluation command is as follows:
 python3 tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_dml.yml -o Global.checkpoints=./output/best_accuracy
 ```
 
-The trained teacher model has a larger structure and higher accuracy, which is used to improve the accuracy of the student model.
+The trained teacher model has a larger structure and higher accuracy, which is used to improve the accuracy of the
+student model.
 
 **Extract teacher model parameters**
-best_accuracy contains the parameters of two models, corresponding to Student and Student2 in the configuration file. The method to extract the parameters of Student is as follows:
+best_accuracy contains the parameters of two models, corresponding to Student and Student2 in the configuration file.
+The method to extract the parameters of Student is as follows:
 
 ```bash linenums="1"
 import paddle
@@ -92,8 +105,10 @@ The extracted model parameters can be used for further fine-tuning or distillati
 
 ### 2.3 Training the student model
 
-The configuration file for training the student model is [ch_PP-OCRv3_det_cml.yml](https://github.com/PaddlePaddle/PaddleOCR/blob/release%2F2.5/configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_cml.yml)
-The teacher model trained in the previous section is used as supervision, and the CML method is used to train a lightweight student model.
+The configuration file for training the student model
+is [ch_PP-OCRv3_det_cml.yml](https://github.com/PaddlePaddle/PaddleOCR/blob/release%2F2.5/configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_cml.yml)
+The teacher model trained in the previous section is used as supervision, and the CML method is used to train a
+lightweight student model.
 
 Download the ImageNet pre-trained model of the student model:
 
@@ -126,7 +141,8 @@ The model evaluation command is as follows:
 python3 tools/eval.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_cml.yml -o Global.checkpoints=./output/best_accuracy
 ```
 
-best_accuracy contains the parameters of three models, corresponding to Student, Student2, and Teacher in the configuration file. The method to extract Student parameters is as follows:
+best_accuracy contains the parameters of three models, corresponding to Student, Student2, and Teacher in the
+configuration file. The method to extract Student parameters is as follows:
 
 ```bash linenums="1"
 import paddle
@@ -150,11 +166,14 @@ This section describes how to use the PP-OCRv3 detection model for fine-tune tra
 
 Fine-tune training is applicable to three scenarios:
 
-- Fine-tune training based on the CML distillation method is applicable to scenarios where the teacher model has higher accuracy than the PP-OCRv3 detection model in the usage scenario and a lightweight detection model is desired.
+- Fine-tune training based on the CML distillation method is applicable to scenarios where the teacher model has higher
+  accuracy than the PP-OCRv3 detection model in the usage scenario and a lightweight detection model is desired.
 
-- Fine-tune training based on the PP-OCRv3 lightweight detection model does not require the training of the teacher model and is intended to improve the accuracy of the usage scenario based on the PP-OCRv3 detection model.
+- Fine-tune training based on the PP-OCRv3 lightweight detection model does not require the training of the teacher
+  model and is intended to improve the accuracy of the usage scenario based on the PP-OCRv3 detection model.
 
-- Fine-tune training based on the DML distillation method is applicable to scenarios where the DML method is used to further improve accuracy.
+- Fine-tune training based on the DML distillation method is applicable to scenarios where the DML method is used to
+  further improve accuracy.
 
 **Finetune training based on CML distillation method**
 
@@ -165,7 +184,8 @@ wget https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/ch_PP-OCRv3_det_distill_tr
 tar xf ch_PP-OCRv3_det_distill_train.tar
 ```
 
-ch_PP-OCRv3_det_distill_train/best_accuracy.pdparams contains the parameters of Student, Student2, and Teacher models in the CML configuration file.
+ch_PP-OCRv3_det_distill_train/best_accuracy.pdparams contains the parameters of Student, Student2, and Teacher models in
+the CML configuration file.
 
 Start training:
 
@@ -205,7 +225,8 @@ print(s_params.keys())
 paddle.save(s_params, "./student.pdparams")
 ```
 
-Train using the configuration file [ch_PP-OCRv3_det_student.yml](https://github.com/PaddlePaddle/PaddleOCR/blob/release%2F2.5/configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml).
+Train using the configuration
+file [ch_PP-OCRv3_det_student.yml](https://github.com/PaddlePaddle/PaddleOCR/blob/release%2F2.5/configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student.yml).
 
 **Start training**
 
@@ -222,7 +243,8 @@ Global.save_model_dir=./output/
 
 **Finetune training based on DML distillation method**
 
-Take the Teacher model in ch_PP-OCRv3_det_distill_train as an example. First, extract the parameters of the Teacher structure. The method is as follows:
+Take the Teacher model in ch_PP-OCRv3_det_distill_train as an example. First, extract the parameters of the Teacher
+structure. The method is as follows:
 
 ```bash linenums="1"
 import paddle

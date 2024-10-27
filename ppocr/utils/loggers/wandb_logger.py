@@ -1,18 +1,19 @@
 import os
-from .base_logger import BaseLogger
+
 from ppocr.utils.logging import get_logger
+from .base_logger import BaseLogger
 
 
 class WandbLogger(BaseLogger):
     def __init__(
-        self,
-        project=None,
-        name=None,
-        id=None,
-        entity=None,
-        save_dir=None,
-        config=None,
-        **kwargs,
+            self,
+            project=None,
+            name=None,
+            id=None,
+            entity=None,
+            save_dir=None,
+            config=None,
+            **kwargs,
     ):
         try:
             import wandb

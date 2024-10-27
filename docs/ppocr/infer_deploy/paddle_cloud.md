@@ -34,16 +34,20 @@ comments: true
 
 PaddleCloud基于 [Tekton](https://github.com/tektoncd/pipeline) 为OCR模型套件提供了镜像持续构建的能力，并支持CPU、GPU以及常见CUDA版本的镜像。
 您可以查看 [PaddleOCR 镜像仓库](https://hub.docker.com/repository/docker/paddlecloud/paddleocr) 来获取所有的镜像列表。
-同时我们也将PP-OCRv3识别模型的训练与推理实战案例放置到了AI Studio平台上，您可以点击 [PP-OCRv3识别训推一体项目实战](https://aistudio.baidu.com/aistudio/projectdetail/3916206?channelType=0&channel=0) 在平台上快速体验。
+同时我们也将PP-OCRv3识别模型的训练与推理实战案例放置到了AI
+Studio平台上，您可以点击 [PP-OCRv3识别训推一体项目实战](https://aistudio.baidu.com/aistudio/projectdetail/3916206?channelType=0&channel=0)
+在平台上快速体验。
 
 > **适用场景**：本地测试开发环境、单机部署环境。
 
 ### 1.1 安装Docker
 
 如果您所使用的机器上还没有安装 Docker，您可以参考 [Docker 官方文档](https://docs.docker.com/get-docker/) 来进行安装。
-如果您需要使用支持 GPU 版本的镜像，则还需安装好NVIDIA相关驱动和 [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker) 。
+如果您需要使用支持 GPU
+版本的镜像，则还需安装好NVIDIA相关驱动和 [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker) 。
 
-**注意**：如果您使用的是Windows系统，需要开启 [WSL2（Linux子系统功能）功能](https://docs.microsoft.com/en-us/windows/wsl/install)。
+**注意**
+：如果您使用的是Windows系统，需要开启 [WSL2（Linux子系统功能）功能](https://docs.microsoft.com/en-us/windows/wsl/install)。
 
 ### 1.2 启动容器
 
@@ -311,7 +315,7 @@ spec:
             resources:
               limits:
                 nvidia.com/gpu: 1
-            volumeMounts:  # 添加 shared memory 挂载以防止缓存出错
+            volumeMounts: # 添加 shared memory 挂载以防止缓存出错
               - mountPath: /dev/shm
                 name: dshm
         volumes:
@@ -320,7 +324,8 @@ spec:
               medium: Memory
 ```
 
-本案例采用GPU进行训练，如果您只有CPU机器，则可以将镜像替换成CPU版本 `paddlecloud/paddleocr:2.5-cpu-efbb0a`，并在args中加上参数`Global.use_gpu=false`。
+本案例采用GPU进行训练，如果您只有CPU机器，则可以将镜像替换成CPU版本 `paddlecloud/paddleocr:2.5-cpu-efbb0a`，并在args中加上参数
+`Global.use_gpu=false`。
 
 ```bash linenums="1"
 # 创建PaddleJob训练模型
@@ -338,5 +343,7 @@ $ kubectl logs -f ppocrv3-worker-0 -n paddlecloud
 
 ## 更多资源
 
-欢迎关注[云上飞桨项目PaddleCloud](https://github.com/PaddlePaddle/PaddleCloud)，我们为您提供了飞桨模型套件标准镜像以及全栈的云原生模型套件部署组件，如您有任何关于飞桨模型套件的部署问题，请联系我们。
-如果你发现任何PaddleCloud存在的问题或者是建议, 欢迎通过[GitHub Issues](https://github.com/PaddlePaddle/PaddleCloud/issues)给我们提issues。
+欢迎关注[云上飞桨项目PaddleCloud](https://github.com/PaddlePaddle/PaddleCloud)
+，我们为您提供了飞桨模型套件标准镜像以及全栈的云原生模型套件部署组件，如您有任何关于飞桨模型套件的部署问题，请联系我们。
+如果你发现任何PaddleCloud存在的问题或者是建议,
+欢迎通过[GitHub Issues](https://github.com/PaddlePaddle/PaddleCloud/issues)给我们提issues。

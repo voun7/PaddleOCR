@@ -14,19 +14,21 @@ comments: true
 
 `CAN`使用CROHME手写公式数据集进行训练，在对应测试集上的精度如下：
 
-|模型    |骨干网络|配置文件|ExpRate|下载链接|
-| ----- | ----- | ----- | ----- | ----- |
-|CAN|DenseNet|[rec_d28_can.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_d28_can.yml)|51.72%|[训练模型](https://paddleocr.bj.bcebos.com/contribution/rec_d28_can_train.tar)|
+| 模型  | 骨干网络     | 配置文件                                                                                               | ExpRate | 下载链接                                                                       |
+|-----|----------|----------------------------------------------------------------------------------------------------|---------|----------------------------------------------------------------------------|
+| CAN | DenseNet | [rec_d28_can.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_d28_can.yml) | 51.72%  | [训练模型](https://paddleocr.bj.bcebos.com/contribution/rec_d28_can_train.tar) |
 
 ## 2. 环境配置
 
-请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)克隆项目代码。
+请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)
+克隆项目代码。
 
 ## 3. 模型训练、评估、预测
 
 ### 3.1 模型训练
 
-请参考[文本识别训练教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练`CAN`识别模型时需要**更换配置文件**为`CAN`的[配置文件](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_d28_can.yml)。
+请参考[文本识别训练教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练`CAN`识别模型时需要*
+*更换配置文件**为`CAN`的[配置文件](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_d28_can.yml)。
 
 #### 启动训练
 
@@ -42,7 +44,8 @@ python3 -m paddle.distributed.launch --gpus '0,1,2,3'  tools/train.py -c configs
 
 **注意：**
 
-- 我们提供的数据集，即[`CROHME数据集`](https://paddleocr.bj.bcebos.com/dataset/CROHME.tar)将手写公式存储为黑底白字的格式，若您自行准备的数据集与之相反，即以白底黑字模式存储，请在训练时做出如下修改
+- 我们提供的数据集，即[`CROHME数据集`](https://paddleocr.bj.bcebos.com/dataset/CROHME.tar)
+  将手写公式存储为黑底白字的格式，若您自行准备的数据集与之相反，即以白底黑字模式存储，请在训练时做出如下修改
 
   ```bash linenums="1"
   python3 tools/train.py -c configs/rec/rec_d28_can.yml -o Train.dataset.transforms.GrayImageChannelFormat.inverse=False
@@ -78,7 +81,9 @@ python3 tools/infer_rec.py -c configs/rec/rec_d28_can.yml -o Architecture.Head.a
 
 ### 4.1 Python推理
 
-首先将训练得到best模型，转换成inference model。这里以训练完成的模型为例（[模型下载地址](https://paddleocr.bj.bcebos.com/contribution/rec_d28_can_train.tar) )，可以使用如下命令进行转换：
+首先将训练得到best模型，转换成inference
+model。这里以训练完成的模型为例（[模型下载地址](https://paddleocr.bj.bcebos.com/contribution/rec_d28_can_train.tar) )
+，可以使用如下命令进行转换：
 
 ```bash linenums="1"
 # 注意将pretrained_model的路径设置为本地路径。

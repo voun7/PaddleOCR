@@ -11,25 +11,28 @@ Paper:
 > Darwin Bautista, Rowel Atienza
 > ECCV, 2021
 
-Using real datasets (real) and synthetic datsets (synth) for training respectively，and evaluating on IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE datasets.
+Using real datasets (real) and synthetic datsets (synth) for training respectively，and evaluating on IIIT, SVT, IC03,
+IC13, IC15, SVTP, CUTE datasets.
 
 - The real datasets include COCO-Text, RCTW17, Uber-Text, ArT, LSVT, MLT19, ReCTS, TextOCR and OpenVINO datasets.
 - The synthesis datasets include MJSynth and SynthText datasets.
 
 the algorithm reproduction effect is as follows:
 
-|Training Dataset|Model|Backbone|config|Acc|Download link|
-| --- | --- | --- | --- | --- | --- |
-|Synth|ParseQ|VIT|[rec_vit_parseq.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_vit_parseq.yml)|91.24%|[train model](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_synth.tgz)|
-|Real|ParseQ|VIT|[rec_vit_parseq.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_vit_parseq.yml)|94.74%|[train model](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_real.tgz)|
+| Training Dataset | Model  | Backbone | config                                                                                                   | Acc    | Download link                                                                               |
+|------------------|--------|----------|----------------------------------------------------------------------------------------------------------|--------|---------------------------------------------------------------------------------------------|
+| Synth            | ParseQ | VIT      | [rec_vit_parseq.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_vit_parseq.yml) | 91.24% | [train model](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_synth.tgz) |
+| Real             | ParseQ | VIT      | [rec_vit_parseq.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_vit_parseq.yml) | 94.74% | [train model](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_real.tgz)  |
 
 ## 2. Environment
 
-Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
+Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and
+refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
 
 ## 3. Model Training / Evaluation / Prediction
 
-Please refer to [Text Recognition Tutorial](../../ppocr/model_train/recognition.en.md). PaddleOCR modularizes the code, and training different recognition models only requires **changing the configuration file**.
+Please refer to [Text Recognition Tutorial](../../ppocr/model_train/recognition.en.md). PaddleOCR modularizes the code,
+and training different recognition models only requires **changing the configuration file**.
 
 ### Training
 
@@ -61,7 +64,9 @@ python3 tools/infer_rec.py -c configs/rec/rec_vit_parseq.yml -o Global.pretraine
 
 ### 4.1 Python Inference
 
-First, the model saved during the SAR text recognition training process is converted into an inference model. ( [Model download link](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_real.tgz) ), you can use the following command to convert:
+First, the model saved during the SAR text recognition training process is converted into an inference
+model. ( [Model download link](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_real.tgz) ), you can
+use the following command to convert:
 
 ```bash linenums="1"
 python3 tools/export_model.py -c configs/rec/rec_vit_parseq.yml -o Global.pretrained_model=./rec_vit_parseq_real/best_accuracy Global.save_inference_dir=./inference/rec_parseq

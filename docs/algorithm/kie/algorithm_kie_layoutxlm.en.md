@@ -16,18 +16,20 @@ Paper:
 
 On XFUND_zh dataset, the algorithm reproduction Hmean is as follows.
 
-|Model|Backbone|Task |Cnnfig|Hmean|Download link|
-| --- | --- |--|--- | --- | --- |
-|LayoutXLM|LayoutXLM-base|SER |[ser_layoutxlm_xfund_zh.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/kie/layoutlm_series/ser_layoutxlm_xfund_zh.yml)|90.38%|[trained model](https://paddleocr.bj.bcebos.com/pplayout/ser_LayoutXLM_xfun_zh.tar)/[inference model](https://paddleocr.bj.bcebos.com/pplayout/ser_LayoutXLM_xfun_zh_infer.tar)|
-|LayoutXLM|LayoutXLM-base|RE | [re_layoutxlm_xfund_zh.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/kie/layoutlm_series/re_layoutxlm_xfund_zh.yml)|74.83%|[trained model](https://paddleocr.bj.bcebos.com/pplayout/re_LayoutXLM_xfun_zh.tar)/[inference model](https://paddleocr.bj.bcebos.com/pplayout/re_LayoutXLM_xfun_zh_infer.tar)|
+| Model     | Backbone       | Task | Cnnfig                                                                                                                                   | Hmean  | Download link                                                                                                                                                                   |
+|-----------|----------------|------|------------------------------------------------------------------------------------------------------------------------------------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| LayoutXLM | LayoutXLM-base | SER  | [ser_layoutxlm_xfund_zh.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/kie/layoutlm_series/ser_layoutxlm_xfund_zh.yml) | 90.38% | [trained model](https://paddleocr.bj.bcebos.com/pplayout/ser_LayoutXLM_xfun_zh.tar)/[inference model](https://paddleocr.bj.bcebos.com/pplayout/ser_LayoutXLM_xfun_zh_infer.tar) |
+| LayoutXLM | LayoutXLM-base | RE   | [re_layoutxlm_xfund_zh.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/kie/layoutlm_series/re_layoutxlm_xfund_zh.yml)   | 74.83% | [trained model](https://paddleocr.bj.bcebos.com/pplayout/re_LayoutXLM_xfun_zh.tar)/[inference model](https://paddleocr.bj.bcebos.com/pplayout/re_LayoutXLM_xfun_zh_infer.tar)   |
 
 ## 2. Environment
 
-Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
+Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and
+refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
 
 ## 3. Model Training / Evaluation / Prediction
 
-Please refer to [KIE tutorial](../../ppocr/model_train/kie.en.md)。PaddleOCR has modularized the code structure, so that you only need to **replace the configuration file** to train different models.
+Please refer to [KIE tutorial](../../ppocr/model_train/kie.en.md)。PaddleOCR has modularized the code structure, so that
+you only need to **replace the configuration file** to train different models.
 
 ## 4. Inference and Deployment
 
@@ -35,7 +37,9 @@ Please refer to [KIE tutorial](../../ppocr/model_train/kie.en.md)。PaddleOCR ha
 
 #### SER
 
-First, we need to export the trained model into inference model. Take LayoutXLM model trained on XFUND_zh as an example ([trained model download link](https://paddleocr.bj.bcebos.com/pplayout/ser_LayoutXLM_xfun_zh.tar)). Use the following command to export.
+First, we need to export the trained model into inference model. Take LayoutXLM model trained on XFUND_zh as an
+example ([trained model download link](https://paddleocr.bj.bcebos.com/pplayout/ser_LayoutXLM_xfun_zh.tar)). Use the
+following command to export.
 
 ``` bash
 wget https://paddleocr.bj.bcebos.com/pplayout/ser_LayoutXLM_xfun_zh.tar
@@ -61,7 +65,9 @@ The SER visualization results are saved in the `./output` directory by default. 
 
 #### RE
 
-First, we need to export the trained model into inference model. Take LayoutXLM model trained on XFUND_zh as an example ([trained model download link](https://paddleocr.bj.bcebos.com/pplayout/re_LayoutXLM_xfun_zh.tar)). Use the following command to export.
+First, we need to export the trained model into inference model. Take LayoutXLM model trained on XFUND_zh as an
+example ([trained model download link](https://paddleocr.bj.bcebos.com/pplayout/re_LayoutXLM_xfun_zh.tar)). Use the
+following command to export.
 
 ``` bash
 wget https://paddleocr.bj.bcebos.com/pplayout/re_LayoutXLM_xfun_zh.tar

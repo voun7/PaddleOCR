@@ -18,31 +18,35 @@ comments: true
 
 在ICDAR2015文本检测公开数据集上，算法复现效果如下：
 
-|模型|骨干网络|配置文件|precision|recall|Hmean|下载链接|
-| --- | --- | --- | --- | --- | --- | --- |
-|DB|ResNet50_vd|[configs/det/det_r50_vd_db.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/det/det_r50_vd_db.yml)|86.41%|78.72%|82.38%|[训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/det_r50_vd_db_v2.0_train.tar)|
-|DB|MobileNetV3|[configs/det/det_mv3_db.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/det/det_mv3_db.yml)|77.29%|73.08%|75.12%|[训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/det_mv3_db_v2.0_train.tar)|
-|DB++|ResNet50|[configs/det/det_r50_db++_icdar15.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/det/det_r50_db++_icdar15.yml)|90.89%|82.66%|86.58%|[合成数据预训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/en_det/ResNet50_dcn_asf_synthtext_pretrained.pdparams)/[训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/en_det/det_r50_db%2B%2B_icdar15_train.tar)|
+| 模型   | 骨干网络        | 配置文件                                                                                                                             | precision | recall | Hmean  | 下载链接                                                                                                                                                                                                           |
+|------|-------------|----------------------------------------------------------------------------------------------------------------------------------|-----------|--------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| DB   | ResNet50_vd | [configs/det/det_r50_vd_db.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/det/det_r50_vd_db.yml)               | 86.41%    | 78.72% | 82.38% | [训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/det_r50_vd_db_v2.0_train.tar)                                                                                                                           |
+| DB   | MobileNetV3 | [configs/det/det_mv3_db.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/det/det_mv3_db.yml)                     | 77.29%    | 73.08% | 75.12% | [训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/det_mv3_db_v2.0_train.tar)                                                                                                                              |
+| DB++ | ResNet50    | [configs/det/det_r50_db++_icdar15.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/det/det_r50_db++_icdar15.yml) | 90.89%    | 82.66% | 86.58% | [合成数据预训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/en_det/ResNet50_dcn_asf_synthtext_pretrained.pdparams)/[训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/en_det/det_r50_db%2B%2B_icdar15_train.tar) |
 
 在TD_TR文本检测公开数据集上，算法复现效果如下：
 
-|模型|骨干网络|配置文件|precision|recall|Hmean|下载链接|
-| --- | --- | --- | --- | --- | --- | --- |
-|DB++|ResNet50|[configs/det/det_r50_db++_td_tr.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/det/det_r50_db++_td_tr.yml)|92.92%|86.48%|89.58%|[合成数据预训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/en_det/ResNet50_dcn_asf_synthtext_pretrained.pdparams)/[训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/en_det/det_r50_db%2B%2B_td_tr_train.tar)|
+| 模型   | 骨干网络     | 配置文件                                                                                                                         | precision | recall | Hmean  | 下载链接                                                                                                                                                                                                         |
+|------|----------|------------------------------------------------------------------------------------------------------------------------------|-----------|--------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| DB++ | ResNet50 | [configs/det/det_r50_db++_td_tr.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/det/det_r50_db++_td_tr.yml) | 92.92%    | 86.48% | 89.58% | [合成数据预训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/en_det/ResNet50_dcn_asf_synthtext_pretrained.pdparams)/[训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/en_det/det_r50_db%2B%2B_td_tr_train.tar) |
 
 ## 2. 环境配置
 
-请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)克隆项目代码。
+请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)
+克隆项目代码。
 
 ## 3. 模型训练、评估、预测
 
-请参考[文本检测训练教程](../../ppocr/model_train/detection.md)。PaddleOCR对代码进行了模块化，训练不同的检测模型只需要**更换配置文件**即可。
+请参考[文本检测训练教程](../../ppocr/model_train/detection.md)。PaddleOCR对代码进行了模块化，训练不同的检测模型只需要*
+*更换配置文件**即可。
 
 ## 4. 推理部署
 
 ### 4.1 Python推理
 
-首先将DB文本检测训练过程中保存的模型，转换成inference model。以基于Resnet50_vd骨干网络，在ICDAR2015英文数据集训练的模型为例（ [模型下载地址](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/det_r50_vd_db_v2.0_train.tar) )，可以使用如下命令进行转换：
+首先将DB文本检测训练过程中保存的模型，转换成inference
+model。以基于Resnet50_vd骨干网络，在ICDAR2015英文数据集训练的模型为例（ [模型下载地址](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/det_r50_vd_db_v2.0_train.tar) )
+，可以使用如下命令进行转换：
 
 ```bash linenums="1"
 python3 tools/export_model.py -c configs/det/det_r50_vd_db.yml -o Global.pretrained_model=./det_r50_vd_db_v2.0_train/best_accuracy  Global.save_inference_dir=./inference/det_db
@@ -66,7 +70,8 @@ python3 tools/infer/predict_det.py --image_dir="./doc/imgs_en/img_10.jpg" --det_
 
 ### 4.3 Serving服务化部署
 
-准备好推理模型后，参考[pdserving](../../ppocr/infer_deploy/paddle_server.md)教程进行Serving服务化部署，包括Python Serving和C++ Serving两种模式。
+准备好推理模型后，参考[pdserving](../../ppocr/infer_deploy/paddle_server.md)教程进行Serving服务化部署，包括Python
+Serving和C++ Serving两种模式。
 
 ### 4.4 更多推理部署
 

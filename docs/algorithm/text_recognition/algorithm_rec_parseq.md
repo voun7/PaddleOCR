@@ -11,25 +11,28 @@ comments: true
 > Darwin Bautista, Rowel Atienza
 > ECCV, 2021
 
-原论文分别使用真实文本识别数据集(Real)和合成文本识别数据集(Synth)进行训练，在IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE数据集上进行评估。其中：
+原论文分别使用真实文本识别数据集(Real)和合成文本识别数据集(Synth)进行训练，在IIIT, SVT, IC03, IC13, IC15, SVTP,
+CUTE数据集上进行评估。其中：
 
 - 真实文本识别数据集(Real)包含COCO-Text, RCTW17, Uber-Text, ArT, LSVT, MLT19, ReCTS, TextOCR, OpenVINO数据集
 - 合成文本识别数据集(Synth)包含MJSynth和SynthText数据集
 
 在不同数据集上训练的算法的复现效果如下：
 
-|数据集|模型|骨干网络|配置文件|Acc|下载链接|
-| --- | --- | --- | --- | --- | --- |
-|Synth|ParseQ|VIT|[rec_vit_parseq.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_vit_parseq.yml)|91.24%|[训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_synth.tgz)|
-|Real|ParseQ|VIT|[rec_vit_parseq.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_vit_parseq.yml)|94.74%|[训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_real.tgz)|
+| 数据集   | 模型     | 骨干网络 | 配置文件                                                                                                     | Acc    | 下载链接                                                                                 |
+|-------|--------|------|----------------------------------------------------------------------------------------------------------|--------|--------------------------------------------------------------------------------------|
+| Synth | ParseQ | VIT  | [rec_vit_parseq.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_vit_parseq.yml) | 91.24% | [训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_synth.tgz) |
+| Real  | ParseQ | VIT  | [rec_vit_parseq.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_vit_parseq.yml) | 94.74% | [训练模型](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_real.tgz)  |
 
 ## 2. 环境配置
 
-请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)克隆项目代码。
+请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)
+克隆项目代码。
 
 ## 3. 模型训练、评估、预测
 
-请参考[文本识别教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练不同的识别模型只需要**更换配置文件**即可。
+请参考[文本识别教程](../../ppocr/model_train/recognition.md)。PaddleOCR对代码进行了模块化，训练不同的识别模型只需要*
+*更换配置文件**即可。
 
 ### 训练
 
@@ -61,7 +64,8 @@ python3 tools/infer_rec.py -c configs/rec/rec_vit_parseq.yml -o Global.pretraine
 
 ### 4.1 Python推理
 
-首先将ParseQ文本识别训练过程中保存的模型，转换成inference model。（ [模型下载地址](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_real.tgz) )，可以使用如下命令进行转换：
+首先将ParseQ文本识别训练过程中保存的模型，转换成inference
+model。（ [模型下载地址](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_real.tgz) )，可以使用如下命令进行转换：
 
 ```bash linenums="1"
 python3 tools/export_model.py -c configs/rec/rec_vit_parseq.yml -o Global.pretrained_model=./rec_vit_parseq_real/best_accuracy Global.save_inference_dir=./inference/rec_parseq

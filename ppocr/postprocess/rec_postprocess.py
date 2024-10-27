@@ -12,10 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
+
 import numpy as np
 import paddle
 from paddle.nn import functional as F
-import re
 
 
 class BaseRecLabelDecode(object):
@@ -99,14 +100,14 @@ class BaseRecLabelDecode(object):
                 c_state = "splitter"
 
             if (
-                char == "."
-                and state == "en&num"
-                and c_i + 1 < len(text)
-                and bool(re.search("[0-9]", text[c_i + 1]))
+                    char == "."
+                    and state == "en&num"
+                    and c_i + 1 < len(text)
+                    and bool(re.search("[0-9]", text[c_i + 1]))
             ):  # grouping floting number
                 c_state = "en&num"
             if (
-                char == "-" and state == "en&num"
+                    char == "-" and state == "en&num"
             ):  # grouping word with '-', such as 'state-of-the-art'
                 c_state = "en&num"
 
@@ -134,11 +135,11 @@ class BaseRecLabelDecode(object):
         return word_list, word_col_list, state_list
 
     def decode(
-        self,
-        text_index,
-        text_prob=None,
-        is_remove_duplicate=False,
-        return_word_box=False,
+            self,
+            text_index,
+            text_prob=None,
+            is_remove_duplicate=False,
+            return_word_box=False,
     ):
         """convert text-index into text-label."""
         result_list = []
@@ -231,13 +232,13 @@ class DistillationCTCLabelDecode(CTCLabelDecode):
     """
 
     def __init__(
-        self,
-        character_dict_path=None,
-        use_space_char=False,
-        model_name=["student"],
-        key=None,
-        multi_head=False,
-        **kwargs,
+            self,
+            character_dict_path=None,
+            use_space_char=False,
+            model_name=["student"],
+            key=None,
+            multi_head=False,
+            **kwargs,
     ):
         super(DistillationCTCLabelDecode, self).__init__(
             character_dict_path, use_space_char
@@ -291,8 +292,8 @@ class AttnLabelDecode(BaseRecLabelDecode):
                 if is_remove_duplicate:
                     # only for predict
                     if (
-                        idx > 0
-                        and text_index[batch_idx][idx - 1] == text_index[batch_idx][idx]
+                            idx > 0
+                            and text_index[batch_idx][idx - 1] == text_index[batch_idx][idx]
                     ):
                         continue
                 char_list.append(self.character[int(text_index[batch_idx][idx])])
@@ -369,8 +370,8 @@ class RFLLabelDecode(BaseRecLabelDecode):
                 if is_remove_duplicate:
                     # only for predict
                     if (
-                        idx > 0
-                        and text_index[batch_idx][idx - 1] == text_index[batch_idx][idx]
+                            idx > 0
+                            and text_index[batch_idx][idx - 1] == text_index[batch_idx][idx]
                     ):
                         continue
                 char_list.append(self.character[int(text_index[batch_idx][idx])])
@@ -466,8 +467,8 @@ class SEEDLabelDecode(BaseRecLabelDecode):
                 if is_remove_duplicate:
                     # only for predict
                     if (
-                        idx > 0
-                        and text_index[batch_idx][idx - 1] == text_index[batch_idx][idx]
+                            idx > 0
+                            and text_index[batch_idx][idx - 1] == text_index[batch_idx][idx]
                     ):
                         continue
                 char_list.append(self.character[int(text_index[batch_idx][idx])])
@@ -548,8 +549,8 @@ class SRNLabelDecode(BaseRecLabelDecode):
                 if is_remove_duplicate:
                     # only for predict
                     if (
-                        idx > 0
-                        and text_index[batch_idx][idx - 1] == text_index[batch_idx][idx]
+                            idx > 0
+                            and text_index[batch_idx][idx - 1] == text_index[batch_idx][idx]
                     ):
                         continue
                 char_list.append(self.character[int(text_index[batch_idx][idx])])
@@ -599,7 +600,7 @@ class ParseQLabelDecode(BaseRecLabelDecode):
             pred = preds
 
         char_num = (
-            len(self.character_str) + 1
+                len(self.character_str) + 1
         )  # We don't predict <bos> nor <pad>, with only addition <eos>
         if isinstance(pred, paddle.Tensor):
             pred = pred.numpy()
@@ -714,8 +715,8 @@ class SARLabelDecode(BaseRecLabelDecode):
                 if is_remove_duplicate:
                     # only for predict
                     if (
-                        idx > 0
-                        and text_index[batch_idx][idx - 1] == text_index[batch_idx][idx]
+                            idx > 0
+                            and text_index[batch_idx][idx - 1] == text_index[batch_idx][idx]
                     ):
                         continue
                 char_list.append(self.character[int(text_index[batch_idx][idx])])
@@ -789,8 +790,8 @@ class SATRNLabelDecode(BaseRecLabelDecode):
                 if is_remove_duplicate:
                     # only for predict
                     if (
-                        idx > 0
-                        and text_index[batch_idx][idx - 1] == text_index[batch_idx][idx]
+                            idx > 0
+                            and text_index[batch_idx][idx - 1] == text_index[batch_idx][idx]
                     ):
                         continue
                 char_list.append(self.character[int(text_index[batch_idx][idx])])
@@ -830,13 +831,13 @@ class DistillationSARLabelDecode(SARLabelDecode):
     """
 
     def __init__(
-        self,
-        character_dict_path=None,
-        use_space_char=False,
-        model_name=["student"],
-        key=None,
-        multi_head=False,
-        **kwargs,
+            self,
+            character_dict_path=None,
+            use_space_char=False,
+            model_name=["student"],
+            key=None,
+            multi_head=False,
+            **kwargs,
     ):
         super(DistillationSARLabelDecode, self).__init__(
             character_dict_path, use_space_char
@@ -1110,7 +1111,7 @@ class VLLabelDecode(BaseRecLabelDecode):
             )
             for i in range(0, b):
                 cur_length = int(out_length[i])
-                output[start : start + cur_length] = out_res[0:cur_length, i, :]
+                output[start: start + cur_length] = out_res[0:cur_length, i, :]
                 start += cur_length
             net_out = output
             length = out_length
@@ -1224,7 +1225,7 @@ class LaTeXOCRDecode(object):
     def post_process(self, s):
         text_reg = r"(\\(operatorname|mathrm|text|mathbf)\s?\*? {.*?})"
         letter = "[a-zA-Z]"
-        noletter = "[\W_^\d]"
+        noletter = r"[\W_^\d]"
         names = [x[0].replace(" ", "") for x in re.findall(text_reg, s)]
         s = re.sub(text_reg, lambda match: str(names.pop(0)), s)
         news = s

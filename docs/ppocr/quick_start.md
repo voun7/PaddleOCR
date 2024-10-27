@@ -4,7 +4,8 @@ comments: true
 
 # PaddleOCR 快速开始
 
-**说明：** 本文主要介绍PaddleOCR wheel包对PP-OCR系列模型的快速使用，如要体验文档分析相关功能，请参考[PP-Structure快速使用教程](../ppstructure/overview.md)。
+**说明：** 本文主要介绍PaddleOCR
+wheel包对PP-OCR系列模型的快速使用，如要体验文档分析相关功能，请参考[PP-Structure快速使用教程](../ppstructure/overview.md)。
 
 ## 1. 安装
 
@@ -32,7 +33,8 @@ comments: true
 pip install paddleocr
 ```
 
-- 对于Windows环境用户：直接通过pip安装的shapely库可能出现`[winRrror 126] 找不到指定模块的问题`。建议从[这里](https://www.lfd.uci.edu/~gohlke/pythonlibs/#shapely)下载shapely安装包完成安装。
+- 对于Windows环境用户：直接通过pip安装的shapely库可能出现`[winRrror 126] 找不到指定模块的问题`
+  。建议从[这里](https://www.lfd.uci.edu/~gohlke/pythonlibs/#shapely)下载shapely安装包完成安装。
 
 ## 2. 便捷使用
 
@@ -96,14 +98,15 @@ cd /path/to/ppocr_img
 **版本说明**
 paddleocr默认使用PP-OCRv4模型(`--ocr_version PP-OCRv4`)，如需使用其他版本可通过设置参数`--ocr_version`，具体版本说明如下：
 
-| 版本名称 | 版本说明                                           |
-| -------- | -------------------------------------------------- |
+| 版本名称     | 版本说明                      |
+|----------|---------------------------|
 | PP-OCRv4 | 支持中、英文检测和识别，方向分类器，支持多语种识别 |
 | PP-OCRv3 | 支持中、英文检测和识别，方向分类器，支持多语种识别 |
 | PP-OCRv2 | 支持中英文的检测和识别，方向分类器，多语言暂未更新 |
 | PP-OCR   | 支持中、英文检测和识别，方向分类器，支持多语种识别 |
 
-如需新增自己训练的模型，可以在[paddleocr](https://github.com/PaddlePaddle/PaddleOCR/blob/c65a66c5fd37dee64916a8b2a2c84ea273d98cac/paddleocr.py)中增加模型链接和字段，重新编译即可。
+如需新增自己训练的模型，可以在[paddleocr](https://github.com/PaddlePaddle/PaddleOCR/blob/c65a66c5fd37dee64916a8b2a2c84ea273d98cac/paddleocr.py)
+中增加模型链接和字段，重新编译即可。
 
 更多whl包使用可参考[whl包文档](./blog/whl.md)
 
@@ -130,10 +133,10 @@ paddleocr --image_dir ./imgs_en/254.jpg --lang=en
 
 常用的多语言简写包括
 
-| 语种     | 缩写        |     | 语种     | 缩写   |     | 语种     | 缩写   |
-| -------- | ----------- | --- | -------- | ------ | --- | -------- | ------ |
-| 中文     | ch          |     | 法文     | fr     |     | 日文     | japan  |
-| 英文     | en          |     | 德文     | german |     | 韩文     | korean |
+| 语种   | 缩写          |     | 语种   | 缩写     |     | 语种   | 缩写     |
+|------|-------------|-----|------|--------|-----|------|--------|
+| 中文   | ch          |     | 法文   | fr     |     | 日文   | japan  |
+| 英文   | en          |     | 德文   | german |     | 韩文   | korean |
 | 繁体中文 | chinese_cht |     | 意大利文 | it     |     | 俄罗斯文 | ru     |
 
 全部语种及其对应的缩写列表可查看[多语言模型教程](./blog/multi_languages.md)
@@ -267,7 +270,8 @@ image.save("result.jpg")
 
 ```
 
-此示例初始化了启用角度分类的PaddleOCR实例，并将语言设置为英语。然后调用`ocr`方法，并使用多个参数来自定义检测和识别过程，包括处理图像切片的`slice`参数。
+此示例初始化了启用角度分类的PaddleOCR实例，并将语言设置为英语。然后调用`ocr`方法，并使用多个参数来自定义检测和识别过程，包括处理图像切片的
+`slice`参数。
 
 要更全面地了解切片操作，请参考[切片操作文档](./blog/slice.md)。
 
@@ -275,4 +279,6 @@ image.save("result.jpg")
 
 通过本节内容，相信您已经熟练掌握PaddleOCR whl包的使用方法并获得了初步效果。
 
-飞桨AI套件（PaddleX）提供了飞桨生态优质模型，是训压推一站式全流程高效率开发平台，其使命是助力AI技术快速落地，愿景是使人人成为AI Developer！目前PP-OCRv4已上线PaddleX，您可以进入[通用OCR](https://aistudio.baidu.com/aistudio/modelsdetail?modelId=286)体验模型训练、压缩和推理部署全流程。
+飞桨AI套件（PaddleX）提供了飞桨生态优质模型，是训压推一站式全流程高效率开发平台，其使命是助力AI技术快速落地，愿景是使人人成为AI
+Developer！目前PP-OCRv4已上线PaddleX，您可以进入[通用OCR](https://aistudio.baidu.com/aistudio/modelsdetail?modelId=286)
+体验模型训练、压缩和推理部署全流程。

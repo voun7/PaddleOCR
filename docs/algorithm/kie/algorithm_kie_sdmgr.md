@@ -17,13 +17,14 @@ comments: true
 
 在wildreceipt发票公开数据集上，算法复现效果如下：
 
-|模型|骨干网络|配置文件|hmean|下载链接|
-| --- | --- | --- | --- | --- |
-|SDMGR|VGG6|[configs/kie/sdmgr/kie_unet_sdmgr.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/kie/sdmgr/kie_unet_sdmgr.yml)|86.70%|[训练模型]( https://paddleocr.bj.bcebos.com/dygraph_v2.1/kie/kie_vgg16.tar)/[推理模型(coming soon)]()|
+| 模型    | 骨干网络 | 配置文件                                                                                                                             | hmean  | 下载链接                                                                                          |
+|-------|------|----------------------------------------------------------------------------------------------------------------------------------|--------|-----------------------------------------------------------------------------------------------|
+| SDMGR | VGG6 | [configs/kie/sdmgr/kie_unet_sdmgr.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/kie/sdmgr/kie_unet_sdmgr.yml) | 86.70% | [训练模型]( https://paddleocr.bj.bcebos.com/dygraph_v2.1/kie/kie_vgg16.tar)/[推理模型(coming soon)]() |
 
 ## 2. 环境配置
 
-请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)克隆项目代码。
+请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)
+克隆项目代码。
 
 ## 3. 模型训练、评估、预测
 
@@ -44,7 +45,8 @@ ln -s ../../wildreceipt ./
 
 ### 3.1 模型训练
 
-训练采用的配置文件是`configs/kie/sdmgr/kie_unet_sdmgr.yml`，配置文件中默认训练数据路径是`train_data/wildreceipt`，准备好数据后，可以通过如下指令执行训练：
+训练采用的配置文件是`configs/kie/sdmgr/kie_unet_sdmgr.yml`，配置文件中默认训练数据路径是`train_data/wildreceipt`
+，准备好数据后，可以通过如下指令执行训练：
 
 ```bash linenums="1"
 python3 tools/train.py -c configs/kie/sdmgr/kie_unet_sdmgr.yml -o Global.save_model_dir=./output/kie/

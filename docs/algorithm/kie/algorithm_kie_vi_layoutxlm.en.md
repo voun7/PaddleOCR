@@ -6,22 +6,25 @@ comments: true
 
 ## 1. Introduction
 
-VI-LayoutXLM is improved based on LayoutXLM. In the process of downstream finetuning, the visual backbone network module is removed, and the model infernce speed is further improved on the basis of almost lossless accuracy.
+VI-LayoutXLM is improved based on LayoutXLM. In the process of downstream finetuning, the visual backbone network module
+is removed, and the model infernce speed is further improved on the basis of almost lossless accuracy.
 
 On XFUND_zh dataset, the algorithm reproduction Hmean is as follows.
 
-|Model|Backbone|Task |Config|Hmean|Download link|
-| --- | --- |---| --- | --- | --- |
-|VI-LayoutXLM |VI-LayoutXLM-base | SER |[ser_vi_layoutxlm_xfund_zh_udml.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/kie/vi_layoutxlm/ser_vi_layoutxlm_xfund_zh_udml.yml)|93.19%|[trained model](https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/ser_vi_layoutxlm_xfund_pretrained.tar)/[inference model](https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/ser_vi_layoutxlm_xfund_infer.tar)|
-|VI-LayoutXLM |VI-LayoutXLM-base |RE | [re_vi_layoutxlm_xfund_zh_udml.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/kie/vi_layoutxlm/re_vi_layoutxlm_xfund_zh_udml.yml)|83.92%|[trained model](https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/re_vi_layoutxlm_xfund_pretrained.tar)/[inference model](https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/re_vi_layoutxlm_xfund_infer.tar)|
+| Model        | Backbone          | Task | Config                                                                                                                                                | Hmean  | Download link                                                                                                                                                                                                                              |
+|--------------|-------------------|------|-------------------------------------------------------------------------------------------------------------------------------------------------------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| VI-LayoutXLM | VI-LayoutXLM-base | SER  | [ser_vi_layoutxlm_xfund_zh_udml.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/kie/vi_layoutxlm/ser_vi_layoutxlm_xfund_zh_udml.yml) | 93.19% | [trained model](https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/ser_vi_layoutxlm_xfund_pretrained.tar)/[inference model](https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/ser_vi_layoutxlm_xfund_infer.tar) |
+| VI-LayoutXLM | VI-LayoutXLM-base | RE   | [re_vi_layoutxlm_xfund_zh_udml.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/kie/vi_layoutxlm/re_vi_layoutxlm_xfund_zh_udml.yml)   | 83.92% | [trained model](https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/re_vi_layoutxlm_xfund_pretrained.tar)/[inference model](https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/re_vi_layoutxlm_xfund_infer.tar)   |
 
 ## 2. Environment
 
-Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
+Please refer to ["Environment Preparation"](../../ppocr/environment.en.md) to configure the PaddleOCR environment, and
+refer to ["Project Clone"](../../ppocr/blog/clone.en.md)to clone the project code.
 
 ## 3. Model Training / Evaluation / Prediction
 
-Please refer to [KIE tutorial](../../ppocr/model_train/kie.en.md). PaddleOCR has modularized the code structure, so that you only need to **replace the configuration file** to train different models.
+Please refer to [KIE tutorial](../../ppocr/model_train/kie.en.md). PaddleOCR has modularized the code structure, so that
+you only need to **replace the configuration file** to train different models.
 
 ## 4. Inference and Deployment
 
@@ -29,7 +32,9 @@ Please refer to [KIE tutorial](../../ppocr/model_train/kie.en.md). PaddleOCR has
 
 #### SER
 
-First, we need to export the trained model into inference model. Take VI-LayoutXLM model trained on XFUND_zh as an example ([trained model download link](https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/ser_vi_layoutxlm_xfund_pretrained.tar)). Use the following command to export.
+First, we need to export the trained model into inference model. Take VI-LayoutXLM model trained on XFUND_zh as an
+example ([trained model download link](https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/ser_vi_layoutxlm_xfund_pretrained.tar)).
+Use the following command to export.
 
 ``` bash
 wget https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/ser_vi_layoutxlm_xfund_pretrained.tar
@@ -56,7 +61,9 @@ The SER visualization results are saved in the `./output` folder by default. The
 
 #### RE
 
-First, we need to export the trained model into inference model. Take VI-LayoutXLM model trained on XFUND_zh as an example ([trained model download link](https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/re_vi_layoutxlm_xfund_pretrained.tar)). Use the following command to export.
+First, we need to export the trained model into inference model. Take VI-LayoutXLM model trained on XFUND_zh as an
+example ([trained model download link](https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/re_vi_layoutxlm_xfund_pretrained.tar)).
+Use the following command to export.
 
 ``` bash
 wget https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/re_vi_layoutxlm_xfund_pretrained.tar

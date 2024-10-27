@@ -11,20 +11,24 @@ Paper information:
 > Baoguang Shi, Xinggang Wang, Pengyuan Lyu, Cong Yao, Xiang Bai∗
 > CVPR, 2016
 
-Using MJSynth and SynthText two text recognition datasets for training, and evaluating on IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE datasets, the algorithm reproduction effect is as follows:
+Using MJSynth and SynthText two text recognition datasets for training, and evaluating on IIIT, SVT, IC03, IC13, IC15,
+SVTP, CUTE datasets, the algorithm reproduction effect is as follows:
 
-|Models|Backbone Networks|Configuration Files|Avg Accuracy|Download Links|
-| --- | --- | --- | --- | --- |
-|RARE|Resnet34_vd|[configs/rec/rec_r34_vd_tps_bilstm_att.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r34_vd_tps_bilstm_att.yml)|83.60%|[training model](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_r34_vd_tps_bilstm_att_v2.0_train.tar)|
-|RARE|MobileNetV3|[configs/rec/rec_mv3_tps_bilstm_att.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_mv3_tps_bilstm_att.yml)|82.50%|[trained model](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_mv3_tps_bilstm_att_v2.0_train.tar)|
+| Models | Backbone Networks | Configuration Files                                                                                                                        | Avg Accuracy | Download Links                                                                                             |
+|--------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------------------------------------------------------------------------------------------|
+| RARE   | Resnet34_vd       | [configs/rec/rec_r34_vd_tps_bilstm_att.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_r34_vd_tps_bilstm_att.yml) | 83.60%       | [training model](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_r34_vd_tps_bilstm_att_v2.0_train.tar) |
+| RARE   | MobileNetV3       | [configs/rec/rec_mv3_tps_bilstm_att.yml](https://github.com/PaddlePaddle/PaddleOCR/tree/main/configs/rec/rec_mv3_tps_bilstm_att.yml)       | 82.50%       | [trained model](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_mv3_tps_bilstm_att_v2.0_train.tar)     |
 
 ## 2. Environment
 
-Please refer to [Operating Environment Preparation](../../ppocr/environment.en.md) to configure the PaddleOCR operating environment, and refer to [Project Clone](../../ppocr/blog/clone.en.md)to clone the project code.
+Please refer to [Operating Environment Preparation](../../ppocr/environment.en.md) to configure the PaddleOCR operating
+environment, and refer to [Project Clone](../../ppocr/blog/clone.en.md)to clone the project code.
 
 ## 3. Model Training / Evaluation / Prediction
 
-Please refer to [Text Recognition Training Tutorial](../../ppocr/model_train/recognition.en.md). PaddleOCR modularizes the code, and training different recognition models only requires **changing the configuration file**. Take the backbone network based on Resnet34_vd as an example:
+Please refer to [Text Recognition Training Tutorial](../../ppocr/model_train/recognition.en.md). PaddleOCR modularizes
+the code, and training different recognition models only requires **changing the configuration file**. Take the backbone
+network based on Resnet34_vd as an example:
 
 ### 3.1 Training
 
@@ -52,7 +56,10 @@ python3 tools/infer_rec.py -c configs/rec/rec_r34_vd_tps_bilstm_att.yml -o Globa
 
 ### 4.1 Python Inference
 
-First, convert the model saved during the RARE text recognition training process into an inference model. Take the model trained on the MJSynth and SynthText text recognition datasets based on the Resnet34_vd backbone network as an example ([Model download address](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_r34_vd_tps_bilstm_att_v2.0_train.tar) ), which can be converted using the following command:
+First, convert the model saved during the RARE text recognition training process into an inference model. Take the model
+trained on the MJSynth and SynthText text recognition datasets based on the Resnet34_vd backbone network as an
+example ([Model download address](https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_r34_vd_tps_bilstm_att_v2.0_train.tar) ),
+which can be converted using the following command:
 
 ```bash linenums="1"
 python3 tools/export_model.py -c configs/rec/rec_r34_vd_tps_bilstm_att.yml -o Global.pretrained_model=./rec_r34_vd_tps_bilstm_att_v2.0_train/best_accuracy Global.save_inference_dir=./inference/rec_rare
@@ -84,7 +91,8 @@ Not currently supported
 
 The RARE model also supports the following inference deployment methods:
 
-- Paddle2ONNX Inference: After preparing the inference model, refer to the [paddle2onnx](../../ppocr/infer_deploy/paddle2onnx.en.md) tutorial.
+- Paddle2ONNX Inference: After preparing the inference model, refer to
+  the [paddle2onnx](../../ppocr/infer_deploy/paddle2onnx.en.md) tutorial.
 
 ## 5. FAQ
 

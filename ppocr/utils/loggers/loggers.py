@@ -1,6 +1,3 @@
-from .wandb_logger import WandbLogger
-
-
 class Loggers(object):
     def __init__(self, loggers):
         super().__init__()

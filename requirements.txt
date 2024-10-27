@@ -1,17 +1,8 @@
 shapely
-scikit-image
-imgaug
 pyclipper
-lmdb
 tqdm
-numpy<2.0
-rapidfuzz
+numpy
 opencv-python
-opencv-contrib-python
-cython
-Pillow
-pyyaml
+paddlepaddle
+pytest
 requests
-albumentations==1.4.10
-# to be compatible with albumentations
-albucore==0.0.13

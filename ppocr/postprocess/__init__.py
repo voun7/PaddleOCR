@@ -45,7 +45,6 @@ from .rec_postprocess import (
     LaTeXOCRDecode,
 )
 from .cls_postprocess import ClsPostProcess
-from .pg_postprocess import PGPostProcess
 from .vqa_token_ser_layoutlm_postprocess import (
     VQASerTokenLayoutLMPostProcess,
     DistillationSerPostProcess,
@@ -55,7 +54,6 @@ from .vqa_token_re_layoutlm_postprocess import (
     DistillationRePostProcess,
 )
 from .table_postprocess import TableMasterLabelDecode, TableLabelDecode
-from .picodet_postprocess import PicoDetPostProcess
 from .ct_postprocess import CTPostProcess
 from .drrg_postprocess import DRRGPostprocess
 from .rec_postprocess import CANLabelDecode
@@ -99,11 +97,6 @@ def build_post_process(config, global_config=None):
         "CPPDLabelDecode",
         "LaTeXOCRDecode",
     ]
-
-    if config["name"] == "PSEPostProcess":
-        from .pse_postprocess import PSEPostProcess
-
-        support_dict.append("PSEPostProcess")
 
     config = copy.deepcopy(config)
     module_name = config.pop("name")

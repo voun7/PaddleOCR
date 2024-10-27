@@ -7,12 +7,14 @@ comments: true
 
 PaddleOCR提供2种服务部署方式：
 
-- 基于PaddleHub Serving的部署：代码路径为"`./deploy/hubserving`"，使用方法参考[文档](https://github.com/PaddlePaddle/PaddleOCR/blob/db0ad17cf631fafc01650c177e00ce76413af97f/deploy/hubserving/readme.md)；
+- 基于PaddleHub Serving的部署：代码路径为"`./deploy/hubserving`"
+  ，使用方法参考[文档](https://github.com/PaddlePaddle/PaddleOCR/blob/db0ad17cf631fafc01650c177e00ce76413af97f/deploy/hubserving/readme.md)；
 - 基于PaddleServing的部署：代码路径为"`./deploy/pdserving`"，按照本教程使用。
 
 ### 基于PaddleServing的服务部署
 
-本文档将介绍如何使用[PaddleServing](https://github.com/PaddlePaddle/Serving/blob/develop/README_CN.md) 工具部署PP-OCR动态图模型的pipeline在线服务。
+本文档将介绍如何使用[PaddleServing](https://github.com/PaddlePaddle/Serving/blob/develop/README_CN.md)
+工具部署PP-OCR动态图模型的pipeline在线服务。
 
 相比较于hubserving部署，PaddleServing具备以下优点：
 
@@ -22,10 +24,10 @@ PaddleOCR提供2种服务部署方式：
 
 PaddleServing 支持多种语言部署，本例中提供了python pipeline 和 C++ 两种部署方式，两者的对比如下：
 
-| 语言   | 速度 | 二次开发 | 是否需要编译                           |
-| ------ | ---- | -------- | -------------------------------------- |
+| 语言     | 速度 | 二次开发 | 是否需要编译              |
+|--------|----|------|---------------------|
 | C++    | 很快 | 略有难度 | 单模型预测无需编译，多模型串联需要编译 |
-| python | 一般 | 容易     | 单模型/多模型 均无需编译               |
+| python | 一般 | 容易   | 单模型/多模型 均无需编译       |
 
 更多有关PaddleServing服务化部署框架介绍和使用教程参考[文档](https://github.com/PaddlePaddle/Serving/blob/develop/README_CN.md)。
 
@@ -63,7 +65,8 @@ wget https://paddle-serving.bj.bcebos.com/test-dev/whl/paddle_serving_app-0.8.3-
 pip3 install paddle_serving_app-0.8.3-py3-none-any.whl
 ```
 
-**Note:** 如果要安装最新版本的PaddleServing参考[链接](https://github.com/PaddlePaddle/Serving/blob/v0.8.3/doc/Latest_Packages_CN.md)。
+**Note:**
+如果要安装最新版本的PaddleServing参考[链接](https://github.com/PaddlePaddle/Serving/blob/v0.8.3/doc/Latest_Packages_CN.md)。
 
 ### 模型转换
 
@@ -220,7 +223,8 @@ git clone https://github.com/PaddlePaddle/Serving
 cp -rf general_detection_op.cpp Serving/core/general-server/op
 ```
 
-具体可参考官方文档：[如何编译Serving](https://github.com/PaddlePaddle/Serving/blob/v0.8.3/doc/Compile_CN.md)，注意需要开启 WITH_OPENCV 选项。
+具体可参考官方文档：[如何编译Serving](https://github.com/PaddlePaddle/Serving/blob/v0.8.3/doc/Compile_CN.md)，注意需要开启
+WITH_OPENCV 选项。
 
 完成编译后，注意要安装编译出的三个whl包，并设置SERVING_BIN环境变量。
 
@@ -267,7 +271,8 @@ python3 ocr_cpp_client.py ppocr_det_v3_client ppocr_rec_v3_client
 
 ### Windows用户
 
-Windows用户不能使用上述的启动方式，需要使用Web Service，详情参见[Windows平台使用Paddle Serving指导](https://github.com/PaddlePaddle/Serving/blob/develop/doc/Windows_Tutorial_CN.md)
+Windows用户不能使用上述的启动方式，需要使用Web
+Service，详情参见[Windows平台使用Paddle Serving指导](https://github.com/PaddlePaddle/Serving/blob/develop/doc/Windows_Tutorial_CN.md)
 
 **WINDOWS只能使用0.5.0版本的CPU模式**
 

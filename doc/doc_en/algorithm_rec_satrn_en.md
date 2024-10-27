@@ -14,28 +14,33 @@
 - [5. FAQ](#5)
 
 <a name="1"></a>
+
 ## 1. Introduction
 
 论文信息：
 > [On Recognizing Texts of Arbitrary Shapes with 2D Self-Attention](https://arxiv.org/abs/1910.04396)
 > Junyeop Lee, Sungrae Park, Jeonghun Baek, Seong Joon Oh, Seonghyeon Kim, Hwalsuk Lee
 > CVPR, 2020
-Using MJSynth and SynthText two text recognition datasets for training, and evaluating on IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE datasets, the algorithm reproduction effect is as follows:
+> Using MJSynth and SynthText two text recognition datasets for training, and evaluating on IIIT, SVT, IC03, IC13, IC15,
+> SVTP, CUTE datasets, the algorithm reproduction effect is as follows:
 
-|Model|Backbone|config|Acc|Download link|
-| --- | --- | --- | --- | --- |
-|SATRN|ShallowCNN|88.05%|[configs/rec/rec_satrn.yml](../../configs/rec/rec_satrn.yml)|[训练模型](https://pan.baidu.com/s/10J-Bsd881bimKaclKszlaQ?pwd=lk8a)|
-
+| Model | Backbone   | config | Acc                                                          | Download link                                                    |
+|-------|------------|--------|--------------------------------------------------------------|------------------------------------------------------------------|
+| SATRN | ShallowCNN | 88.05% | [configs/rec/rec_satrn.yml](../../configs/rec/rec_satrn.yml) | [训练模型](https://pan.baidu.com/s/10J-Bsd881bimKaclKszlaQ?pwd=lk8a) |
 
 <a name="2"></a>
-## 2. Environment
-Please refer to ["Environment Preparation"](./environment_en.md) to configure the PaddleOCR environment, and refer to ["Project Clone"](./clone_en.md) to clone the project code.
 
+## 2. Environment
+
+Please refer to ["Environment Preparation"](./environment_en.md) to configure the PaddleOCR environment, and refer
+to ["Project Clone"](./clone_en.md) to clone the project code.
 
 <a name="3"></a>
+
 ## 3. Model Training / Evaluation / Prediction
 
-Please refer to [Text Recognition Tutorial](./recognition_en.md). PaddleOCR modularizes the code, and training different recognition models only requires **changing the configuration file**.
+Please refer to [Text Recognition Tutorial](./recognition_en.md). PaddleOCR modularizes the code, and training different
+recognition models only requires **changing the configuration file**.
 
 Training:
 
@@ -63,11 +68,16 @@ python3 tools/infer_rec.py -c configs/rec/rec_satrn.yml -o Global.pretrained_mod
 ```
 
 <a name="4"></a>
+
 ## 4. Inference and Deployment
 
 <a name="4-1"></a>
+
 ### 4.1 Python Inference
-First, the model saved during the SATRN text recognition training process is converted into an inference model. ( [Model download link](https://pan.baidu.com/s/10J-Bsd881bimKaclKszlaQ?pwd=lk8a) ), you can use the following command to convert:
+
+First, the model saved during the SATRN text recognition training process is converted into an inference
+model. ( [Model download link](https://pan.baidu.com/s/10J-Bsd881bimKaclKszlaQ?pwd=lk8a) ), you can use the following
+command to convert:
 
 ```
 python3 tools/export_model.py -c configs/rec/rec_satrn.yml -o Global.pretrained_model=./rec_satrn_train/best_accuracy  Global.save_inference_dir=./inference/rec_satrn
@@ -80,21 +90,25 @@ python3 tools/infer/predict_rec.py --image_dir="./doc/imgs_words/en/word_1.png" 
 ```
 
 <a name="4-2"></a>
+
 ### 4.2 C++ Inference
 
 Not supported
 
 <a name="4-3"></a>
+
 ### 4.3 Serving
 
 Not supported
 
 <a name="4-4"></a>
+
 ### 4.4 More
 
 Not supported
 
 <a name="5"></a>
+
 ## 5. FAQ
 
 ## 引用

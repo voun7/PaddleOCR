@@ -14,6 +14,7 @@
 - [5. FAQ](#5)
 
 <a name="1"></a>
+
 ## 1. Introduction
 
 Paper:
@@ -21,27 +22,33 @@ Paper:
 > Darwin Bautista, Rowel Atienza
 > ECCV, 2021
 
-Using real datasets (real) and synthetic datsets (synth) for training respectively，and evaluating on IIIT, SVT, IC03, IC13, IC15, SVTP, CUTE datasets.
+Using real datasets (real) and synthetic datsets (synth) for training respectively，and evaluating on IIIT, SVT, IC03,
+IC13, IC15, SVTP, CUTE datasets.
+
 - The real datasets include COCO-Text, RCTW17, Uber-Text, ArT, LSVT, MLT19, ReCTS, TextOCR and OpenVINO datasets.
 - The synthesis datasets include MJSynth and SynthText datasets.
 
 the algorithm reproduction effect is as follows:
 
-|Training Dataset|Model|Backbone|config|Acc|Download link|
-| --- | --- | --- | --- | --- | --- |
-|Synth|ParseQ|VIT|[rec_vit_parseq.yml](../../configs/rec/rec_vit_parseq.yml)|91.24%|[train model](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_synth.tgz)|
-|Real|ParseQ|VIT|[rec_vit_parseq.yml](../../configs/rec/rec_vit_parseq.yml)|94.74%|[train model](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_real.tgz)|
-|||||||
+| Training Dataset | Model  | Backbone | config                                                     | Acc    | Download link                                                                               |
+|------------------|--------|----------|------------------------------------------------------------|--------|---------------------------------------------------------------------------------------------|
+| Synth            | ParseQ | VIT      | [rec_vit_parseq.yml](../../configs/rec/rec_vit_parseq.yml) | 91.24% | [train model](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_synth.tgz) |
+| Real             | ParseQ | VIT      | [rec_vit_parseq.yml](../../configs/rec/rec_vit_parseq.yml) | 94.74% | [train model](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_real.tgz)  |
+|                  |        |          |                                                            |        |                                                                                             |
 
 <a name="2"></a>
-## 2. Environment
-Please refer to ["Environment Preparation"](./environment_en.md) to configure the PaddleOCR environment, and refer to ["Project Clone"](./clone_en.md) to clone the project code.
 
+## 2. Environment
+
+Please refer to ["Environment Preparation"](./environment_en.md) to configure the PaddleOCR environment, and refer
+to ["Project Clone"](./clone_en.md) to clone the project code.
 
 <a name="3"></a>
+
 ## 3. Model Training / Evaluation / Prediction
 
-Please refer to [Text Recognition Tutorial](./recognition_en.md). PaddleOCR modularizes the code, and training different recognition models only requires **changing the configuration file**.
+Please refer to [Text Recognition Tutorial](./recognition_en.md). PaddleOCR modularizes the code, and training different
+recognition models only requires **changing the configuration file**.
 
 Training:
 
@@ -70,11 +77,16 @@ python3 tools/infer_rec.py -c configs/rec/rec_vit_parseq.yml -o Global.pretraine
 ```
 
 <a name="4"></a>
+
 ## 4. Inference and Deployment
 
 <a name="4-1"></a>
+
 ### 4.1 Python Inference
-First, the model saved during the SAR text recognition training process is converted into an inference model. ( [Model download link](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_real.tgz) ), you can use the following command to convert:
+
+First, the model saved during the SAR text recognition training process is converted into an inference
+model. ( [Model download link](https://paddleocr.bj.bcebos.com/dygraph_v2.1/parseq/rec_vit_parseq_real.tgz) ), you can
+use the following command to convert:
 
 ```
 python3 tools/export_model.py -c configs/rec/rec_vit_parseq.yml -o Global.pretrained_model=./rec_vit_parseq_real/best_accuracy Global.save_inference_dir=./inference/rec_parseq
@@ -87,23 +99,26 @@ python3 tools/infer/predict_rec.py --image_dir="./doc/imgs_words/en/word_1.png" 
 ```
 
 <a name="4-2"></a>
+
 ### 4.2 C++ Inference
 
 Not supported
 
 <a name="4-3"></a>
+
 ### 4.3 Serving
 
 Not supported
 
 <a name="4-4"></a>
+
 ### 4.4 More
 
 Not supported
 
 <a name="5"></a>
-## 5. FAQ
 
+## 5. FAQ
 
 ## Citation
 

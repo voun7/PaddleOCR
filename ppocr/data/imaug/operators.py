@@ -19,11 +19,11 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import math
 import sys
-import six
+
 import cv2
 import numpy as np
-import math
 from PIL import Image
 
 
@@ -31,7 +31,7 @@ class DecodeImage(object):
     """decode image"""
 
     def __init__(
-        self, img_mode="RGB", channel_first=False, ignore_orientation=False, **kwargs
+            self, img_mode="RGB", channel_first=False, ignore_orientation=False, **kwargs
     ):
         self.img_mode = img_mode
         self.channel_first = channel_first
@@ -39,14 +39,7 @@ class DecodeImage(object):
 
     def __call__(self, data):
         img = data["image"]
-        if six.PY2:
-            assert (
-                type(img) is str and len(img) > 0
-            ), "invalid input 'img' in DecodeImage"
-        else:
-            assert (
-                type(img) is bytes and len(img) > 0
-            ), "invalid input 'img' in DecodeImage"
+        assert type(img) is bytes and len(img) > 0, "invalid input 'img' in DecodeImage"
         img = np.frombuffer(img, dtype="uint8")
         if self.ignore_orientation:
             img = cv2.imdecode(img, cv2.IMREAD_IGNORE_ORIENTATION | cv2.IMREAD_COLOR)
@@ -108,19 +101,6 @@ class ToCHWImage(object):
         return data
 
 
-class Fasttext(object):
-    def __init__(self, path="None", **kwargs):
-        import fasttext
-
-        self.fast_model = fasttext.load_model(path)
-
-    def __call__(self, data):
-        label = data["label"]
-        fast_label = self.fast_model[label]
-        data["fast_label"] = fast_label
-        return data
-
-
 class KeepKeys(object):
     def __init__(self, keep_keys, **kwargs):
         self.keep_keys = keep_keys
@@ -149,7 +129,7 @@ class Pad(object):
         if self.size:
             resize_h2, resize_w2 = self.size
             assert (
-                img_h < resize_h2 and img_w < resize_w2
+                    img_h < resize_h2 and img_w < resize_w2
             ), "(h, w) of target size should be greater than (img_h, img_w)"
         else:
             resize_h2 = max(
@@ -457,15 +437,15 @@ class KieResize(object):
 
 class SRResize(object):
     def __init__(
-        self,
-        imgH=32,
-        imgW=128,
-        down_sample_scale=4,
-        keep_ratio=False,
-        min_ratio=1,
-        mask=False,
-        infer_mode=False,
-        **kwargs,
+            self,
+            imgH=32,
+            imgW=128,
+            down_sample_scale=4,
+            keep_ratio=False,
+            min_ratio=1,
+            mask=False,
+            infer_mode=False,
+            **kwargs,
     ):
         self.imgH = imgH
         self.imgW = imgW

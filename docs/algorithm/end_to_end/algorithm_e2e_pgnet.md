@@ -35,16 +35,17 @@ PGNet算法细节详见[论文](https://www.aaai.org/AAAI21Papers/AAAI-2885.Wang
 
 #### 测试环境: NVIDIA Tesla V100-SXM2-16GB
 
-|PGNetA|det_precision|det_recall|det_f_score|e2e_precision|e2e_recall|e2e_f_score|FPS|下载|
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-|Paper|85.30|86.80|86.10|-|-|61.70|38.20 (size=640)|-|
-|Ours|87.03|82.48|84.69|61.71|58.43|60.03|48.73 (size=768)|[下载链接](https://paddleocr.bj.bcebos.com/dygraph_v2.0/pgnet/en_server_pgnetA.tar)|
+| PGNetA | det_precision | det_recall | det_f_score | e2e_precision | e2e_recall | e2e_f_score | FPS              | 下载                                                                              |
+|--------|---------------|------------|-------------|---------------|------------|-------------|------------------|---------------------------------------------------------------------------------|
+| Paper  | 85.30         | 86.80      | 86.10       | -             | -          | 61.70       | 38.20 (size=640) | -                                                                               |
+| Ours   | 87.03         | 82.48      | 84.69       | 61.71         | 58.43      | 60.03       | 48.73 (size=768) | [下载链接](https://paddleocr.bj.bcebos.com/dygraph_v2.0/pgnet/en_server_pgnetA.tar) |
 
 *note：PaddleOCR里的PGNet实现针对预测速度做了优化，在精度下降可接受范围内，可以显著提升端对端预测速度*
 
 ## 二、环境配置
 
-请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)克隆项目
+请先参考[《运行环境准备》](../../ppocr/environment.md)配置PaddleOCR运行环境，参考[《项目克隆》](../../ppocr/blog/clone.md)
+克隆项目
 
 ## 三、快速使用
 
@@ -117,7 +118,8 @@ json.dumps编码前的图像标注信息是包含多个字典的list，字典中
 
 ### 启动训练
 
-PGNet训练分为两个步骤：step1: 在合成数据上训练，得到预训练模型，此时模型精度依然较低；step2: 加载预训练模型，在totaltext数据集上训练；为快速训练，我们直接提供了step1的预训练模型。
+PGNet训练分为两个步骤：step1: 在合成数据上训练，得到预训练模型，此时模型精度依然较低；step2:
+加载预训练模型，在totaltext数据集上训练；为快速训练，我们直接提供了step1的预训练模型。
 
 ```bash linenums="1"
 cd PaddleOCR/
@@ -157,7 +159,8 @@ python3 tools/train.py -c configs/e2e/e2e_r50_vd_pg.yml -o Optimizer.base_lr=0.0
 python3 tools/train.py -c configs/e2e/e2e_r50_vd_pg.yml -o Global.checkpoints=./your/trained/model
 ```
 
-**注意**：`Global.checkpoints`的优先级高于`Global.pretrain_weights`的优先级，即同时指定两个参数时，优先加载`Global.checkpoints`指定的模型，如果`Global.checkpoints`指定的模型路径有误，会加载`Global.pretrain_weights`指定的模型。
+**注意**：`Global.checkpoints`的优先级高于`Global.pretrain_weights`的优先级，即同时指定两个参数时，优先加载
+`Global.checkpoints`指定的模型，如果`Global.checkpoints`指定的模型路径有误，会加载`Global.pretrain_weights`指定的模型。
 
 PaddleOCR计算三个OCR端到端相关的指标，分别是：Precision、Recall、Hmean。
 
@@ -188,7 +191,9 @@ python3 tools/infer_e2e.py -c configs/e2e/e2e_r50_vd_pg.yml -o Global.infer_img=
 
 #### (1). 四边形文本检测模型（ICDAR2015）
 
-首先将PGNet端到端训练过程中保存的模型，转换成inference model。以基于Resnet50_vd骨干网络，以英文数据集训练的模型为例[模型下载地址](https://paddleocr.bj.bcebos.com/dygraph_v2.0/pgnet/en_server_pgnetA.tar) ，可以使用如下命令进行转换：
+首先将PGNet端到端训练过程中保存的模型，转换成inference
+model。以基于Resnet50_vd骨干网络，以英文数据集训练的模型为例[模型下载地址](https://paddleocr.bj.bcebos.com/dygraph_v2.0/pgnet/en_server_pgnetA.tar)
+，可以使用如下命令进行转换：
 
 ```bash linenums="1"
 wget https://paddleocr.bj.bcebos.com/dygraph_v2.0/pgnet/en_server_pgnetA.tar && tar xf en_server_pgnetA.tar
@@ -209,7 +214,8 @@ python3 tools/infer/predict_e2e.py --e2e_algorithm="PGNet" --image_dir="./doc/im
 
 对于弯曲文本样例
 
-**PGNet端到端模型推理，需要设置参数`--e2e_algorithm="PGNet"`，同时，还需要增加参数`--e2e_pgnet_valid_set="totaltext"`，**可以执行如下命令：
+**PGNet端到端模型推理，需要设置参数`--e2e_algorithm="PGNet"`，同时，还需要增加参数`--e2e_pgnet_valid_set="totaltext"`，**
+可以执行如下命令：
 
 ```bash linenums="1"
 python3 tools/infer/predict_e2e.py --e2e_algorithm="PGNet" --image_dir="./doc/imgs_en/img623.jpg" --e2e_model_dir="./inference/e2e/" --e2e_pgnet_valid_set="totaltext"
