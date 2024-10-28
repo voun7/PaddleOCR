@@ -20,6 +20,33 @@ apply them into practice.
     <img src="https://github.com/PaddlePaddle/PaddleOCR/releases/download/v2.8.0/demo.gif" width="800">
 </div>
 
+
+Install packages
+
+For GPU (Windows)
+
+```
+pip install paddlepaddle-gpu==2.6.1.post120 -f https://www.paddlepaddle.org.cn/whl/windows/mkl/avx/stable.html
+```
+
+For GPU (Linux)
+
+```
+pip install paddlepaddle-gpu==2.6.1.post120 -f https://www.paddlepaddle.org.cn/whl/linux/mkl/avx/stable.html
+```
+
+For CPU
+
+```
+pip install paddlepaddle==2.6.2
+```
+
+Other packages
+
+```commandline
+pip install -r requirements.txt
+```
+
 ## 📣 Recent updates ([more](https://paddlepaddle.github.io/PaddleOCR/latest/en/update.html))
 
 - **🔥 2024.10.18 release PaddleOCR v2.9, including**:

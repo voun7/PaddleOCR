@@ -22,7 +22,6 @@ dependencies = [
     "tqdm",
     "numpy",
     "opencv-python",
-    "paddlepaddle",
     "requests",
 ]
 

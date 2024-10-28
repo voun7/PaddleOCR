@@ -3,6 +3,5 @@ pyclipper
 tqdm
 numpy
 opencv-python
-paddlepaddle
 pytest
 requests
