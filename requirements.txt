@@ -1,7 +1,7 @@
 shapely
 pyclipper
-tqdm
 numpy
 opencv-python
 pytest
 requests
+setuptools

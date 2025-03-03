@@ -1,41 +1,18 @@
-# Copyright (c) 2020 PaddlePaddle Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-import os
-import sys
-
-__dir__ = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(__dir__)
-sys.path.insert(0, os.path.abspath(os.path.join(__dir__, "../..")))
-
-os.environ["FLAGS_allocator_strategy"] = "auto_growth"
-
-import cv2
 import copy
-import numpy as np
 import math
 import time
-import traceback
+
+import cv2
+import numpy as np
 
 import tools.infer.utility as utility
 from ppocr.postprocess import build_post_process
 from ppocr.utils.logging import get_logger
-from ppocr.utils.utility import get_image_file_list, check_and_read
 
 logger = get_logger()
 
 
-class TextClassifier(object):
+class TextClassifier:
     def __init__(self, args):
         self.cls_image_shape = [int(v) for v in args.cls_image_shape.split(",")]
         self.cls_batch_num = args.cls_batch_num
@@ -124,33 +101,3 @@ class TextClassifier(object):
                         img_list[indices[beg_img_no + rno]], 1
                     )
         return img_list, cls_res, elapse
-
-
-def main(args):
-    image_file_list = get_image_file_list(args.image_dir)
-    text_classifier = TextClassifier(args)
-    valid_image_file_list = []
-    img_list = []
-    for image_file in image_file_list:
-        img, flag, _ = check_and_read(image_file)
-        if not flag:
-            img = cv2.imread(image_file)
-        if img is None:
-            logger.info("error in loading image:{}".format(image_file))
-            continue
-        valid_image_file_list.append(image_file)
-        img_list.append(img)
-    try:
-        img_list, cls_res, predict_time = text_classifier(img_list)
-    except Exception as E:
-        logger.info(traceback.format_exc())
-        logger.info(E)
-        exit()
-    for ino in range(len(img_list)):
-        logger.info(
-            "Predicts of {}:{}".format(valid_image_file_list[ino], cls_res[ino])
-        )
-
-
-if __name__ == "__main__":
-    main(utility.parse_args())

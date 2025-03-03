@@ -1,71 +1,19 @@
-# Copyright (c) 2020 PaddlePaddle Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-import importlib
+import argparse
+import logging
 import os
 import sys
-
-__dir__ = os.path.dirname(__file__)
-
-sys.path.append(os.path.join(__dir__, ""))
+from pathlib import Path
 
 import cv2
-import logging
 import numpy as np
-from pathlib import Path
-import base64
-from io import BytesIO
-import pprint
-from PIL import Image
 
-
-def _import_file(module_name, file_path, make_importable=False):
-    spec = importlib.util.spec_from_file_location(module_name, file_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    if make_importable:
-        sys.modules[module_name] = module
-    return module
-
-
-tools = _import_file(
-    "tools", os.path.join(__dir__, "tools/__init__.py"), make_importable=True
-)
-ppocr = importlib.import_module("ppocr", "paddleocr")
 from ppocr.utils.logging import get_logger
-
-from ppocr.utils.utility import (
-    check_and_read,
-    get_image_file_list,
-    alpha_to_color,
-    binarize_img,
-)
-from ppocr.utils.network import (
-    maybe_download,
-    download_with_progressbar,
-    is_link,
-    confirm_model_dir_url,
-)
+from ppocr.utils.network import maybe_download, confirm_model_dir_url
+from ppocr.utils.utility import get_image_file_list, alpha_to_color, binarize_img
 from tools.infer import predict_system
 from tools.infer.utility import str2bool, check_gpu, init_args
 
 logger = get_logger()
-
-__all__ = [
-    "PaddleOCR",
-    "download_with_progressbar",
-]
 
 SUPPORT_DET_MODEL = ["DB"]
 SUPPORT_REC_MODEL = ["CRNN", "SVTR_LCNet"]
@@ -314,15 +262,12 @@ MODEL_URLS = {
 
 
 def parse_args(mMain=True):
-    import argparse
-
     parser = init_args()
     parser.add_help = mMain
     parser.add_argument("--lang", type=str, default="ch")
     parser.add_argument("--det", type=str2bool, default=True)
     parser.add_argument("--rec", type=str2bool, default=True)
     parser.add_argument("--type", type=str, default="ocr")
-    parser.add_argument("--savefile", type=str2bool, default=False)
     parser.add_argument(
         "--ocr_version",
         type=str,
@@ -334,14 +279,6 @@ def parse_args(mMain=True):
              "3. PP-OCR support Chinese detection, recognition and direction classifier and multilingual recognition model.",
     )
 
-    for action in parser._actions:
-        if action.dest in [
-            "rec_char_dict_path",
-            "table_char_dict_path",
-            "layout_dict_path",
-            "formula_char_dict_path",
-        ]:
-            action.default = None
     if mMain:
         return parser.parse_args()
     else:
@@ -445,8 +382,6 @@ def parse_lang(lang):
     )
     if lang == "ch":
         det_lang = "ch"
-    elif lang == "structure":
-        det_lang = "structure"
     elif lang in ["en", "latin"]:
         det_lang = "en"
     else:
@@ -507,46 +442,21 @@ def check_img(img, alpha_color=(255, 255, 255)):
         alpha_color: Background color in images in RGBA format
         return: numpy.array (h, w, 3) or list (p, h, w, 3) (p: page of pdf), boolean, boolean
     """
-    flag_gif, flag_pdf = False, False
-    if isinstance(img, bytes):
-        img = img_decode(img)
     if isinstance(img, str):
-        # download net image
-        if is_link(img):
-            download_with_progressbar(img, "tmp.jpg")
-            img = "tmp.jpg"
         image_file = img
-        img, flag_gif, flag_pdf = check_and_read(image_file)
-        if not flag_gif and not flag_pdf:
-            with open(image_file, "rb") as f:
-                img_str = f.read()
-                img = img_decode(img_str)
-            if img is None:
-                try:
-                    buf = BytesIO()
-                    image = BytesIO(img_str)
-                    im = Image.open(image)
-                    rgb = im.convert("RGB")
-                    rgb.save(buf, "jpeg")
-                    buf.seek(0)
-                    image_bytes = buf.read()
-                    data_base64 = str(base64.b64encode(image_bytes), encoding="utf-8")
-                    image_decode = base64.b64decode(data_base64)
-                    img_array = np.frombuffer(image_decode, np.uint8)
-                    img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
-                except:
-                    logger.error("error in loading image:{}".format(image_file))
-                    return None, flag_gif, flag_pdf
+        with open(image_file, "rb") as f:
+            img_str = f.read()
+            img = img_decode(img_str)
         if img is None:
             logger.error("error in loading image:{}".format(image_file))
-            return None, flag_gif, flag_pdf
+            return None
     # single channel image array.shape:h,w
     if isinstance(img, np.ndarray) and len(img.shape) == 2:
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
     # four channel image array.shape:h,w,c
     if isinstance(img, np.ndarray) and len(img.shape) == 3 and img.shape[2] == 4:
         img = alpha_to_color(img, alpha_color)
-    return img, flag_gif, flag_pdf
+    return img
 
 
 class PaddleOCR(predict_system.TextSystem):
@@ -614,7 +524,6 @@ class PaddleOCR(predict_system.TextSystem):
         logger.debug(params)
         # init det_model and rec_model
         super().__init__(params)
-        self.page_num = params.page_num
 
     def ocr(
             self,
@@ -652,7 +561,6 @@ class PaddleOCR(predict_system.TextSystem):
 
         Note:
             - If the angle classifier is not initialized (use_angle_cls=False), it will not be used during the forward process.
-            - For PDF files, if the input is a list of images and the page_num is specified, only the first page_num images will be processed.
             - The preprocess_image function is used to preprocess the input image by applying alpha color replacement, inversion, and binarization if specified.
         """
         assert isinstance(img, (np.ndarray, list, str, bytes))
@@ -664,15 +572,8 @@ class PaddleOCR(predict_system.TextSystem):
                 "Since the angle classifier is not initialized, it will not be used during the forward process"
             )
 
-        img, flag_gif, flag_pdf = check_img(img, alpha_color)
-        # for infer pdf file
-        if isinstance(img, list) and flag_pdf:
-            if self.page_num > len(img) or self.page_num == 0:
-                imgs = img
-            else:
-                imgs = img[: self.page_num]
-        else:
-            imgs = [img]
+        img = check_img(img, alpha_color)
+        imgs = [img]
 
         def preprocess_image(_image):
             _image = alpha_to_color(_image, alpha_color)
@@ -732,12 +633,7 @@ def main(image_dir):
     args = parse_args(mMain=True)
     logger.info("for usage help, please use `paddleocr --help`")
     args.image_dir = image_dir
-    if is_link(image_dir):
-        os.remove("tmp.jpg") if os.path.exists("tmp.jpg") else None
-        download_with_progressbar(image_dir, "tmp.jpg")
-        image_file_list = ["tmp.jpg"]
-    else:
-        image_file_list = get_image_file_list(args.image_dir)
+    image_file_list = get_image_file_list(args.image_dir)
     if len(image_file_list) == 0:
         logger.error("no images find in {}".format(args.image_dir))
         return
@@ -747,7 +643,6 @@ def main(image_dir):
         raise NotImplementedError
 
     for img_path in image_file_list:
-        img_name = os.path.basename(img_path).split(".")[0]
         logger.info("{}{}{}".format("*" * 10, img_path, "*" * 10))
         if args.type == "ocr":
             result = engine.ocr(
@@ -765,15 +660,9 @@ def main(image_dir):
                     if res:
                         for line in res:
                             logger.info(line)
-                            lines.append(pprint.pformat(line) + "\n")
+                            lines.append(line)
                     else:
                         logger.info(result)
-                if args.savefile:
-                    if os.path.exists(args.output) is False:
-                        os.mkdir(args.output)
-                    outfile = args.output + "/" + img_name + ".txt"
-                    with open(outfile, "w", encoding="utf-8") as f:
-                        f.writelines(lines)
 
 
 if __name__ == '__main__':

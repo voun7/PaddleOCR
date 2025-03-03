@@ -1,41 +1,20 @@
-# Copyright (c) 2020 PaddlePaddle Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+import copy
+import logging
 import os
 import subprocess
 import sys
-
-__dir__ = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(__dir__)
-sys.path.insert(0, os.path.abspath(os.path.join(__dir__, "../..")))
-
-os.environ["FLAGS_allocator_strategy"] = "auto_growth"
+import time
 
 import cv2
-import copy
 import numpy as np
-import json
-import time
-import logging
-from PIL import Image
-import tools.infer.utility as utility
-import tools.infer.predict_rec as predict_rec
-import tools.infer.predict_det as predict_det
+
 import tools.infer.predict_cls as predict_cls
-from ppocr.utils.utility import get_image_file_list, check_and_read
+import tools.infer.predict_det as predict_det
+import tools.infer.predict_rec as predict_rec
+import tools.infer.utility as utility
 from ppocr.utils.logging import get_logger
+from ppocr.utils.utility import get_image_file_list
 from tools.infer.utility import (
-    draw_ocr_box_txt,
     get_rotate_crop_image,
     get_minarea_rect_crop,
     slice_generator,
@@ -45,7 +24,7 @@ from tools.infer.utility import (
 logger = get_logger()
 
 
-class TextSystem(object):
+class TextSystem:
     def __init__(self, args):
         if not args.show_log:
             logger.setLevel(logging.INFO)
@@ -144,8 +123,6 @@ class TextSystem(object):
         rec_res, elapse = self.text_recognizer(img_crop_list)
         time_dict["rec"] = elapse
         logger.debug("rec_res num  : {}, elapsed : {}".format(len(rec_res), elapse))
-        if self.args.save_crop_res:
-            self.draw_crop_rec_res(self.args.crop_res_save_dir, img_crop_list, rec_res)
         filter_boxes, filter_rec_res = [], []
         for box, rec_result in zip(dt_boxes, rec_res):
             text, score = rec_result[0], rec_result[1]
@@ -186,12 +163,6 @@ def main(args):
     image_file_list = get_image_file_list(args.image_dir)
     image_file_list = image_file_list[args.process_id:: args.total_process_num]
     text_sys = TextSystem(args)
-    is_visualize = True
-    font_path = args.vis_font_path
-    drop_score = args.drop_score
-    draw_img_save_dir = args.draw_img_save_dir
-    os.makedirs(draw_img_save_dir, exist_ok=True)
-    save_results = []
 
     logger.info(
         "In PP-OCRv3, rec_image_shape parameter defaults to '3, 48, 320', "
@@ -205,106 +176,26 @@ def main(args):
             res = text_sys(img)
 
     total_time = 0
-    cpu_mem, gpu_mem, gpu_util = 0, 0, 0
     _st = time.time()
-    count = 0
     for idx, image_file in enumerate(image_file_list):
-        img, flag_gif, flag_pdf = check_and_read(image_file)
-        if not flag_gif and not flag_pdf:
-            img = cv2.imread(image_file)
-        if not flag_pdf:
-            if img is None:
-                logger.debug("error in loading image:{}".format(image_file))
-                continue
-            imgs = [img]
-        else:
-            page_num = args.page_num
-            if page_num > len(img) or page_num == 0:
-                page_num = len(img)
-            imgs = img[:page_num]
+        img = cv2.imread(image_file)
+        if img is None:
+            logger.debug("error in loading image:{}".format(image_file))
+            continue
+        imgs = [img]
         for index, img in enumerate(imgs):
             starttime = time.time()
             dt_boxes, rec_res, time_dict = text_sys(img)
             elapse = time.time() - starttime
             total_time += elapse
             if len(imgs) > 1:
-                logger.debug(
-                    str(idx)
-                    + "_"
-                    + str(index)
-                    + "  Predict time of %s: %.3fs" % (image_file, elapse)
-                )
+                logger.debug(str(idx) + "_" + str(index) + "  Predict time of %s: %.3fs" % (image_file, elapse))
             else:
-                logger.debug(
-                    str(idx) + "  Predict time of %s: %.3fs" % (image_file, elapse)
-                )
+                logger.debug(str(idx) + "  Predict time of %s: %.3fs" % (image_file, elapse))
             for text, score in rec_res:
                 logger.debug("{}, {:.3f}".format(text, score))
 
-            res = [
-                {
-                    "transcription": rec_res[i][0],
-                    "points": np.array(dt_boxes[i]).astype(np.int32).tolist(),
-                }
-                for i in range(len(dt_boxes))
-            ]
-            if len(imgs) > 1:
-                save_pred = (
-                        os.path.basename(image_file)
-                        + "_"
-                        + str(index)
-                        + "\t"
-                        + json.dumps(res, ensure_ascii=False)
-                        + "\n"
-                )
-            else:
-                save_pred = (
-                        os.path.basename(image_file)
-                        + "\t"
-                        + json.dumps(res, ensure_ascii=False)
-                        + "\n"
-                )
-            save_results.append(save_pred)
-
-            if is_visualize:
-                image = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-                boxes = dt_boxes
-                txts = [rec_res[i][0] for i in range(len(rec_res))]
-                scores = [rec_res[i][1] for i in range(len(rec_res))]
-
-                draw_img = draw_ocr_box_txt(
-                    image,
-                    boxes,
-                    txts,
-                    scores,
-                    drop_score=drop_score,
-                    font_path=font_path,
-                )
-                if flag_gif:
-                    save_file = image_file[:-3] + "png"
-                elif flag_pdf:
-                    save_file = image_file.replace(".pdf", "_" + str(index) + ".png")
-                else:
-                    save_file = image_file
-                cv2.imwrite(
-                    os.path.join(draw_img_save_dir, os.path.basename(save_file)),
-                    draw_img[:, :, ::-1],
-                )
-                logger.debug(
-                    "The visualized image saved in {}".format(
-                        os.path.join(draw_img_save_dir, os.path.basename(save_file))
-                    )
-                )
-
     logger.info("The predict total time is {}".format(time.time() - _st))
-    if args.benchmark:
-        text_sys.text_detector.autolog.report()
-        text_sys.text_recognizer.autolog.report()
-
-    with open(
-            os.path.join(draw_img_save_dir, "system_results.txt"), "w", encoding="utf-8"
-    ) as f:
-        f.writelines(save_results)
 
 
 if __name__ == "__main__":

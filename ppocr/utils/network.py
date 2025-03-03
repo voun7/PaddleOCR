@@ -1,26 +1,10 @@
-# copyright (c) 2020 PaddlePaddle Authors. All Rights Reserve.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import os
 import os.path as osp
 import shutil
 import tarfile
 import time
 
-import paddle.distributed as dist
 import requests
-from tqdm import tqdm
 
 from ppocr.utils.logging import get_logger
 
@@ -34,14 +18,7 @@ def download_with_progressbar(url, save_path):
         logger.info(f"Path {save_path} already exists. Skipping...")
         return
     else:
-        # Mainly used to solve the problem of downloading data from different
-        # machines in the case of multiple machines. Different nodes will download
-        # data, and the same node will only download data once.
-        if dist.get_rank() == 0:
-            _download(url, save_path)
-        else:
-            while not os.path.exists(save_path):
-                time.sleep(1)
+        _download(url, save_path)
 
 
 def _download(url, save_path):
@@ -60,38 +37,30 @@ def _download(url, save_path):
         if retry_cnt < DOWNLOAD_RETRY_LIMIT:
             retry_cnt += 1
         else:
-            raise RuntimeError(
-                "Download from {} failed. " "Retry limit reached".format(url)
-            )
+            raise RuntimeError(f"Download from {url} failed. " "Retry limit reached")
 
         try:
             req = requests.get(url, stream=True)
         except Exception as e:  # requests.exceptions.ConnectionError
             logger.info(
-                "Downloading {} from {} failed {} times with exception {}".format(
-                    fname, url, retry_cnt + 1, str(e)
-                )
-            )
+                "Downloading {} from {} failed {} times with exception {}".format(fname, url, retry_cnt + 1, str(e)))
             time.sleep(1)
             continue
 
         if req.status_code != 200:
-            raise RuntimeError(
-                "Downloading from {} failed with code "
-                "{}!".format(url, req.status_code)
-            )
+            raise RuntimeError("Downloading from {url} failed with code {req.status_code}!")
 
-        # For protecting download interupted, download to
-        # tmp_file firstly, move tmp_file to save_path
+        # For protecting download interrupted, download to tmp_file firstly, move tmp_file to save_path
         # after download finished
         tmp_file = save_path + ".tmp"
         total_size = req.headers.get("content-length")
         with open(tmp_file, "wb") as f:
             if total_size:
-                with tqdm(total=(int(total_size) + 1023) // 1024) as pbar:
-                    for chunk in req.iter_content(chunk_size=1024):
-                        f.write(chunk)
-                        pbar.update(1)
+                total, downloaded_size = int(total_size), 0
+                for chunk in req.iter_content(chunk_size=1024):
+                    f.write(chunk)
+                    downloaded_size += len(chunk)
+                    print_progress(downloaded_size, total, "Downloading")
             else:
                 for chunk in req.iter_content(chunk_size=1024):
                     if chunk:
@@ -99,6 +68,19 @@ def _download(url, save_path):
         shutil.move(tmp_file, save_path)
 
     return save_path
+
+
+def print_progress(iteration: int, total: int, prefix: str = '', suffix: str = 'Complete', decimals: int = 3,
+                   bar_length: int = 25) -> None:
+    if not total:  # prevent error if total is zero.
+        return
+    format_str = "{0:." + str(decimals) + "f}"  # format the % done number string
+    percents = format_str.format(100 * (iteration / float(total)))  # calculate the % done
+    filled_length = int(round(bar_length * iteration / float(total)))  # calculate the filled bar length
+    bar = '#' * filled_length + '-' * (bar_length - filled_length)  # generate the bar string
+    print(f"\r{prefix} |{bar}| {percents}% {suffix}", end='', flush=True)  # prints progress on the same line
+    if "100.0" in percents:  # prevent next line from joining previous line
+        print()
 
 
 def maybe_download(model_storage_directory, url):

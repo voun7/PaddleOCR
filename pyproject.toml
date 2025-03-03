@@ -19,7 +19,6 @@ classifiers = [
 dependencies = [
     "shapely",
     "pyclipper",
-    "tqdm",
     "numpy",
     "opencv-python",
     "requests",
@@ -27,9 +26,6 @@ dependencies = [
 
 [project.urls]
 homepage = "https://github.com/PaddlePaddle/PaddleOCR"
-documentation = "https://github.com/PaddlePaddle/PaddleOCR/blob/main/README.md"
-repository = "https://github.com/PaddlePaddle/PaddleOCR.git"
-issues = "https://github.com/PaddlePaddle/PaddleOCR/issues"
 
 [project.scripts]
 paddleocr = "paddleocr.paddleocr:main"
@@ -37,8 +33,7 @@ paddleocr = "paddleocr.paddleocr:main"
 [tool.setuptools]
 packages = [
     "paddleocr", "paddleocr.ppocr", "paddleocr.ppocr.data", "paddleocr.ppocr.data.imaug", "paddleocr.ppocr.postprocess",
-    "paddleocr.ppocr.utils", "paddleocr.ppocr.utils.dict", "paddleocr.ppocr.utils.loggers", "paddleocr.tools",
-    "paddleocr.tools.infer"
+    "paddleocr.ppocr.utils", "paddleocr.ppocr.utils.dict", "paddleocr.tools", "paddleocr.tools.infer"
 ]
 package-dir = { "paddleocr" = "" }
 include-package-data = true

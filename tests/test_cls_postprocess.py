@@ -1,11 +1,5 @@
-import os
-import sys
-import pytest
-import paddle
 import numpy as np
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(current_dir, "..")))
+import pytest
 
 from ppocr.postprocess.cls_postprocess import ClsPostProcess
 
@@ -13,7 +7,7 @@ from ppocr.postprocess.cls_postprocess import ClsPostProcess
 # Fixtures for common test inputs
 @pytest.fixture
 def preds_tensor():
-    return paddle.to_tensor(np.array([[0.1, 0.7, 0.2], [0.3, 0.3, 0.4]]))
+    return np.array([[0.1, 0.7, 0.2], [0.3, 0.3, 0.4]])
 
 
 @pytest.fixture
