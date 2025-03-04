@@ -4,8 +4,17 @@ import sys
 
 import cv2
 import numpy as np
-import paddle
-from paddle import inference
+
+try:
+    import onnxruntime as ort
+except ModuleNotFoundError:
+    ort = None  # optional if paddle is being used
+
+try:
+    import paddle
+    from paddle import inference
+except ModuleNotFoundError:
+    paddle = None  # optional if onnx is being used
 
 from ppocr.utils.logging import get_logger
 
@@ -128,9 +137,10 @@ def create_predictor(args, mode, logger):
         logger.info("not find {} model file path {}".format(mode, model_dir))
         sys.exit(0)
     if args.use_onnx:
-        import onnxruntime as ort
+        if ort is None:
+            raise ModuleNotFoundError("Onnxruntime module is not installed!")
 
-        model_file_path = model_dir
+        model_file_path = model_dir + "/model.onnx"
         if not os.path.exists(model_file_path):
             raise ValueError(f"not find model file path {model_file_path}")
 
@@ -173,6 +183,8 @@ def create_predictor(args, mode, logger):
         if not os.path.exists(params_file_path):
             raise ValueError(f"not find model.pdiparams or inference.pdiparams in {model_dir}")
 
+        if paddle is None:
+            raise ModuleNotFoundError("Paddle or Setuptools module is not installed!")
 
         config = inference.Config(model_file_path, params_file_path)
 
@@ -458,9 +470,7 @@ def merge_fragmented(boxes, x_threshold=10, y_threshold=10):
 
 
 def check_gpu(use_gpu):
-    if use_gpu and (not paddle.is_compiled_with_cuda() or paddle.device.get_device() == "cpu"):
-        use_gpu = False
-    return use_gpu
+    return use_gpu and ((paddle and paddle.is_compiled_with_cuda()) or (ort and ort.get_device() == "GPU"))
 
 
 if __name__ == "__main__":

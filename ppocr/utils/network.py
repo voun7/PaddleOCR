@@ -3,6 +3,7 @@ import os.path as osp
 import shutil
 import tarfile
 import time
+from pathlib import Path
 
 import requests
 
@@ -82,7 +83,9 @@ def print_progress(iteration: int, total: int, prefix: str = '', suffix: str = '
         print()
 
 
-def maybe_download(model_storage_directory, url):
+def maybe_download(model_storage_directory, url, use_onnx):
+    if Path(f"{model_storage_directory}/model.onnx").exists() and use_onnx:
+        return
     # using custom model
     tar_file_name_list = [".pdiparams", ".pdiparams.info", ".pdmodel"]
     if not os.path.exists(

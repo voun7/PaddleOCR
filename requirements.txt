@@ -5,3 +5,5 @@ opencv-python
 pytest
 requests
 setuptools
+pillow
+paddle2onnx

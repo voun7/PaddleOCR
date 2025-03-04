@@ -1,11 +1,15 @@
 import argparse
 import logging
 import os
+import subprocess
 import sys
+from importlib.util import find_spec
 from pathlib import Path
 
 import cv2
 import numpy as np
+
+sys.path.insert(0, os.path.dirname(__file__))
 
 from ppocr.utils.logging import get_logger
 from ppocr.utils.network import maybe_download, confirm_model_dir_url
@@ -17,7 +21,7 @@ logger = get_logger()
 
 SUPPORT_DET_MODEL = ["DB"]
 SUPPORT_REC_MODEL = ["CRNN", "SVTR_LCNet"]
-BASE_DIR = os.path.expanduser("~/.paddleocr/")
+BASE_DIR = f"{Path.cwd()}/models"
 
 DEFAULT_OCR_MODEL_VERSION = "PP-OCRv4"
 MODEL_URLS = {
@@ -101,7 +105,11 @@ def parse_args(mMain=True):
     parser.add_argument("--det", type=str2bool, default=True)
     parser.add_argument("--rec", type=str2bool, default=True)
     parser.add_argument("--type", type=str, default="ocr")
-    parser.add_argument("--ocr_version", type=str, default="PP-OCRv4", )
+    parser.add_argument("--ocr_version", type=str, default="PP-OCRv4")
+
+    for action in parser._actions:
+        if action.dest in ["rec_char_dict_path"]:
+            action.default = None
 
     if mMain:
         return parser.parse_args()
@@ -283,6 +291,24 @@ def check_img(img, alpha_color=(255, 255, 255)):
     return img
 
 
+def convert_to_onnx_model(model_dir: str) -> None:
+    onnx_model = f"{model_dir}/model.onnx"
+    if not Path(onnx_model).exists():
+        if find_spec("paddle2onnx") is None:
+            raise ModuleNotFoundError("paddle2onnx is required to convert paddle models")
+
+        logger.debug("Converting paddle model to onnx")
+        cmd = [
+            "paddle2onnx",
+            "--model_dir", model_dir,
+            "--model_filename", "inference.pdmodel",
+            "--params_filename", "inference.pdiparams",
+            "--save_file", onnx_model,
+            "--enable_onnx_checker", "True",
+        ]
+        subprocess.run(cmd)
+
+
 class PaddleOCR(predict_system.TextSystem):
     def __init__(self, **kwargs):
         """
@@ -321,11 +347,14 @@ class PaddleOCR(predict_system.TextSystem):
 
         params.rec_image_shape = "3, 48, 320"
 
-        # download model if using paddle infer
-        if not params.use_onnx:
-            maybe_download(params.det_model_dir, det_url)
-            maybe_download(params.rec_model_dir, rec_url)
-            maybe_download(params.cls_model_dir, cls_url)
+        maybe_download(params.det_model_dir, det_url, params.use_onnx)
+        maybe_download(params.rec_model_dir, rec_url, params.use_onnx)
+        maybe_download(params.cls_model_dir, cls_url, params.use_onnx)
+
+        if params.use_onnx:
+            convert_to_onnx_model(params.det_model_dir)
+            convert_to_onnx_model(params.rec_model_dir)
+            convert_to_onnx_model(params.cls_model_dir)
 
         if params.det_algorithm not in SUPPORT_DET_MODEL:
             logger.error(f"det_algorithm must in {SUPPORT_DET_MODEL}")
@@ -449,6 +478,7 @@ def main():
     args = parse_args(mMain=True)
     logger.info("for usage help, please use `paddleocr --help`")
     args.image_dir = "doc/imgs"
+    args.use_onnx = True
     image_file_list = get_image_file_list(args.image_dir)
     if len(image_file_list) == 0:
         logger.error("no images find in {}".format(args.image_dir))
