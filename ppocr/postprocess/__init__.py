@@ -1,5 +1,7 @@
 import copy
 
+__all__ = ["build_post_process"]
+
 from .cls_postprocess import ClsPostProcess
 from .db_postprocess import DBPostProcess, DistillationDBPostProcess
 from .rec_postprocess import CTCLabelDecode, DistillationCTCLabelDecode

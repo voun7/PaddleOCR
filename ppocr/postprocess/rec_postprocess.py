@@ -1,11 +1,6 @@
 import re
-from importlib.resources import files
 
 import numpy as np
-
-
-def get_resource_path(filename: str):
-    return str(files("paddleocr").joinpath(filename))
 
 
 class BaseRecLabelDecode:
@@ -21,7 +16,7 @@ class BaseRecLabelDecode:
             self.character_str = "0123456789abcdefghijklmnopqrstuvwxyz"
             dict_character = list(self.character_str)
         else:
-            with open(get_resource_path(character_dict_path), "rb") as fin:
+            with open(character_dict_path, "rb") as fin:
                 lines = fin.readlines()
                 for line in lines:
                     line = line.decode("utf-8").strip("\n").strip("\r\n")

@@ -48,7 +48,7 @@ def _download(url, save_path):
             continue
 
         if req.status_code != 200:
-            raise RuntimeError("Downloading from {url} failed with code {req.status_code}!")
+            raise RuntimeError(f"Downloading from {url} failed with code {req.status_code}!")
 
         # For protecting download interrupted, download to tmp_file firstly, move tmp_file to save_path
         # after download finished

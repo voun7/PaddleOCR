@@ -1,15 +1,30 @@
 import argparse
+import importlib
 import logging
 import os
 import subprocess
 import sys
-from importlib.util import find_spec
 from pathlib import Path
+
+__dir__ = os.path.dirname(__file__)
+
+sys.path.append(os.path.join(__dir__, ""))
 
 import cv2
 import numpy as np
 
-sys.path.insert(0, os.path.dirname(__file__))
+
+def _import_file(module_name, file_path, make_importable=False):
+    spec = importlib.util.spec_from_file_location(module_name, file_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    if make_importable:
+        sys.modules[module_name] = module
+    return module
+
+
+tools = _import_file("tools", os.path.join(__dir__, "tools/__init__.py"), make_importable=True)
+ppocr = importlib.import_module("ppocr", "paddleocr")
 
 from ppocr.utils.logging import get_logger
 from ppocr.utils.network import maybe_download, confirm_model_dir_url
@@ -19,9 +34,10 @@ from tools.infer.utility import str2bool, check_gpu, init_args
 
 logger = get_logger()
 
+__all__ = ["PaddleOCR", "parse_lang"]
+
 SUPPORT_DET_MODEL = ["DB"]
 SUPPORT_REC_MODEL = ["CRNN", "SVTR_LCNet"]
-BASE_DIR = f"{Path.cwd()}/models"
 
 DEFAULT_OCR_MODEL_VERSION = "PP-OCRv4"
 MODEL_URLS = {
@@ -106,6 +122,8 @@ def parse_args(mMain=True):
     parser.add_argument("--rec", type=str2bool, default=True)
     parser.add_argument("--type", type=str, default="ocr")
     parser.add_argument("--ocr_version", type=str, default="PP-OCRv4")
+
+    parser.add_argument("--base_dir", type=str, default=os.path.expanduser("~/.paddleocr/"))
 
     for action in parser._actions:
         if action.dest in ["rec_char_dict_path"]:
@@ -294,7 +312,7 @@ def check_img(img, alpha_color=(255, 255, 255)):
 def convert_to_onnx_model(model_dir: str) -> None:
     onnx_model = f"{model_dir}/model.onnx"
     if not Path(onnx_model).exists():
-        if find_spec("paddle2onnx") is None:
+        if importlib.util.find_spec("paddle2onnx") is None:
             raise ModuleNotFoundError("paddle2onnx is required to convert paddle models")
 
         logger.debug("Converting paddle model to onnx")
@@ -329,19 +347,19 @@ class PaddleOCR(predict_system.TextSystem):
         det_model_config = get_model_config("OCR", params.ocr_version, "det", det_lang)
         params.det_model_dir, det_url = confirm_model_dir_url(
             params.det_model_dir,
-            os.path.join(BASE_DIR, "det", det_lang),
+            os.path.join(params.base_dir, "det", det_lang),
             det_model_config["url"],
         )
         rec_model_config = get_model_config("OCR", params.ocr_version, "rec", lang)
         params.rec_model_dir, rec_url = confirm_model_dir_url(
             params.rec_model_dir,
-            os.path.join(BASE_DIR, "rec", lang),
+            os.path.join(params.base_dir, "rec", lang),
             rec_model_config["url"],
         )
         cls_model_config = get_model_config("OCR", params.ocr_version, "cls", "ch")
         params.cls_model_dir, cls_url = confirm_model_dir_url(
             params.cls_model_dir,
-            os.path.join(BASE_DIR, "cls"),
+            os.path.join(params.base_dir, "cls"),
             cls_model_config["url"],
         )
 
