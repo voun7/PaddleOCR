@@ -5,8 +5,6 @@ import tarfile
 import time
 from pathlib import Path
 
-import requests
-
 from ppocr.utils.logging import get_logger
 
 DOWNLOAD_RETRY_LIMIT = 3
@@ -28,6 +26,8 @@ def _download(url, save_path):
     url (str): download url
     save_path (str): download to given path
     """
+    import requests
+
     logger = get_logger()
 
     fname = osp.split(url)[-1]
