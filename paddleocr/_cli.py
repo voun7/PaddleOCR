@@ -19,29 +19,11 @@ import sys
 import warnings
 
 from ._models import (
-    DocImgOrientationClassification,
-    DocVLM,
-    FormulaRecognition,
-    LayoutDetection,
-    SealTextDetection,
-    TableCellsDetection,
-    TableClassification,
-    TableStructureRecognition,
     TextDetection,
-    TextImageUnwarping,
-    TextLineOrientationClassification,
     TextRecognition,
 )
 from ._pipelines import (
-    DocPreprocessor,
-    DocUnderstanding,
-    FormulaRecognitionPipeline,
     PaddleOCR,
-    PPChatOCRv4Doc,
-    PPDocTranslation,
-    PPStructureV3,
-    SealRecognition,
-    TableRecognitionPipelineV2,
 )
 from ._version import version
 from ._utils.deprecation import CLIDeprecationWarning
@@ -50,15 +32,7 @@ from ._utils.logging import logger
 
 def _register_pipelines(subparsers):
     for cls in [
-        DocPreprocessor,
-        DocUnderstanding,
-        FormulaRecognitionPipeline,
         PaddleOCR,
-        PPChatOCRv4Doc,
-        PPDocTranslation,
-        PPStructureV3,
-        SealRecognition,
-        TableRecognitionPipelineV2,
     ]:
         subcommand_executor = cls.get_cli_subcommand_executor()
         subparser = subcommand_executor.add_subparser(subparsers)
@@ -67,17 +41,7 @@ def _register_pipelines(subparsers):
 
 def _register_models(subparsers):
     for cls in [
-        DocImgOrientationClassification,
-        DocVLM,
-        FormulaRecognition,
-        LayoutDetection,
-        SealTextDetection,
-        TableCellsDetection,
-        TableClassification,
-        TableStructureRecognition,
         TextDetection,
-        TextImageUnwarping,
-        TextLineOrientationClassification,
         TextRecognition,
     ]:
         subcommand_executor = cls.get_cli_subcommand_executor()
