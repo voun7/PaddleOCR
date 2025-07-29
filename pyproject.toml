@@ -39,7 +39,7 @@ classifiers = [
     "Topic :: Utilities",
 ]
 dependencies = [
-    "paddlex[ocr]>=3.1.0",
+    "paddlex[ocr] @ git+https://github.com/voun7/PaddleX.git",
 ]
 
 [project.urls]
