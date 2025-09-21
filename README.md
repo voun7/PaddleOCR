@@ -34,7 +34,7 @@ pip install paddlepaddle-gpu==2.6.1.post120 -f https://www.paddlepaddle.org.cn/w
 For CPU using paddle
 
 ```
-pip install paddlepaddle
+pip install paddlepaddle==2.6.1
 ```
 
 For CPU using onnxruntime
@@ -49,7 +49,7 @@ Other packages
 pip install -r requirements.txt
 ```
 
-**Known working requirements frozen in `requirements_all.txt`**
+**Last known working requirements frozen in `requirements_all.txt`**
 
 ### Build Package:
 
