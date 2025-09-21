@@ -49,6 +49,8 @@ Other packages
 pip install -r requirements.txt
 ```
 
+**Known working requirements frozen in `requirements_all.txt`**
+
 ### Build Package:
 
 ```commandline
