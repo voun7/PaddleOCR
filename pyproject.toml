@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools==72.1.0", "wheel", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paddleocr"
+version = "2.9.1"
+description = "Awesome OCR toolkits based on PaddlePaddle(8.6M ultra-lightweight pre-trained model, support training and deployment among server, mobile, embedded and IoT devices)"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "Apache License 2.0" }
+classifiers = [
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Natural Language :: Chinese (Simplified)",
+    "Programming Language :: Python :: 3",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "shapely",
+    "pyclipper",
+    "numpy",
+    "opencv-python",
+    "requests",
+    "pillow"
+]
+
+[project.urls]
+homepage = "https://github.com/PaddlePaddle/PaddleOCR"
+
+[project.scripts]
+paddleocr = "paddleocr.paddleocr:main"
+
+[tool.setuptools]
+packages = [
+    "paddleocr", "paddleocr.ppocr", "paddleocr.ppocr.data", "paddleocr.ppocr.data.imaug", "paddleocr.ppocr.postprocess",
+    "paddleocr.ppocr.utils", "paddleocr.ppocr.utils.dict", "paddleocr.tools", "paddleocr.tools.infer"
+]
+package-dir = { "paddleocr" = "" }
+include-package-data = true
+
+[tool.setuptools_scm]
+version_scheme = 'release-branch-semver'
