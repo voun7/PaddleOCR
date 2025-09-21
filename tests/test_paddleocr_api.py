@@ -1,9 +1,11 @@
+import os
 from typing import Any
 
 import pytest
 
 from paddleocr import PaddleOCR
 
+os.chdir('../')
 # Test image paths
 IMAGE_PATHS_OCR = ["./doc/imgs_en/254.jpg", "./doc/imgs_en/img_10.jpg"]
 
